@@ -1,0 +1,387 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"grunt",
+				"gruntfile"
+			],
+			[
+				"loca",
+				"locationChangeSuccess"
+			],
+			[
+				"__",
+				"__registry"
+			],
+			[
+				"reg",
+				"registerRoute"
+			],
+			[
+				"Pres",
+				"PresentableCompiler"
+			],
+			[
+				"calle",
+				"calledWith"
+			],
+			[
+				"re",
+				"registerRoutes"
+			],
+			[
+				"Pre",
+				"PresentableCompiler"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Presentable.sublime-project",
+			"settings":
+			{
+				"buffer_size": 73,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/isaac/.config/sublime-text-3/Packages/User/Test.sublime-build",
+			"settings":
+			{
+				"buffer_size": 114,
+				"line_ending": "Unix",
+				"name": "untitled.sublime-build"
+			}
+		},
+		{
+			"file": "src/Starter/Kit/Example.purs",
+			"settings":
+			{
+				"buffer_size": 552,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/User/Test.sublime-build",
+	"command_palette":
+	{
+		"height": 102.0,
+		"selected_items":
+		[
+			[
+				"INSTAL",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"isnta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 435.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"Test",
+			"test",
+			"grunt",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": true,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/isaac/Projects/Presentable/Presentable.sublime-project",
+		"/home/isaac/Projects/AngularPresentable/bower.json",
+		"/home/isaac/Projects/AngularPresentable/package.json",
+		"/home/isaac/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/isaac/Projects/AngularPIXI/_public/js/vendor.js",
+		"/home/isaac/.config/sublime-text-3/Packages/User/Distraction Free.sublime-settings",
+		"/home/isaac/Projects/AngularPIXI/test/unit/src/PresentableRouter.spec.ls",
+		"/home/isaac/Projects/AngularPIXI/gulpfile.ls",
+		"/home/isaac/Projects/AngularPIXI/bower.json",
+		"/home/isaac/Projects/AngularPIXI/_public/js/app.js",
+		"/home/isaac/Projects/AngularPIXI/src/Base.ls",
+		"/home/isaac/Projects/AngularPIXI/src/PresentableRouter.ls",
+		"/home/isaac/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/home/isaac/Projects/AngularPIXI/node_modules/bower/node_modules/inquirer/node_modules/cli-color/node_modules/es5-ext/object/valid-object.js",
+		"/home/isaac/Projects/AngularPIXI/node_modules/bower/node_modules/inquirer/node_modules/cli-color/node_modules/es5-ext/error/valid-error.js",
+		"/home/isaac/Projects/AngularPIXI/package.json",
+		"/home/isaac/Projects/AngularPIXI/node_modules/gulp-json-editor/test/byObject.js",
+		"/home/isaac/Projects/AngularPIXI/node_modules/bower/node_modules/mout/object/bindAll.js",
+		"/home/isaac/Projects/AngularPIXI/node_modules/express/lib/router/route.js",
+		"/home/isaac/Projects/AngularPIXI/node_modules/bower/node_modules/retry/lib/retry_operation.js",
+		"/home/isaac/Projects/AngularPIXI/README.md"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"grunt",
+			"]\n",
+			"$$compose",
+			"wrap",
+			"width",
+			"WHAT"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Presentable.sublime-project",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 73,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								70,
+								70
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/isaac/.config/sublime-text-3/Packages/User/Test.sublime-build",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 114,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								114,
+								114
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Starter/Kit/Example.purs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 552,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								552,
+								552
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PureScript/purescript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 36.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 345.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.haskell_sublime_load":
+	{
+		"height": 388.0
+	},
+	"project": "Presentable.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"src/PresentableRouter.ls"
+			],
+			[
+				"bow",
+				"bower.json"
+			],
+			[
+				"b",
+				"bower.json"
+			],
+			[
+				"ven",
+				"_public/js/vendor.js"
+			],
+			[
+				"gul",
+				"gulpfile.ls"
+			],
+			[
+				"v",
+				"_public/js/vendor.js"
+			],
+			[
+				"bower",
+				"bower.json"
+			],
+			[
+				"base",
+				"src/base.ls"
+			],
+			[
+				"routspec",
+				"test/unit/src/PresentableRouter.spec.ls"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 196.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
