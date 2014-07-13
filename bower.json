@@ -1,13 +1,12 @@
 {
-  "name": "starter-kit",
-  "private": true,
+  "name": "Presentable",
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "tests",
-    "externs",
-    "js",
+    "example",
     "tmp"
   ],
   "dependencies": {

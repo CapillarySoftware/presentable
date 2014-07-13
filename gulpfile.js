@@ -5,6 +5,7 @@ purescript = require('gulp-purescript'),
 shell      = require('gulp-shell'),
 clean      = require('gulp-clean'),
 express    = require('express'),
+exec       = require('child_process').exec,
 
 paths      = {
   src : {
@@ -40,7 +41,8 @@ options    = {
     output : 'Presentable.js'
   },
   test :{
-    output : 'Test.js'
+    output : 'Test.js',
+    main : true
   },
   example : {
     output : 'Main.js',
@@ -74,7 +76,12 @@ gulp.task('build-example', compile(paths.example, options.example   ));
 
 
 gulp.task('run-test', function(){
-  shell([ 'node ./tmp/Test.js' ]);
+  console.log("Running Tests...");
+  exec('node ./tmp/Test.js', function(err, out, serr){
+    if(err){ return console.log(err); }
+    if(out){ return console.log(out); }
+    if(serr){ return console.log(serr); }
+  });
 });
 
 gulp.task('watch', function(){ 
