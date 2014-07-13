@@ -31,4 +31,3 @@ fi
 echo "installing dependencies from npm and bower"
 npm install;
 bower update;
-bower install;

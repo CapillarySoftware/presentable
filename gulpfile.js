@@ -3,8 +3,9 @@ var
 gulp       = require('gulp'),
 purescript = require('gulp-purescript'),
 shell      = require('gulp-shell'),
-clean      = require('gulp-clean'),
+concat     = require('gulp-concat'),
 express    = require('express'),
+rimraf     = require('rimraf'),
 exec       = require('child_process').exec,
 
 paths      = {
@@ -23,7 +24,9 @@ paths      = {
       "src/**/*.purs",
       "tests/**/*.purs"
     ],
-    dest : 'tmp'
+    js : ["bower_components/mocha/mocha.js"],
+    dest : 'tmp',
+    destFile : 'Test.js'
   },
   example : {
     src : [
@@ -53,33 +56,43 @@ options    = {
 port       = 3333,
 server     = express(),
 
-compile    = function(paths, options) {
-  return function() {
-    // We need this hack for now until gulp does something about
-    // https://github.com/gulpjs/gulp/issues/71
-    var psc = purescript.psc(options);
-    psc.on('error', function(e) {
+build = function(k){
+  return function(){
+    var x   = paths[k],
+        o   = options[k],
+        psc = purescript.psc(o);
+    psc.on('error', function(e){
       console.error(e.message);
-      psc.end();
+      psc.end();  
     });
-    return gulp.src(paths.src)
-      .pipe(psc)
-      .pipe(gulp.dest(paths.dest));
+    gulp.src(x.src).pipe(psc);
+    gulp.src( [x.dest+'/'+o.output].concat(x.js) )
+      .pipe( concat(o.output) )
+      .pipe( gulp.dest(x.dest) );
   };
 };
 
+// gulp.task('build-src',     compile(paths.src,     options.src       ));
+// gulp.task('build-example', compile(paths.example, options.example   ));
+
 server.use(express.static('./example'));
 
-gulp.task('build-src',     compile(paths.src,     options.src       ));
-gulp.task('build-test',    compile(paths.test,    options.test      ));
-gulp.task('build-example', compile(paths.example, options.example   ));
+gulp.task('build:test',    build('test'));
+gulp.task('build:src',     build('src'));
+gulp.task('build:example', build('example'));
 
+gulp.task('clean', function(cb){
+  // rimraf('tmp/');
+  // rimraf('example/js');
+  // rimraf('lib/');
+});
 
-gulp.task('run-test', function(){
+gulp.task('test:unit', function(){
   console.log("Running Tests...");
   exec('node ./tmp/Test.js', function(err, out, serr){
-    if(err){ return console.log(err); }
-    if(out){ return console.log(out); }
+    console.log(out);
+    if(err){  return console.log(err); }
+    if(out){  return console.log(out); }
     if(serr){ return console.log(serr); }
   });
 });
@@ -93,6 +106,6 @@ gulp.task('serve', function(){
   server.listen(port); 
 });
 
-gulp.task('default', ['build-src']);
-gulp.task('example', ['build-example','watch','serve']);
-gulp.task('test',    ['build-test','run-test']);
+gulp.task('default', ['build:src']);
+gulp.task('example', ['build:example','watch','serve']);
+gulp.task('test',    ['build:test','test:unit']);
