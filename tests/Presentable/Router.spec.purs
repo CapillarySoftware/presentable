@@ -2,8 +2,10 @@ module Main where
 
 import Debug.Trace
 import Presentable.Router
+import Mocha
 import Test.QuickCheck
 
 main = do
-  trace "foozle should eat you"
-  quickCheck $ \n -> foozle n == "In Port Foozle " ++ (show n) ++ " eats you!"
+  describe $ \_ ->
+    trace "what"
+    quickCheck $ \n -> foozle n == "In Port Foozle " ++ (show n) ++ " eats you!"
