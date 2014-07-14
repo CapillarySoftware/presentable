@@ -2,4 +2,4 @@ module Main where
 
 import Debug.Trace
 
-main = trace "wowzers!!!"
+main = trace "wowzers"

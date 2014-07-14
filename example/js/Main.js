@@ -2653,7 +2653,7 @@ var PS = PS || {};
 PS.Main = (function () {
     "use strict";
     var Debug_Trace = PS.Debug_Trace;
-    var main = Debug_Trace.trace("wowzers!!!");
+    var main = Debug_Trace.trace("wowzers");
     return {
         main: main
     };

@@ -8,6 +8,7 @@
     "express": "~4.6.1",
     "gulp-concat": "~2.3.3",
     "gulp-if": "~1.2.2",
-    "rimraf": "~2.2.8"
+    "rimraf": "~2.2.8",
+    "run-sequence": "~0.3.6"
   }
 }

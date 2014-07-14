@@ -6,6 +6,7 @@ shell      = require('gulp-shell'),
 concat     = require('gulp-concat'),
 express    = require('express'),
 rimraf     = require('rimraf'),
+runSq      = require('run-sequence'),
 exec       = require('child_process').exec,
 
 paths      = {
@@ -25,8 +26,7 @@ paths      = {
       "tests/**/*.purs"
     ],
     js : ["bower_components/mocha/mocha.js"],
-    dest : 'tmp',
-    destFile : 'Test.js'
+    dest : 'tmp'
   },
   example : {
     src : [
@@ -58,22 +58,39 @@ server     = express(),
 
 build = function(k){
   return function(){
+
     var x   = paths[k],
         o   = options[k],
         psc = purescript.psc(o);
-    psc.on('error', function(e){
-      console.error(e.message);
-      psc.end();  
-    });
-    gulp.src(x.src).pipe(psc);
-    gulp.src( [x.dest+'/'+o.output].concat(x.js) )
-      .pipe( concat(o.output) )
-      .pipe( gulp.dest(x.dest) );
-  };
-};
 
-// gulp.task('build-src',     compile(paths.src,     options.src       ));
-// gulp.task('build-example', compile(paths.example, options.example   ));
+    gulp.task('build:prim', function(){
+
+      psc.on('error', function(e){
+        console.error(e.message);
+        psc.end();  
+      });
+
+      gulp.src(x.src)
+        .pipe(psc)
+        .pipe( gulp.dest(x.dest) );
+
+    });
+
+    gulp.task('build:concat', function(){
+      var finalSrc = [x.dest + '/' + o.output];
+
+      if(x.js){ finalSrc.concat(x.js); }
+
+      gulp.src(finalSrc)
+        .pipe( concat(o.output) )
+        .pipe( gulp.dest(x.dest) );
+
+    });
+ 
+    runSq('build:prim','build:concat'); 
+  };
+
+};
 
 server.use(express.static('./example'));
 
@@ -82,7 +99,7 @@ gulp.task('build:src',     build('src'));
 gulp.task('build:example', build('example'));
 
 gulp.task('clean', function(cb){
-  // rimraf('tmp/');
+  rimraf('tmp');
   // rimraf('example/js');
   // rimraf('lib/');
 });
@@ -98,7 +115,7 @@ gulp.task('test:unit', function(){
 });
 
 gulp.task('watch', function(){ 
-  gulp.watch([paths.src.src, paths.example.src], ['build-example']); 
+  gulp.watch([paths.src.src, paths.example.src], ['build:example']); 
 });
 
 gulp.task('serve', function(){ 
@@ -108,4 +125,6 @@ gulp.task('serve', function(){
 
 gulp.task('default', ['build:src']);
 gulp.task('example', ['build:example','watch','serve']);
-gulp.task('test',    ['build:test','test:unit']);
+gulp.task('test',    function(){
+  runSq('build:test','test:unit');
+});
