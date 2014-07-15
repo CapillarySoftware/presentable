@@ -2,7 +2,6 @@ module Main where
 
 import Debug.Trace
 import Presentable.Router
-import Control.Monad.Eff
 import Test.Mocha
 import Test.Chai
 import Test.QuickCheck
