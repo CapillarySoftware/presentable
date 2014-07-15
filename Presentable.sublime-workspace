@@ -4,12 +4,40 @@
 		"selected_items":
 		[
 			[
-				"buil",
-				"build"
+				"for",
+				"foreign"
+			],
+			[
+				"des",
+				"description"
+			],
+			[
+				"de",
+				"description"
+			],
+			[
+				"desc",
+				"describe"
+			],
+			[
+				"Bef",
+				"BeforeEach"
+			],
+			[
+				"Befo",
+				"beforeEach"
 			],
 			[
 				"build",
-				"build-example"
+				"build-concat"
+			],
+			[
+				"run",
+				"runSq"
+			],
+			[
+				"buil",
+				"build"
 			],
 			[
 				"sr",
@@ -52,199 +80,10 @@
 	"buffers":
 	[
 		{
-			"file": "Presentable.sublime-project",
+			"file": "tests/Chai/Chai.purs",
 			"settings":
 			{
-				"buffer_size": 73,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "README.md",
-			"settings":
-			{
-				"buffer_size": 150,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "gulpfile.js",
-			"settings":
-			{
-				"buffer_size": 2624,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "tmp/Test.js",
-			"settings":
-			{
-				"buffer_size": 129444,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "example/app/Main.purs",
-			"settings":
-			{
-				"buffer_size": 64,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "example/app/Main.purs",
-			"settings":
-			{
-				"buffer_size": 64,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "example/js/Main.js",
-			"settings":
-			{
-				"buffer_size": 128919,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Presentable/Router.purs",
-			"settings":
-			{
-				"buffer_size": 116,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "example/index.html",
-			"settings":
-			{
-				"buffer_size": 193,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "var PS = PS || {};\nPS.Prelude = (function () {\n    \"use strict\";\n    var Unit = function (value0) {\n        return {\n            ctor: \"Prelude.Unit\", \n            values: [ value0 ]\n        };\n    };\n    var LT = {\n        ctor: \"Prelude.LT\", \n        values: [  ]\n    };\n    var GT = {\n        ctor: \"Prelude.GT\", \n        values: [  ]\n    };\n    var EQ = {\n        ctor: \"Prelude.EQ\", \n        values: [  ]\n    };\n    function cons(e) {  return function (l) {    return [e].concat(l);  };};\n    function showStringImpl(s) {  return JSON.stringify(s);};\n    function showNumberImpl(n) {  return n.toString();};\n    function showArrayImpl (f) {  return function (xs) {    var ss = [];    for (var i = 0, l = xs.length; i < l; i++) {      ss[i] = f(xs[i]);    }    return '[' + ss.join(',') + ']';  };};\n    function numAdd(n1) {  return function(n2) {    return n1 + n2;  };};\n    function numSub(n1) {  return function(n2) {    return n1 - n2;  };};\n    function numMul(n1) {  return function(n2) {    return n1 * n2;  };};\n    function numDiv(n1) {  return function(n2) {    return n1 / n2;  };};\n    function numMod(n1) {  return function(n2) {    return n1 % n2;  };};\n    function numNegate(n) {  return -n;};\n    function refEq(r1) {  return function(r2) {    return r1 === r2;  };};\n    function refIneq(r1) {  return function(r2) {    return r1 !== r2;  };};\n    function eqArrayImpl(f) {  return function(xs) {    return function(ys) {      if (xs.length !== ys.length) return false;      for (var i = 0; i < xs.length; i++) {        if (!f(xs[i])(ys[i])) return false;      }      return true;    };  };};\n    function unsafeCompare(n1) {  return function(n2) {    return n1 < n2 ? LT : n1 > n2 ? GT : EQ;  };};\n    function numShl(n1) {  return function(n2) {    return n1 << n2;  };};\n    function numShr(n1) {  return function(n2) {    return n1 >> n2;  };};\n    function numZshr(n1) {  return function(n2) {    return n1 >>> n2;  };};\n    function numAnd(n1) {  return function(n2) {    return n1 & n2;  };};\n    function numOr(n1) {  return function(n2) {    return n1 | n2;  };};\n    function numXor(n1) {  return function(n2) {    return n1 ^ n2;  };};\n    function numComplement(n) {  return ~n;};\n    function boolAnd(b1) {  return function(b2) {    return b1 && b2;  };};\n    function boolOr(b1) {  return function(b2) {    return b1 || b2;  };};\n    function boolNot(b) {  return !b;};\n    function concatString(s1) {  return function(s2) {    return s1 + s2;  };};\n    var $bar$bar = function (dict) {\n        return dict[\"||\"];\n    };\n    var $bar = function (dict) {\n        return dict[\"|\"];\n    };\n    var $up = function (dict) {\n        return dict[\"^\"];\n    };\n    var $greater$greater$eq = function (dict) {\n        return dict[\">>=\"];\n    };\n    var $eq$eq = function (dict) {\n        return dict[\"==\"];\n    };\n    var $less$bar$greater = function (dict) {\n        return dict[\"<|>\"];\n    };\n    var $less$greater = function (dict) {\n        return dict[\"<>\"];\n    };\n    var $less$less$less = function (dict) {\n        return dict[\"<<<\"];\n    };\n    var $greater$greater$greater = function (__dict_Semigroupoid_0) {\n        return function (f) {\n            return function (g) {\n                return $less$less$less(__dict_Semigroupoid_0)(g)(f);\n            };\n        };\n    };\n    var $less$times$greater = function (dict) {\n        return dict[\"<*>\"];\n    };\n    var $less$dollar$greater = function (dict) {\n        return dict[\"<$>\"];\n    };\n    var $colon = cons;\n    var $div$eq = function (dict) {\n        return dict[\"/=\"];\n    };\n    var $div = function (dict) {\n        return dict[\"/\"];\n    };\n    var $minus = function (dict) {\n        return dict[\"-\"];\n    };\n    var $plus$plus = function (__dict_Semigroup_1) {\n        return $less$greater(__dict_Semigroup_1);\n    };\n    var $plus = function (dict) {\n        return dict[\"+\"];\n    };\n    var $times = function (dict) {\n        return dict[\"*\"];\n    };\n    var $amp$amp = function (dict) {\n        return dict[\"&&\"];\n    };\n    var $amp = function (dict) {\n        return dict[\"&\"];\n    };\n    var $percent = function (dict) {\n        return dict[\"%\"];\n    };\n    var $dollar = function (f) {\n        return function (x) {\n            return f(x);\n        };\n    };\n    var $hash = function (x) {\n        return function (f) {\n            return f(x);\n        };\n    };\n    var zshr = function (dict) {\n        return dict.zshr;\n    };\n    var unit = Unit({});\n    var shr = function (dict) {\n        return dict.shr;\n    };\n    var showUnit = function (_) {\n        return {\n            \"__superclasses\": {}, \n            show: function (_18) {\n                return \"Unit {}\";\n            }\n        };\n    };\n    var showString = function (_) {\n        return {\n            \"__superclasses\": {}, \n            show: showStringImpl\n        };\n    };\n    var showOrdering = function (_) {\n        return {\n            \"__superclasses\": {}, \n            show: function (_26) {\n                if (_26.ctor === \"Prelude.LT\") {\n                    return \"LT\";\n                };\n                if (_26.ctor === \"Prelude.GT\") {\n                    return \"GT\";\n                };\n                if (_26.ctor === \"Prelude.EQ\") {\n                    return \"EQ\";\n                };\n                throw \"Failed pattern match\";\n            }\n        };\n    };\n    var showNumber = function (_) {\n        return {\n            \"__superclasses\": {}, \n            show: showNumberImpl\n        };\n    };\n    var showBoolean = function (_) {\n        return {\n            \"__superclasses\": {}, \n            show: function (_19) {\n                if (_19) {\n                    return \"true\";\n                };\n                if (!_19) {\n                    return \"false\";\n                };\n                throw \"Failed pattern match\";\n            }\n        };\n    };\n    var show = function (dict) {\n        return dict.show;\n    };\n    var showArray = function (__dict_Show_2) {\n        return {\n            \"__superclasses\": {}, \n            show: showArrayImpl(show(__dict_Show_2))\n        };\n    };\n    var shl = function (dict) {\n        return dict.shl;\n    };\n    var semigroupoidArr = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<<<\": function (f) {\n                return function (g) {\n                    return function (x) {\n                        return f(g(x));\n                    };\n                };\n            }\n        };\n    };\n    var semigroupUnit = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<>\": function (_33) {\n                return function (_34) {\n                    return Unit({});\n                };\n            }\n        };\n    };\n    var semigroupString = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<>\": concatString\n        };\n    };\n    var semigroupArr = function (__dict_Semigroup_3) {\n        return {\n            \"__superclasses\": {}, \n            \"<>\": function (f) {\n                return function (g) {\n                    return function (x) {\n                        return $less$greater(__dict_Semigroup_3)(f(x))(g(x));\n                    };\n                };\n            }\n        };\n    };\n    var pure = function (dict) {\n        return dict.pure;\n    };\n    var $$return = function (__dict_Monad_4) {\n        return pure(__dict_Monad_4[\"__superclasses\"][\"Prelude.Applicative_0\"]({}));\n    };\n    var numNumber = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"+\": numAdd, \n            \"-\": numSub, \n            \"*\": numMul, \n            \"/\": numDiv, \n            \"%\": numMod, \n            negate: numNegate\n        };\n    };\n    var not = function (dict) {\n        return dict.not;\n    };\n    var negate = function (dict) {\n        return dict.negate;\n    };\n    var liftM1 = function (__dict_Monad_5) {\n        return function (f) {\n            return function (a) {\n                return $greater$greater$eq(__dict_Monad_5[\"__superclasses\"][\"Prelude.Bind_1\"]({}))(a)(function (_0) {\n                    return $$return(__dict_Monad_5)(f(_0));\n                });\n            };\n        };\n    };\n    var liftA1 = function (__dict_Applicative_6) {\n        return function (f) {\n            return function (a) {\n                return $less$times$greater(__dict_Applicative_6[\"__superclasses\"][\"Prelude.Apply_0\"]({}))(pure(__dict_Applicative_6)(f))(a);\n            };\n        };\n    };\n    var id = function (dict) {\n        return dict.id;\n    };\n    var functorArr = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<$>\": $less$less$less(semigroupoidArr({}))\n        };\n    };\n    var flip = function (f) {\n        return function (b) {\n            return function (a) {\n                return f(a)(b);\n            };\n        };\n    };\n    var eqUnit = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": function (_20) {\n                return function (_21) {\n                    return true;\n                };\n            }, \n            \"/=\": function (_22) {\n                return function (_23) {\n                    return false;\n                };\n            }\n        };\n    };\n    var ordUnit = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Eq_0\": function (_) {\n                    return eqUnit({});\n                }\n            }, \n            compare: function (_27) {\n                return function (_28) {\n                    return EQ;\n                };\n            }\n        };\n    };\n    var eqString = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": refEq, \n            \"/=\": refIneq\n        };\n    };\n    var ordString = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Eq_0\": function (_) {\n                    return eqString({});\n                }\n            }, \n            compare: unsafeCompare\n        };\n    };\n    var eqNumber = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": refEq, \n            \"/=\": refIneq\n        };\n    };\n    var ordNumber = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Eq_0\": function (_) {\n                    return eqNumber({});\n                }\n            }, \n            compare: unsafeCompare\n        };\n    };\n    var eqBoolean = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": refEq, \n            \"/=\": refIneq\n        };\n    };\n    var ordBoolean = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Eq_0\": function (_) {\n                    return eqBoolean({});\n                }\n            }, \n            compare: function (_29) {\n                return function (_30) {\n                    if (!_29) {\n                        if (!_30) {\n                            return EQ;\n                        };\n                    };\n                    if (!_29) {\n                        if (_30) {\n                            return LT;\n                        };\n                    };\n                    if (_29) {\n                        if (_30) {\n                            return EQ;\n                        };\n                    };\n                    if (_29) {\n                        if (!_30) {\n                            return GT;\n                        };\n                    };\n                    throw \"Failed pattern match\";\n                };\n            }\n        };\n    };\n    var empty = function (dict) {\n        return dict.empty;\n    };\n    var $$const = function (_14) {\n        return function (_15) {\n            return _14;\n        };\n    };\n    var $$void = function (__dict_Functor_8) {\n        return function (fa) {\n            return $less$dollar$greater(__dict_Functor_8)($$const(unit))(fa);\n        };\n    };\n    var complement = function (dict) {\n        return dict.complement;\n    };\n    var compare = function (dict) {\n        return dict.compare;\n    };\n    var $less = function (__dict_Ord_10) {\n        return function (a1) {\n            return function (a2) {\n                return (function (_280) {\n                    if (_280.ctor === \"Prelude.LT\") {\n                        return true;\n                    };\n                    return false;\n                })(compare(__dict_Ord_10)(a1)(a2));\n            };\n        };\n    };\n    var $less$eq = function (__dict_Ord_11) {\n        return function (a1) {\n            return function (a2) {\n                return (function (_281) {\n                    if (_281.ctor === \"Prelude.GT\") {\n                        return false;\n                    };\n                    return true;\n                })(compare(__dict_Ord_11)(a1)(a2));\n            };\n        };\n    };\n    var $greater = function (__dict_Ord_12) {\n        return function (a1) {\n            return function (a2) {\n                return (function (_282) {\n                    if (_282.ctor === \"Prelude.GT\") {\n                        return true;\n                    };\n                    return false;\n                })(compare(__dict_Ord_12)(a1)(a2));\n            };\n        };\n    };\n    var $greater$eq = function (__dict_Ord_13) {\n        return function (a1) {\n            return function (a2) {\n                return (function (_283) {\n                    if (_283.ctor === \"Prelude.LT\") {\n                        return false;\n                    };\n                    return true;\n                })(compare(__dict_Ord_13)(a1)(a2));\n            };\n        };\n    };\n    var categoryArr = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Semigroupoid_0\": function (_) {\n                    return semigroupoidArr({});\n                }\n            }, \n            id: function (x) {\n                return x;\n            }\n        };\n    };\n    var boolLikeBoolean = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"&&\": boolAnd, \n            \"||\": boolOr, \n            not: boolNot\n        };\n    };\n    var eqArray = function (__dict_Eq_7) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": function (xs) {\n                return function (ys) {\n                    return eqArrayImpl($eq$eq(__dict_Eq_7))(xs)(ys);\n                };\n            }, \n            \"/=\": function (xs) {\n                return function (ys) {\n                    return not(boolLikeBoolean({}))($eq$eq(eqArray(__dict_Eq_7))(xs)(ys));\n                };\n            }\n        };\n    };\n    var ordArray = function (__dict_Ord_9) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Eq_0\": function (_) {\n                    return eqArray(__dict_Ord_9[\"__superclasses\"][\"Prelude.Eq_0\"]({}));\n                }\n            }, \n            compare: function (_31) {\n                return function (_32) {\n                    if (_31.length === 0) {\n                        if (_32.length === 0) {\n                            return EQ;\n                        };\n                    };\n                    if (_31.length === 0) {\n                        return LT;\n                    };\n                    if (_32.length === 0) {\n                        return GT;\n                    };\n                    if (_31.length > 0) {\n                        var _290 = _31.slice(1);\n                        if (_32.length > 0) {\n                            var _288 = _32.slice(1);\n                            return (function (_286) {\n                                if (_286.ctor === \"Prelude.EQ\") {\n                                    return compare(ordArray(__dict_Ord_9))(_290)(_288);\n                                };\n                                return _286;\n                            })(compare(__dict_Ord_9)(_31[0])(_32[0]));\n                        };\n                    };\n                    throw \"Failed pattern match\";\n                };\n            }\n        };\n    };\n    var eqOrdering = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": function (_24) {\n                return function (_25) {\n                    if (_24.ctor === \"Prelude.LT\") {\n                        if (_25.ctor === \"Prelude.LT\") {\n                            return true;\n                        };\n                    };\n                    if (_24.ctor === \"Prelude.GT\") {\n                        if (_25.ctor === \"Prelude.GT\") {\n                            return true;\n                        };\n                    };\n                    if (_24.ctor === \"Prelude.EQ\") {\n                        if (_25.ctor === \"Prelude.EQ\") {\n                            return true;\n                        };\n                    };\n                    return false;\n                };\n            }, \n            \"/=\": function (x) {\n                return function (y) {\n                    return not(boolLikeBoolean({}))($eq$eq(eqOrdering({}))(x)(y));\n                };\n            }\n        };\n    };\n    var bitsNumber = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"&\": numAnd, \n            \"|\": numOr, \n            \"^\": numXor, \n            shl: numShl, \n            shr: numShr, \n            zshr: numZshr, \n            complement: numComplement\n        };\n    };\n    var asTypeOf = function (_16) {\n        return function (_17) {\n            return _16;\n        };\n    };\n    var applyArr = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Functor_0\": function (_) {\n                    return functorArr({});\n                }\n            }, \n            \"<*>\": function (f) {\n                return function (g) {\n                    return function (x) {\n                        return f(x)(g(x));\n                    };\n                };\n            }\n        };\n    };\n    var bindArr = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyArr({});\n                }\n            }, \n            \">>=\": function (m) {\n                return function (f) {\n                    return function (x) {\n                        return f(m(x))(x);\n                    };\n                };\n            }\n        };\n    };\n    var applicativeArr = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyArr({});\n                }\n            }, \n            pure: $$const\n        };\n    };\n    var monadArr = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Applicative_0\": function (_) {\n                    return applicativeArr({});\n                }, \n                \"Prelude.Bind_1\": function (_) {\n                    return bindArr({});\n                }\n            }\n        };\n    };\n    var ap = function (__dict_Monad_14) {\n        return function (f) {\n            return function (a) {\n                return $greater$greater$eq(__dict_Monad_14[\"__superclasses\"][\"Prelude.Bind_1\"]({}))(f)(function (_2) {\n                    return $greater$greater$eq(__dict_Monad_14[\"__superclasses\"][\"Prelude.Bind_1\"]({}))(a)(function (_1) {\n                        return $$return(__dict_Monad_14)(_2(_1));\n                    });\n                });\n            };\n        };\n    };\n    return {\n        Unit: Unit, \n        LT: LT, \n        GT: GT, \n        EQ: EQ, \n        unit: unit, \n        \"++\": $plus$plus, \n        \"<>\": $less$greater, \n        not: not, \n        \"||\": $bar$bar, \n        \"&&\": $amp$amp, \n        complement: complement, \n        zshr: zshr, \n        shr: shr, \n        shl: shl, \n        \"^\": $up, \n        \"|\": $bar, \n        \"&\": $amp, \n        \">=\": $greater$eq, \n        \"<=\": $less$eq, \n        \">\": $greater, \n        \"<\": $less, \n        compare: compare, \n        refIneq: refIneq, \n        refEq: refEq, \n        \"/=\": $div$eq, \n        \"==\": $eq$eq, \n        negate: negate, \n        \"%\": $percent, \n        \"/\": $div, \n        \"*\": $times, \n        \"-\": $minus, \n        \"+\": $plus, \n        ap: ap, \n        liftM1: liftM1, \n        \"return\": $$return, \n        \">>=\": $greater$greater$eq, \n        \"<|>\": $less$bar$greater, \n        empty: empty, \n        liftA1: liftA1, \n        pure: pure, \n        \"<*>\": $less$times$greater, \n        \"void\": $$void, \n        \"<$>\": $less$dollar$greater, \n        show: show, \n        cons: cons, \n        \":\": $colon, \n        \"#\": $hash, \n        \"$\": $dollar, \n        id: id, \n        \">>>\": $greater$greater$greater, \n        \"<<<\": $less$less$less, \n        asTypeOf: asTypeOf, \n        \"const\": $$const, \n        flip: flip, \n        semigroupoidArr: semigroupoidArr, \n        categoryArr: categoryArr, \n        showUnit: showUnit, \n        showString: showString, \n        showBoolean: showBoolean, \n        showNumber: showNumber, \n        showArray: showArray, \n        functorArr: functorArr, \n        applyArr: applyArr, \n        applicativeArr: applicativeArr, \n        bindArr: bindArr, \n        monadArr: monadArr, \n        numNumber: numNumber, \n        eqUnit: eqUnit, \n        eqString: eqString, \n        eqNumber: eqNumber, \n        eqBoolean: eqBoolean, \n        eqArray: eqArray, \n        eqOrdering: eqOrdering, \n        showOrdering: showOrdering, \n        ordUnit: ordUnit, \n        ordBoolean: ordBoolean, \n        ordNumber: ordNumber, \n        ordString: ordString, \n        ordArray: ordArray, \n        bitsNumber: bitsNumber, \n        boolLikeBoolean: boolLikeBoolean, \n        semigroupUnit: semigroupUnit, \n        semigroupString: semigroupString, \n        semigroupArr: semigroupArr\n    };\n})();\nvar PS = PS || {};\nPS.Prelude_Unsafe = (function () {\n    \"use strict\";\n    function unsafeIndex(xs) {  return function(n) {    return xs[n];  };};\n    return {\n        unsafeIndex: unsafeIndex\n    };\n})();\nvar PS = PS || {};\nPS.Math = (function () {\n    \"use strict\";\n    var abs = Math.abs;;\n    var acos = Math.acos;;\n    var asin = Math.asin;;\n    var atan = Math.atan;;\n    function atan2(y){  return function (x) {    return Math.atan2(y, x);  };};\n    var ceil = Math.ceil;;\n    var cos = Math.cos;;\n    var exp = Math.exp;;\n    var floor = Math.floor;;\n    var log = Math.log;;\n    function max(n1){  return function(n2) {    return Math.max(n1, n2);  }};\n    function min(n1){  return function(n2) {    return Math.min(n1, n2);  }};\n    function pow(n){  return function(p) {    return Math.pow(n, p);  }};\n    var round = Math.round;;\n    var sin = Math.sin;;\n    var sqrt = Math.sqrt;;\n    var tan = Math.tan;;\n    var e       = Math.E;;\n    var ln2     = Math.LN2;;\n    var ln10    = Math.LN10;;\n    var log2e   = Math.LOG2E;;\n    var log10e  = Math.LOG10E;;\n    var pi      = Math.PI;;\n    var sqrt1_2 = Math.SQRT1_2;;\n    var sqrt2   = Math.SQRT2;;\n    return {\n        sqrt2: sqrt2, \n        \"sqrt1_2\": sqrt1_2, \n        pi: pi, \n        log10e: log10e, \n        log2e: log2e, \n        ln10: ln10, \n        ln2: ln2, \n        e: e, \n        tan: tan, \n        sqrt: sqrt, \n        sin: sin, \n        round: round, \n        pow: pow, \n        min: min, \n        max: max, \n        log: log, \n        floor: floor, \n        exp: exp, \n        cos: cos, \n        ceil: ceil, \n        atan2: atan2, \n        atan: atan, \n        asin: asin, \n        acos: acos, \n        abs: abs\n    };\n})();\nvar PS = PS || {};\nPS.Data_Maybe = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Nothing = {\n        ctor: \"Data.Maybe.Nothing\", \n        values: [  ]\n    };\n    var Just = function (value0) {\n        return {\n            ctor: \"Data.Maybe.Just\", \n            values: [ value0 ]\n        };\n    };\n    var showMaybe = function (__dict_Show_15) {\n        return {\n            \"__superclasses\": {}, \n            show: function (_46) {\n                if (_46.ctor === \"Data.Maybe.Just\") {\n                    return \"Just (\" + Prelude.show(__dict_Show_15)(_46.values[0]) + \")\";\n                };\n                if (_46.ctor === \"Data.Maybe.Nothing\") {\n                    return \"Nothing\";\n                };\n                throw \"Failed pattern match\";\n            }\n        };\n    };\n    var maybe = function (_35) {\n        return function (_36) {\n            return function (_37) {\n                if (_37.ctor === \"Data.Maybe.Nothing\") {\n                    return _35;\n                };\n                if (_37.ctor === \"Data.Maybe.Just\") {\n                    return _36(_37.values[0]);\n                };\n                throw \"Failed pattern match\";\n            };\n        };\n    };\n    var isNothing = maybe(true)(Prelude[\"const\"](false));\n    var isJust = maybe(false)(Prelude[\"const\"](true));\n    var functorMaybe = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<$>\": function (_38) {\n                return function (_39) {\n                    if (_39.ctor === \"Data.Maybe.Just\") {\n                        return Just(_38(_39.values[0]));\n                    };\n                    return Nothing;\n                };\n            }\n        };\n    };\n    var fromMaybe = function (a) {\n        return maybe(a)(Prelude.id(Prelude.categoryArr({})));\n    };\n    var eqMaybe = function (__dict_Eq_17) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": function (_47) {\n                return function (_48) {\n                    if (_47.ctor === \"Data.Maybe.Nothing\") {\n                        if (_48.ctor === \"Data.Maybe.Nothing\") {\n                            return true;\n                        };\n                    };\n                    if (_47.ctor === \"Data.Maybe.Just\") {\n                        if (_48.ctor === \"Data.Maybe.Just\") {\n                            return Prelude[\"==\"](__dict_Eq_17)(_47.values[0])(_48.values[0]);\n                        };\n                    };\n                    return false;\n                };\n            }, \n            \"/=\": function (a) {\n                return function (b) {\n                    return !Prelude[\"==\"](eqMaybe(__dict_Eq_17))(a)(b);\n                };\n            }\n        };\n    };\n    var ordMaybe = function (__dict_Ord_16) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Eq_0\": function (_) {\n                    return eqMaybe(__dict_Ord_16[\"__superclasses\"][\"Prelude.Eq_0\"]({}));\n                }\n            }, \n            compare: function (_49) {\n                return function (_50) {\n                    if (_49.ctor === \"Data.Maybe.Just\") {\n                        if (_50.ctor === \"Data.Maybe.Just\") {\n                            return Prelude.compare(__dict_Ord_16)(_49.values[0])(_50.values[0]);\n                        };\n                    };\n                    if (_49.ctor === \"Data.Maybe.Nothing\") {\n                        if (_50.ctor === \"Data.Maybe.Nothing\") {\n                            return Prelude.EQ;\n                        };\n                    };\n                    if (_49.ctor === \"Data.Maybe.Nothing\") {\n                        return Prelude.LT;\n                    };\n                    if (_50.ctor === \"Data.Maybe.Nothing\") {\n                        return Prelude.GT;\n                    };\n                    throw \"Failed pattern match\";\n                };\n            }\n        };\n    };\n    var applyMaybe = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Functor_0\": function (_) {\n                    return functorMaybe({});\n                }\n            }, \n            \"<*>\": function (_40) {\n                return function (_41) {\n                    if (_40.ctor === \"Data.Maybe.Just\") {\n                        return Prelude[\"<$>\"](functorMaybe({}))(_40.values[0])(_41);\n                    };\n                    if (_40.ctor === \"Data.Maybe.Nothing\") {\n                        return Nothing;\n                    };\n                    throw \"Failed pattern match\";\n                };\n            }\n        };\n    };\n    var bindMaybe = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyMaybe({});\n                }\n            }, \n            \">>=\": function (_44) {\n                return function (_45) {\n                    if (_44.ctor === \"Data.Maybe.Just\") {\n                        return _45(_44.values[0]);\n                    };\n                    if (_44.ctor === \"Data.Maybe.Nothing\") {\n                        return Nothing;\n                    };\n                    throw \"Failed pattern match\";\n                };\n            }\n        };\n    };\n    var applicativeMaybe = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyMaybe({});\n                }\n            }, \n            pure: Just\n        };\n    };\n    var monadMaybe = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Applicative_0\": function (_) {\n                    return applicativeMaybe({});\n                }, \n                \"Prelude.Bind_1\": function (_) {\n                    return bindMaybe({});\n                }\n            }\n        };\n    };\n    var alternativeMaybe = function (_) {\n        return {\n            \"__superclasses\": {}, \n            empty: Nothing, \n            \"<|>\": function (_42) {\n                return function (_43) {\n                    if (_42.ctor === \"Data.Maybe.Nothing\") {\n                        return _43;\n                    };\n                    return _42;\n                };\n            }\n        };\n    };\n    return {\n        Nothing: Nothing, \n        Just: Just, \n        isNothing: isNothing, \n        isJust: isJust, \n        fromMaybe: fromMaybe, \n        maybe: maybe, \n        functorMaybe: functorMaybe, \n        applyMaybe: applyMaybe, \n        applicativeMaybe: applicativeMaybe, \n        alternativeMaybe: alternativeMaybe, \n        bindMaybe: bindMaybe, \n        monadMaybe: monadMaybe, \n        showMaybe: showMaybe, \n        eqMaybe: eqMaybe, \n        ordMaybe: ordMaybe\n    };\n})();\nvar PS = PS || {};\nPS.Data_Maybe_Unsafe = (function () {\n    \"use strict\";\n    var fromJust = function (_51) {\n        if (_51.ctor === \"Data.Maybe.Just\") {\n            return _51.values[0];\n        };\n        throw \"Failed pattern match\";\n    };\n    return {\n        fromJust: fromJust\n    };\n})();\nvar PS = PS || {};\nPS.Data_Function = (function () {\n    \"use strict\";\n    function mkFn0(f) {  return function() {    return f({});  };};\n    function mkFn1(f) {  return function(a) {    return f(a);  };};\n    function mkFn2(f) {  return function(a, b) {    return f(a)(b);  };};\n    function mkFn3(f) {  return function(a, b, c) {    return f(a)(b)(c);  };};\n    function mkFn4(f) {  return function(a, b, c, d) {    return f(a)(b)(c)(d);  };};\n    function mkFn5(f) {  return function(a, b, c, d, e) {    return f(a)(b)(c)(d)(e);  };};\n    function runFn0(f) {  return f();};\n    function runFn1(f) {  return function(a) {    return f(a);  };};\n    function runFn2(f) {  return function(a) {    return function(b) {      return f(a, b);    };  };};\n    function runFn3(f) {  return function(a) {    return function(b) {      return function(c) {        return f(a, b, c);      };    };  };};\n    function runFn4(f) {  return function(a) {    return function(b) {      return function(c) {        return function(d) {          return f(a, b, c, d);        };      };    };  };};\n    function runFn5(f) {  return function(a) {    return function(b) {      return function(c) {        return function(d) {          return function(e) {            return f(a, b, c, d, e);          };        };      };    };  };};\n    var on = function (f) {\n        return function (g) {\n            return function (x) {\n                return function (y) {\n                    return f(g(x))(g(y));\n                };\n            };\n        };\n    };\n    return {\n        runFn5: runFn5, \n        runFn4: runFn4, \n        runFn3: runFn3, \n        runFn2: runFn2, \n        runFn1: runFn1, \n        runFn0: runFn0, \n        mkFn5: mkFn5, \n        mkFn4: mkFn4, \n        mkFn3: mkFn3, \n        mkFn2: mkFn2, \n        mkFn1: mkFn1, \n        mkFn0: mkFn0, \n        on: on\n    };\n})();\nvar PS = PS || {};\nPS.Data_Eq = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Ref = function (value0) {\n        return {\n            ctor: \"Data.Eq.Ref\", \n            values: [ value0 ]\n        };\n    };\n    var liftRef = function (_52) {\n        return function (_53) {\n            return function (_54) {\n                return _52(_53.values[0])(_54.values[0]);\n            };\n        };\n    };\n    var eqRef = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": liftRef(Prelude.refEq), \n            \"/=\": liftRef(Prelude.refIneq)\n        };\n    };\n    return {\n        Ref: Ref, \n        liftRef: liftRef, \n        eqRef: eqRef\n    };\n})();\nvar PS = PS || {};\nPS.Data_Either = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Left = function (value0) {\n        return {\n            ctor: \"Data.Either.Left\", \n            values: [ value0 ]\n        };\n    };\n    var Right = function (value0) {\n        return {\n            ctor: \"Data.Either.Right\", \n            values: [ value0 ]\n        };\n    };\n    var showEither = function (__dict_Show_18) {\n        return function (__dict_Show_19) {\n            return {\n                \"__superclasses\": {}, \n                show: function (_62) {\n                    if (_62.ctor === \"Data.Either.Left\") {\n                        return \"Left (\" + Prelude.show(__dict_Show_18)(_62.values[0]) + \")\";\n                    };\n                    if (_62.ctor === \"Data.Either.Right\") {\n                        return \"Right (\" + Prelude.show(__dict_Show_19)(_62.values[0]) + \")\";\n                    };\n                    throw \"Failed pattern match\";\n                }\n            };\n        };\n    };\n    var functorEither = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<$>\": function (_58) {\n                return function (_59) {\n                    if (_59.ctor === \"Data.Either.Left\") {\n                        return Left(_59.values[0]);\n                    };\n                    if (_59.ctor === \"Data.Either.Right\") {\n                        return Right(_58(_59.values[0]));\n                    };\n                    throw \"Failed pattern match\";\n                };\n            }\n        };\n    };\n    var eqEither = function (__dict_Eq_22) {\n        return function (__dict_Eq_23) {\n            return {\n                \"__superclasses\": {}, \n                \"==\": function (_63) {\n                    return function (_64) {\n                        if (_63.ctor === \"Data.Either.Left\") {\n                            if (_64.ctor === \"Data.Either.Left\") {\n                                return Prelude[\"==\"](__dict_Eq_22)(_63.values[0])(_64.values[0]);\n                            };\n                        };\n                        if (_63.ctor === \"Data.Either.Right\") {\n                            if (_64.ctor === \"Data.Either.Right\") {\n                                return Prelude[\"==\"](__dict_Eq_23)(_63.values[0])(_64.values[0]);\n                            };\n                        };\n                        return false;\n                    };\n                }, \n                \"/=\": function (a) {\n                    return function (b) {\n                        return !Prelude[\"==\"](eqEither(__dict_Eq_22)(__dict_Eq_23))(a)(b);\n                    };\n                }\n            };\n        };\n    };\n    var ordEither = function (__dict_Ord_20) {\n        return function (__dict_Ord_21) {\n            return {\n                \"__superclasses\": {\n                    \"Prelude.Eq_0\": function (_) {\n                        return eqEither(__dict_Ord_20[\"__superclasses\"][\"Prelude.Eq_0\"]({}))(__dict_Ord_21[\"__superclasses\"][\"Prelude.Eq_0\"]({}));\n                    }\n                }, \n                compare: function (_65) {\n                    return function (_66) {\n                        if (_65.ctor === \"Data.Either.Left\") {\n                            if (_66.ctor === \"Data.Either.Left\") {\n                                return Prelude.compare(__dict_Ord_20)(_65.values[0])(_66.values[0]);\n                            };\n                        };\n                        if (_65.ctor === \"Data.Either.Right\") {\n                            if (_66.ctor === \"Data.Either.Right\") {\n                                return Prelude.compare(__dict_Ord_21)(_65.values[0])(_66.values[0]);\n                            };\n                        };\n                        if (_65.ctor === \"Data.Either.Left\") {\n                            return Prelude.LT;\n                        };\n                        if (_66.ctor === \"Data.Either.Left\") {\n                            return Prelude.GT;\n                        };\n                        throw \"Failed pattern match\";\n                    };\n                }\n            };\n        };\n    };\n    var either = function (_55) {\n        return function (_56) {\n            return function (_57) {\n                if (_57.ctor === \"Data.Either.Left\") {\n                    return _55(_57.values[0]);\n                };\n                if (_57.ctor === \"Data.Either.Right\") {\n                    return _56(_57.values[0]);\n                };\n                throw \"Failed pattern match\";\n            };\n        };\n    };\n    var isLeft = either(Prelude[\"const\"](true))(Prelude[\"const\"](false));\n    var isRight = either(Prelude[\"const\"](false))(Prelude[\"const\"](true));\n    var applyEither = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Functor_0\": function (_) {\n                    return functorEither({});\n                }\n            }, \n            \"<*>\": function (_60) {\n                return function (_61) {\n                    if (_60.ctor === \"Data.Either.Left\") {\n                        return Left(_60.values[0]);\n                    };\n                    if (_60.ctor === \"Data.Either.Right\") {\n                        return Prelude[\"<$>\"](functorEither({}))(_60.values[0])(_61);\n                    };\n                    throw \"Failed pattern match\";\n                };\n            }\n        };\n    };\n    var bindEither = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyEither({});\n                }\n            }, \n            \">>=\": either(function (e) {\n                return function (_) {\n                    return Left(e);\n                };\n            })(function (a) {\n                return function (f) {\n                    return f(a);\n                };\n            })\n        };\n    };\n    var applicativeEither = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyEither({});\n                }\n            }, \n            pure: Right\n        };\n    };\n    var monadEither = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Applicative_0\": function (_) {\n                    return applicativeEither({});\n                }, \n                \"Prelude.Bind_1\": function (_) {\n                    return bindEither({});\n                }\n            }\n        };\n    };\n    return {\n        Left: Left, \n        Right: Right, \n        isRight: isRight, \n        isLeft: isLeft, \n        either: either, \n        functorEither: functorEither, \n        applyEither: applyEither, \n        applicativeEither: applicativeEither, \n        bindEither: bindEither, \n        monadEither: monadEither, \n        showEither: showEither, \n        eqEither: eqEither, \n        ordEither: ordEither\n    };\n})();\nvar PS = PS || {};\nPS.Data_Array = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Data_Maybe = PS.Data_Maybe;\n    var Prelude_Unsafe = PS.Prelude_Unsafe;\n    function snoc(l) {  return function (e) {    var l1 = l.slice();    l1.push(e);     return l1;  };};\n    function length (xs) {  return xs.length;};\n    function findIndex (f) {  return function (arr) {    for (var i = 0, l = arr.length; i < l; i++) {      if (f(arr[i])) {        return i;      }    }    return -1;  };};\n    function findLastIndex (f) {  return function (arr) {    for (var i = arr.length - 1; i >= 0; i--) {      if (f(arr[i])) {        return i;      }    }    return -1;  };};\n    function append (l1) {  return function (l2) {    return l1.concat(l2);  };};\n    function concat (xss) {  var result = [];  for (var i = 0, l = xss.length; i < l; i++) {    result.push.apply(result, xss[i]);  }  return result;};\n    function reverse (l) {  return l.slice().reverse();};\n    function drop (n) {  return function (l) {    return l.slice(n);  };};\n    function slice (s) {  return function (e) {    return function (l) {      return l.slice(s, e);    };  };};\n    function insertAt (index) {  return function (a) {    return function (l) {      var l1 = l.slice();      l1.splice(index, 0, a);      return l1;    };   };};\n    function deleteAt (index) {  return function (n) {    return function (l) {      var l1 = l.slice();      l1.splice(index, n);      return l1;    };   };};\n    function updateAt (index) {  return function (a) {    return function (l) {      var i = ~~index;      if (i < 0 || i >= l.length) return l;      var l1 = l.slice();      l1[i] = a;      return l1;    };   };};\n    function concatMap (f) {  return function (arr) {    var result = [];    for (var i = 0, l = arr.length; i < l; i++) {      Array.prototype.push.apply(result, f(arr[i]));    }    return result;  };};\n    function map (f) {  return function (arr) {    var l = arr.length;    var result = new Array(l);    for (var i = 0; i < l; i++) {      result[i] = f(arr[i]);    }    return result;  };};\n    function filter (f) {  return function (arr) {    var n = 0;    var result = [];    for (var i = 0, l = arr.length; i < l; i++) {      if (f(arr[i])) {        result[n++] = arr[i];      }    }    return result;  };};\n    function range (start) {  return function (end) {    var i = ~~start, e = ~~end;    var step = i > e ? -1 : 1;    var result = [i], n = 1;    while (i !== e) {      i += step;      result[n++] = i;    }    return result;  };};\n    function zipWith (f) {  return function (xs) {    return function (ys) {      var l = xs.length < ys.length ? xs.length : ys.length;      var result = new Array(l);      for (var i = 0; i < l; i++) {        result[i] = f(xs[i])(ys[i]);      }      return result;    };  };};\n    function sortJS (f) {  return function (l) {    return l.slice().sort(function (x, y) {      return f(x)(y);    });  };};\n    var $bang$bang = function (xs) {\n        return function (n) {\n            var isInt = function (n) {\n                return n !== ~~n;\n            };\n            return n < 0 || n >= length(xs) || isInt(n) ? Data_Maybe.Nothing : Data_Maybe.Just(xs[n]);\n        };\n    };\n    var take = function (n) {\n        return slice(0)(n);\n    };\n    var tail = function (_69) {\n        if (_69.length > 0) {\n            var _361 = _69.slice(1);\n            return Data_Maybe.Just(_361);\n        };\n        return Data_Maybe.Nothing;\n    };\n    var span = (function () {\n        var go = function (__copy__85) {\n            return function (__copy__86) {\n                return function (__copy__87) {\n                    var _85 = __copy__85;\n                    var _86 = __copy__86;\n                    var _87 = __copy__87;\n                    tco: while (true) {\n                        var acc = _85;\n                        if (_87.length > 0) {\n                            var _366 = _87.slice(1);\n                            if (_86(_87[0])) {\n                                var __tco__85 = Prelude[\":\"](_87[0])(acc);\n                                var __tco__86 = _86;\n                                _85 = __tco__85;\n                                _86 = __tco__86;\n                                _87 = _366;\n                                continue tco;\n                            };\n                        };\n                        return {\n                            init: reverse(_85), \n                            rest: _87\n                        };\n                    };\n                };\n            };\n        };\n        return go([  ]);\n    })();\n    var sortBy = function (comp) {\n        return function (xs) {\n            var comp$prime = function (x) {\n                return function (y) {\n                    return (function (_367) {\n                        if (_367.ctor === \"Prelude.GT\") {\n                            return 1;\n                        };\n                        if (_367.ctor === \"Prelude.EQ\") {\n                            return 0;\n                        };\n                        if (_367.ctor === \"Prelude.LT\") {\n                            return -1;\n                        };\n                        throw \"Failed pattern match\";\n                    })(comp(x)(y));\n                };\n            };\n            return sortJS(comp$prime)(xs);\n        };\n    };\n    var sort = function (__dict_Ord_24) {\n        return function (xs) {\n            return sortBy(Prelude.compare(__dict_Ord_24))(xs);\n        };\n    };\n    var singleton = function (a) {\n        return [ a ];\n    };\n    var semigroupArray = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<>\": append\n        };\n    };\n    var $$null = function (_71) {\n        if (_71.length === 0) {\n            return true;\n        };\n        return false;\n    };\n    var nubBy = function (_78) {\n        return function (_79) {\n            if (_79.length === 0) {\n                return [  ];\n            };\n            if (_79.length > 0) {\n                var _372 = _79.slice(1);\n                return Prelude[\":\"](_79[0])(nubBy(_78)(filter(function (y) {\n                    return !_78(_79[0])(y);\n                })(_372)));\n            };\n            throw \"Failed pattern match\";\n        };\n    };\n    var nub = function (__dict_Eq_25) {\n        return nubBy(Prelude[\"==\"](__dict_Eq_25));\n    };\n    var mapMaybe = function (f) {\n        return concatMap(Prelude[\"<<<\"](Prelude.semigroupoidArr({}))(Data_Maybe.maybe([  ])(singleton))(f));\n    };\n    var last = function (__copy__68) {\n        var _68 = __copy__68;\n        tco: while (true) {\n            if (_68.length > 0) {\n                var _375 = _68.slice(1);\n                if (_375.length === 0) {\n                    return Data_Maybe.Just(_68[0]);\n                };\n            };\n            if (_68.length > 0) {\n                var _377 = _68.slice(1);\n                _68 = _377;\n                continue tco;\n            };\n            return Data_Maybe.Nothing;\n        };\n    };\n    var intersectBy = function (_75) {\n        return function (_76) {\n            return function (_77) {\n                if (_76.length === 0) {\n                    return [  ];\n                };\n                if (_77.length === 0) {\n                    return [  ];\n                };\n                var el = function (x) {\n                    return findIndex(_75(x))(_77) >= 0;\n                };\n                return filter(el)(_76);\n            };\n        };\n    };\n    var intersect = function (__dict_Eq_26) {\n        return intersectBy(Prelude[\"==\"](__dict_Eq_26));\n    };\n    var init = function (_70) {\n        if (_70.length === 0) {\n            return Data_Maybe.Nothing;\n        };\n        return Data_Maybe.Just(slice(0)(length(_70) - 1)(_70));\n    };\n    var head = function (_67) {\n        if (_67.length > 0) {\n            var _384 = _67.slice(1);\n            return Data_Maybe.Just(_67[0]);\n        };\n        return Data_Maybe.Nothing;\n    };\n    var groupBy = (function () {\n        var go = function (__copy__82) {\n            return function (__copy__83) {\n                return function (__copy__84) {\n                    var _82 = __copy__82;\n                    var _83 = __copy__83;\n                    var _84 = __copy__84;\n                    tco: while (true) {\n                        var acc = _82;\n                        if (_84.length === 0) {\n                            return reverse(acc);\n                        };\n                        if (_84.length > 0) {\n                            var _389 = _84.slice(1);\n                            var sp = span(_83(_84[0]))(_389);\n                            var __tco__82 = Prelude[\":\"](Prelude[\":\"](_84[0])(sp.init))(_82);\n                            var __tco__83 = _83;\n                            _82 = __tco__82;\n                            _83 = __tco__83;\n                            _84 = sp.rest;\n                            continue tco;\n                        };\n                        throw \"Failed pattern match\";\n                    };\n                };\n            };\n        };\n        return go([  ]);\n    })();\n    var group = function (__dict_Eq_27) {\n        return function (xs) {\n            return groupBy(Prelude[\"==\"](__dict_Eq_27))(xs);\n        };\n    };\n    var group$prime = function (__dict_Ord_28) {\n        return Prelude[\"<<<\"](Prelude.semigroupoidArr({}))(group(__dict_Ord_28[\"__superclasses\"][\"Prelude.Eq_0\"]({})))(sort(__dict_Ord_28));\n    };\n    var functorArray = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<$>\": map\n        };\n    };\n    var elemLastIndex = function (__dict_Eq_29) {\n        return function (x) {\n            return findLastIndex(Prelude[\"==\"](__dict_Eq_29)(x));\n        };\n    };\n    var elemIndex = function (__dict_Eq_30) {\n        return function (x) {\n            return findIndex(Prelude[\"==\"](__dict_Eq_30)(x));\n        };\n    };\n    var deleteBy = function (_72) {\n        return function (_73) {\n            return function (_74) {\n                if (_74.length === 0) {\n                    return [  ];\n                };\n                return (function (_393) {\n                    if (_393 < 0) {\n                        return _74;\n                    };\n                    return deleteAt(_393)(1)(_74);\n                })(findIndex(_72(_73))(_74));\n            };\n        };\n    };\n    var $$delete = function (__dict_Eq_31) {\n        return deleteBy(Prelude[\"==\"](__dict_Eq_31));\n    };\n    var $bslash$bslash = function (__dict_Eq_32) {\n        return function (xs) {\n            return function (ys) {\n                var go = function (__copy__80) {\n                    return function (__copy__81) {\n                        var _80 = __copy__80;\n                        var _81 = __copy__81;\n                        tco: while (true) {\n                            var xs = _80;\n                            if (_81.length === 0) {\n                                return xs;\n                            };\n                            if (_80.length === 0) {\n                                return [  ];\n                            };\n                            if (_81.length > 0) {\n                                var _397 = _81.slice(1);\n                                var __tco__80 = $$delete(__dict_Eq_32)(_81[0])(_80);\n                                _80 = __tco__80;\n                                _81 = _397;\n                                continue tco;\n                            };\n                            throw \"Failed pattern match\";\n                        };\n                    };\n                };\n                return go(xs)(ys);\n            };\n        };\n    };\n    var catMaybes = concatMap(Data_Maybe.maybe([  ])(singleton));\n    var applicativeArray = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyArray({});\n                }\n            }, \n            pure: singleton\n        };\n    };\n    var applyArray = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Functor_0\": function (_) {\n                    return functorArray({});\n                }\n            }, \n            \"<*>\": Prelude.ap(monadArray({}))\n        };\n    };\n    var monadArray = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Applicative_0\": function (_) {\n                    return applicativeArray({});\n                }, \n                \"Prelude.Bind_1\": function (_) {\n                    return bindArray({});\n                }\n            }\n        };\n    };\n    var bindArray = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyArray({});\n                }\n            }, \n            \">>=\": Prelude.flip(concatMap)\n        };\n    };\n    var alternativeArray = function (_) {\n        return {\n            \"__superclasses\": {}, \n            empty: [  ], \n            \"<|>\": append\n        };\n    };\n    return {\n        span: span, \n        groupBy: groupBy, \n        \"group'\": group$prime, \n        group: group, \n        sortBy: sortBy, \n        sort: sort, \n        nubBy: nubBy, \n        nub: nub, \n        zipWith: zipWith, \n        range: range, \n        filter: filter, \n        concatMap: concatMap, \n        intersect: intersect, \n        intersectBy: intersectBy, \n        \"\\\\\\\\\": $bslash$bslash, \n        \"delete\": $$delete, \n        deleteBy: deleteBy, \n        updateAt: updateAt, \n        deleteAt: deleteAt, \n        insertAt: insertAt, \n        take: take, \n        drop: drop, \n        reverse: reverse, \n        concat: concat, \n        append: append, \n        elemLastIndex: elemLastIndex, \n        elemIndex: elemIndex, \n        findLastIndex: findLastIndex, \n        findIndex: findIndex, \n        length: length, \n        catMaybes: catMaybes, \n        mapMaybe: mapMaybe, \n        map: map, \n        \"null\": $$null, \n        init: init, \n        tail: tail, \n        last: last, \n        head: head, \n        singleton: singleton, \n        snoc: snoc, \n        \"!!\": $bang$bang, \n        functorArray: functorArray, \n        applyArray: applyArray, \n        applicativeArray: applicativeArray, \n        bindArray: bindArray, \n        monadArray: monadArray, \n        semigroupArray: semigroupArray, \n        alternativeArray: alternativeArray\n    };\n})();\nvar PS = PS || {};\nPS.Data_Array_Unsafe = (function () {\n    \"use strict\";\n    var Prelude_Unsafe = PS.Prelude_Unsafe;\n    var Prelude = PS.Prelude;\n    var Data_Array = PS.Data_Array;\n    var Data_Maybe_Unsafe = PS.Data_Maybe_Unsafe;\n    var tail = function (_89) {\n        if (_89.length > 0) {\n            var _400 = _89.slice(1);\n            return _400;\n        };\n        throw \"Failed pattern match\";\n    };\n    var last = function (xs) {\n        return xs[Data_Array.length(xs) - 1];\n    };\n    var init = Prelude[\"<<<\"](Prelude.semigroupoidArr({}))(Data_Maybe_Unsafe.fromJust)(Data_Array.init);\n    var head = function (_88) {\n        if (_88.length > 0) {\n            var _403 = _88.slice(1);\n            return _88[0];\n        };\n        throw \"Failed pattern match\";\n    };\n    return {\n        init: init, \n        last: last, \n        tail: tail, \n        head: head\n    };\n})();\nvar PS = PS || {};\nPS.Data_Monoid = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Data_Array = PS.Data_Array;\n    var monoidUnit = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Semigroup_0\": function (_) {\n                    return Prelude.semigroupUnit({});\n                }\n            }, \n            mempty: Prelude.unit\n        };\n    };\n    var monoidString = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Semigroup_0\": function (_) {\n                    return Prelude.semigroupString({});\n                }\n            }, \n            mempty: \"\"\n        };\n    };\n    var monoidArray = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Semigroup_0\": function (_) {\n                    return Data_Array.semigroupArray({});\n                }\n            }, \n            mempty: [  ]\n        };\n    };\n    var mempty = function (dict) {\n        return dict.mempty;\n    };\n    return {\n        mempty: mempty, \n        monoidString: monoidString, \n        monoidArray: monoidArray, \n        monoidUnit: monoidUnit\n    };\n})();\nvar PS = PS || {};\nPS.Data_Monoid_All = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var All = function (value0) {\n        return {\n            ctor: \"Data.Monoid.All.All\", \n            values: [ value0 ]\n        };\n    };\n    var showAll = function (_) {\n        return {\n            \"__superclasses\": {}, \n            show: function (_95) {\n                return \"All (\" + Prelude.show(Prelude.showBoolean({}))(_95.values[0]) + \")\";\n            }\n        };\n    };\n    var semigroupAll = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<>\": function (_96) {\n                return function (_97) {\n                    return All(_96.values[0] && _97.values[0]);\n                };\n            }\n        };\n    };\n    var runAll = function (_90) {\n        return _90.values[0];\n    };\n    var monoidAll = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Semigroup_0\": function (_) {\n                    return semigroupAll({});\n                }\n            }, \n            mempty: All(true)\n        };\n    };\n    var eqAll = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": function (_91) {\n                return function (_92) {\n                    return _91.values[0] === _92.values[0];\n                };\n            }, \n            \"/=\": function (_93) {\n                return function (_94) {\n                    return _93.values[0] !== _94.values[0];\n                };\n            }\n        };\n    };\n    return {\n        All: All, \n        runAll: runAll, \n        eqAll: eqAll, \n        showAll: showAll, \n        semigroupAll: semigroupAll, \n        monoidAll: monoidAll\n    };\n})();\nvar PS = PS || {};\nPS.Data_Monoid_Any = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Any = function (value0) {\n        return {\n            ctor: \"Data.Monoid.Any.Any\", \n            values: [ value0 ]\n        };\n    };\n    var showAny = function (_) {\n        return {\n            \"__superclasses\": {}, \n            show: function (_103) {\n                return \"Any (\" + Prelude.show(Prelude.showBoolean({}))(_103.values[0]) + \")\";\n            }\n        };\n    };\n    var semigroupAny = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<>\": function (_104) {\n                return function (_105) {\n                    return Any(_104.values[0] || _105.values[0]);\n                };\n            }\n        };\n    };\n    var runAny = function (_98) {\n        return _98.values[0];\n    };\n    var monoidAny = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Semigroup_0\": function (_) {\n                    return semigroupAny({});\n                }\n            }, \n            mempty: Any(false)\n        };\n    };\n    var eqAny = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": function (_99) {\n                return function (_100) {\n                    return _99.values[0] === _100.values[0];\n                };\n            }, \n            \"/=\": function (_101) {\n                return function (_102) {\n                    return _101.values[0] !== _102.values[0];\n                };\n            }\n        };\n    };\n    return {\n        Any: Any, \n        runAny: runAny, \n        eqAny: eqAny, \n        showAny: showAny, \n        semigroupAny: semigroupAny, \n        monoidAny: monoidAny\n    };\n})();\nvar PS = PS || {};\nPS.Data_Monoid_Dual = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Data_Monoid = PS.Data_Monoid;\n    var Dual = function (value0) {\n        return {\n            ctor: \"Data.Monoid.Dual.Dual\", \n            values: [ value0 ]\n        };\n    };\n    var showDual = function (__dict_Show_33) {\n        return {\n            \"__superclasses\": {}, \n            show: function (_113) {\n                return \"Dual (\" + Prelude.show(__dict_Show_33)(_113.values[0]) + \")\";\n            }\n        };\n    };\n    var semigroupDual = function (__dict_Semigroup_34) {\n        return {\n            \"__superclasses\": {}, \n            \"<>\": function (_114) {\n                return function (_115) {\n                    return Dual(Prelude[\"<>\"](__dict_Semigroup_34)(_115.values[0])(_114.values[0]));\n                };\n            }\n        };\n    };\n    var runDual = function (_106) {\n        return _106.values[0];\n    };\n    var monoidDual = function (__dict_Monoid_36) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Semigroup_0\": function (_) {\n                    return semigroupDual(__dict_Monoid_36[\"__superclasses\"][\"Prelude.Semigroup_0\"]({}));\n                }\n            }, \n            mempty: Dual(Data_Monoid.mempty(__dict_Monoid_36))\n        };\n    };\n    var eqDual = function (__dict_Eq_37) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": function (_107) {\n                return function (_108) {\n                    return Prelude[\"==\"](__dict_Eq_37)(_107.values[0])(_108.values[0]);\n                };\n            }, \n            \"/=\": function (_109) {\n                return function (_110) {\n                    return Prelude[\"/=\"](__dict_Eq_37)(_109.values[0])(_110.values[0]);\n                };\n            }\n        };\n    };\n    var ordDual = function (__dict_Ord_35) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Eq_0\": function (_) {\n                    return eqDual(__dict_Ord_35[\"__superclasses\"][\"Prelude.Eq_0\"]({}));\n                }\n            }, \n            compare: function (_111) {\n                return function (_112) {\n                    return Prelude.compare(__dict_Ord_35)(_111.values[0])(_112.values[0]);\n                };\n            }\n        };\n    };\n    return {\n        Dual: Dual, \n        runDual: runDual, \n        eqDual: eqDual, \n        ordDual: ordDual, \n        showDual: showDual, \n        semigroupDual: semigroupDual, \n        monoidDual: monoidDual\n    };\n})();\nvar PS = PS || {};\nPS.Data_Monoid_Endo = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Endo = function (value0) {\n        return {\n            ctor: \"Data.Monoid.Endo.Endo\", \n            values: [ value0 ]\n        };\n    };\n    var semigroupEndo = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<>\": function (_117) {\n                return function (_118) {\n                    return Endo(Prelude[\"<<<\"](Prelude.semigroupoidArr({}))(_117.values[0])(_118.values[0]));\n                };\n            }\n        };\n    };\n    var runEndo = function (_116) {\n        return _116.values[0];\n    };\n    var monoidEndo = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Semigroup_0\": function (_) {\n                    return semigroupEndo({});\n                }\n            }, \n            mempty: Endo(Prelude.id(Prelude.categoryArr({})))\n        };\n    };\n    return {\n        Endo: Endo, \n        runEndo: runEndo, \n        semigroupEndo: semigroupEndo, \n        monoidEndo: monoidEndo\n    };\n})();\nvar PS = PS || {};\nPS.Data_Monoid_First = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Data_Maybe = PS.Data_Maybe;\n    var First = function (value0) {\n        return {\n            ctor: \"Data.Monoid.First.First\", \n            values: [ value0 ]\n        };\n    };\n    var showFirst = function (__dict_Show_38) {\n        return {\n            \"__superclasses\": {}, \n            show: function (_126) {\n                return \"First (\" + Prelude.show(Data_Maybe.showMaybe(__dict_Show_38))(_126.values[0]) + \")\";\n            }\n        };\n    };\n    var semigroupFirst = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<>\": function (_127) {\n                return function (_128) {\n                    if ((_127.values[0]).ctor === \"Data.Maybe.Just\") {\n                        return _127;\n                    };\n                    return _128;\n                };\n            }\n        };\n    };\n    var runFirst = function (_119) {\n        return _119.values[0];\n    };\n    var monoidFirst = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Semigroup_0\": function (_) {\n                    return semigroupFirst({});\n                }\n            }, \n            mempty: First(Data_Maybe.Nothing)\n        };\n    };\n    var eqFirst = function (__dict_Eq_40) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": function (_120) {\n                return function (_121) {\n                    return Prelude[\"==\"](Data_Maybe.eqMaybe(__dict_Eq_40))(_120.values[0])(_121.values[0]);\n                };\n            }, \n            \"/=\": function (_122) {\n                return function (_123) {\n                    return Prelude[\"/=\"](Data_Maybe.eqMaybe(__dict_Eq_40))(_122.values[0])(_123.values[0]);\n                };\n            }\n        };\n    };\n    var ordFirst = function (__dict_Ord_39) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Eq_0\": function (_) {\n                    return eqFirst(__dict_Ord_39[\"__superclasses\"][\"Prelude.Eq_0\"]({}));\n                }\n            }, \n            compare: function (_124) {\n                return function (_125) {\n                    return Prelude.compare(Data_Maybe.ordMaybe(__dict_Ord_39))(_124.values[0])(_125.values[0]);\n                };\n            }\n        };\n    };\n    return {\n        First: First, \n        runFirst: runFirst, \n        eqFirst: eqFirst, \n        ordFirst: ordFirst, \n        showFirst: showFirst, \n        semigroupFirst: semigroupFirst, \n        monoidFirst: monoidFirst\n    };\n})();\nvar PS = PS || {};\nPS.Data_Monoid_Last = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Data_Maybe = PS.Data_Maybe;\n    var Last = function (value0) {\n        return {\n            ctor: \"Data.Monoid.Last.Last\", \n            values: [ value0 ]\n        };\n    };\n    var showLast = function (__dict_Show_41) {\n        return {\n            \"__superclasses\": {}, \n            show: function (_136) {\n                return \"Last (\" + Prelude.show(Data_Maybe.showMaybe(__dict_Show_41))(_136.values[0]) + \")\";\n            }\n        };\n    };\n    var semigroupLast = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<>\": function (_137) {\n                return function (_138) {\n                    if ((_138.values[0]).ctor === \"Data.Maybe.Just\") {\n                        return _138;\n                    };\n                    if ((_138.values[0]).ctor === \"Data.Maybe.Nothing\") {\n                        return _137;\n                    };\n                    throw \"Failed pattern match\";\n                };\n            }\n        };\n    };\n    var runLast = function (_129) {\n        return _129.values[0];\n    };\n    var monoidLast = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Semigroup_0\": function (_) {\n                    return semigroupLast({});\n                }\n            }, \n            mempty: Last(Data_Maybe.Nothing)\n        };\n    };\n    var eqLast = function (__dict_Eq_43) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": function (_130) {\n                return function (_131) {\n                    return Prelude[\"==\"](Data_Maybe.eqMaybe(__dict_Eq_43))(_130.values[0])(_131.values[0]);\n                };\n            }, \n            \"/=\": function (_132) {\n                return function (_133) {\n                    return Prelude[\"/=\"](Data_Maybe.eqMaybe(__dict_Eq_43))(_132.values[0])(_133.values[0]);\n                };\n            }\n        };\n    };\n    var ordLast = function (__dict_Ord_42) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Eq_0\": function (_) {\n                    return eqLast(__dict_Ord_42[\"__superclasses\"][\"Prelude.Eq_0\"]({}));\n                }\n            }, \n            compare: function (_134) {\n                return function (_135) {\n                    return Prelude.compare(Data_Maybe.ordMaybe(__dict_Ord_42))(_134.values[0])(_135.values[0]);\n                };\n            }\n        };\n    };\n    return {\n        Last: Last, \n        runLast: runLast, \n        eqLast: eqLast, \n        ordLast: ordLast, \n        showLast: showLast, \n        semigroupLast: semigroupLast, \n        monoidLast: monoidLast\n    };\n})();\nvar PS = PS || {};\nPS.Data_Monoid_Product = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Product = function (value0) {\n        return {\n            ctor: \"Data.Monoid.Product.Product\", \n            values: [ value0 ]\n        };\n    };\n    var showProduct = function (_) {\n        return {\n            \"__superclasses\": {}, \n            show: function (_146) {\n                return \"Product (\" + Prelude.show(Prelude.showNumber({}))(_146.values[0]) + \")\";\n            }\n        };\n    };\n    var semigroupProduct = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<>\": function (_147) {\n                return function (_148) {\n                    return Product(_147.values[0] * _148.values[0]);\n                };\n            }\n        };\n    };\n    var runProduct = function (_139) {\n        return _139.values[0];\n    };\n    var monoidProduct = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Semigroup_0\": function (_) {\n                    return semigroupProduct({});\n                }\n            }, \n            mempty: Product(1)\n        };\n    };\n    var eqProduct = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": function (_140) {\n                return function (_141) {\n                    return _140.values[0] === _141.values[0];\n                };\n            }, \n            \"/=\": function (_142) {\n                return function (_143) {\n                    return _142.values[0] !== _143.values[0];\n                };\n            }\n        };\n    };\n    var ordProduct = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Eq_0\": function (_) {\n                    return eqProduct({});\n                }\n            }, \n            compare: function (_144) {\n                return function (_145) {\n                    return Prelude.compare(Prelude.ordNumber({}))(_144.values[0])(_145.values[0]);\n                };\n            }\n        };\n    };\n    return {\n        Product: Product, \n        runProduct: runProduct, \n        eqProduct: eqProduct, \n        ordProduct: ordProduct, \n        showProduct: showProduct, \n        semigroupProduct: semigroupProduct, \n        monoidProduct: monoidProduct\n    };\n})();\nvar PS = PS || {};\nPS.Data_Monoid_Sum = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Sum = function (value0) {\n        return {\n            ctor: \"Data.Monoid.Sum.Sum\", \n            values: [ value0 ]\n        };\n    };\n    var showSum = function (_) {\n        return {\n            \"__superclasses\": {}, \n            show: function (_156) {\n                return \"Sum (\" + Prelude.show(Prelude.showNumber({}))(_156.values[0]) + \")\";\n            }\n        };\n    };\n    var semigroupSum = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<>\": function (_157) {\n                return function (_158) {\n                    return Sum(_157.values[0] + _158.values[0]);\n                };\n            }\n        };\n    };\n    var runSum = function (_149) {\n        return _149.values[0];\n    };\n    var monoidSum = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Semigroup_0\": function (_) {\n                    return semigroupSum({});\n                }\n            }, \n            mempty: Sum(0)\n        };\n    };\n    var eqSum = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"==\": function (_150) {\n                return function (_151) {\n                    return _150.values[0] === _151.values[0];\n                };\n            }, \n            \"/=\": function (_152) {\n                return function (_153) {\n                    return _152.values[0] !== _153.values[0];\n                };\n            }\n        };\n    };\n    var ordSum = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Eq_0\": function (_) {\n                    return eqSum({});\n                }\n            }, \n            compare: function (_154) {\n                return function (_155) {\n                    return Prelude.compare(Prelude.ordNumber({}))(_154.values[0])(_155.values[0]);\n                };\n            }\n        };\n    };\n    return {\n        Sum: Sum, \n        runSum: runSum, \n        eqSum: eqSum, \n        ordSum: ordSum, \n        showSum: showSum, \n        semigroupSum: semigroupSum, \n        monoidSum: monoidSum\n    };\n})();\nvar PS = PS || {};\nPS.Data_Tuple = (function () {\n    \"use strict\";\n    var Data_Array = PS.Data_Array;\n    var Prelude = PS.Prelude;\n    var Data_Monoid = PS.Data_Monoid;\n    var Tuple = function (value0) {\n        return function (value1) {\n            return {\n                ctor: \"Data.Tuple.Tuple\", \n                values: [ value0, value1 ]\n            };\n        };\n    };\n    var zip = Data_Array.zipWith(Tuple);\n    var unzip = function (_163) {\n        if (_163.length > 0) {\n            var _548 = _163.slice(1);\n            return (function (_544) {\n                return Tuple(Prelude[\":\"]((_163[0]).values[0])(_544.values[0]))(Prelude[\":\"]((_163[0]).values[1])(_544.values[1]));\n            })(unzip(_548));\n        };\n        if (_163.length === 0) {\n            return Tuple([  ])([  ]);\n        };\n        throw \"Failed pattern match\";\n    };\n    var uncurry = function (_161) {\n        return function (_162) {\n            return _161(_162.values[0])(_162.values[1]);\n        };\n    };\n    var swap = function (_164) {\n        return Tuple(_164.values[1])(_164.values[0]);\n    };\n    var snd = function (_160) {\n        return _160.values[1];\n    };\n    var showTuple = function (__dict_Show_44) {\n        return function (__dict_Show_45) {\n            return {\n                \"__superclasses\": {}, \n                show: function (_165) {\n                    return \"Tuple (\" + Prelude.show(__dict_Show_44)(_165.values[0]) + \") (\" + Prelude.show(__dict_Show_45)(_165.values[1]) + \")\";\n                }\n            };\n        };\n    };\n    var functorTuple = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<$>\": function (_170) {\n                return function (_171) {\n                    return Tuple(_171.values[0])(_170(_171.values[1]));\n                };\n            }\n        };\n    };\n    var fst = function (_159) {\n        return _159.values[0];\n    };\n    var eqTuple = function (__dict_Eq_49) {\n        return function (__dict_Eq_50) {\n            return {\n                \"__superclasses\": {}, \n                \"==\": function (_166) {\n                    return function (_167) {\n                        return Prelude[\"==\"](__dict_Eq_49)(_166.values[0])(_167.values[0]) && Prelude[\"==\"](__dict_Eq_50)(_166.values[1])(_167.values[1]);\n                    };\n                }, \n                \"/=\": function (t1) {\n                    return function (t2) {\n                        return !Prelude[\"==\"](eqTuple(__dict_Eq_49)(__dict_Eq_50))(t1)(t2);\n                    };\n                }\n            };\n        };\n    };\n    var ordTuple = function (__dict_Ord_46) {\n        return function (__dict_Ord_47) {\n            return {\n                \"__superclasses\": {\n                    \"Prelude.Eq_0\": function (_) {\n                        return eqTuple(__dict_Ord_46[\"__superclasses\"][\"Prelude.Eq_0\"]({}))(__dict_Ord_47[\"__superclasses\"][\"Prelude.Eq_0\"]({}));\n                    }\n                }, \n                compare: function (_168) {\n                    return function (_169) {\n                        return (function (_579) {\n                            if (_579.ctor === \"Prelude.EQ\") {\n                                return Prelude.compare(__dict_Ord_47)(_168.values[1])(_169.values[1]);\n                            };\n                            return _579;\n                        })(Prelude.compare(__dict_Ord_46)(_168.values[0])(_169.values[0]));\n                    };\n                }\n            };\n        };\n    };\n    var curry = function (f) {\n        return function (a) {\n            return function (b) {\n                return f(Tuple(a)(b));\n            };\n        };\n    };\n    var applyTuple = function (__dict_Semigroup_52) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Functor_0\": function (_) {\n                    return functorTuple({});\n                }\n            }, \n            \"<*>\": function (_172) {\n                return function (_173) {\n                    return Tuple(Prelude[\"<>\"](__dict_Semigroup_52)(_172.values[0])(_173.values[0]))(_172.values[1](_173.values[1]));\n                };\n            }\n        };\n    };\n    var bindTuple = function (__dict_Semigroup_51) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyTuple(__dict_Semigroup_51);\n                }\n            }, \n            \">>=\": function (_174) {\n                return function (_175) {\n                    return (function (_592) {\n                        return Tuple(Prelude[\"<>\"](__dict_Semigroup_51)(_174.values[0])(_592.values[0]))(_592.values[1]);\n                    })(_175(_174.values[1]));\n                };\n            }\n        };\n    };\n    var applicativeTuple = function (__dict_Monoid_53) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyTuple(__dict_Monoid_53[\"__superclasses\"][\"Prelude.Semigroup_0\"]({}));\n                }\n            }, \n            pure: Tuple(Data_Monoid.mempty(__dict_Monoid_53))\n        };\n    };\n    var monadTuple = function (__dict_Monoid_48) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Applicative_0\": function (_) {\n                    return applicativeTuple(__dict_Monoid_48);\n                }, \n                \"Prelude.Bind_1\": function (_) {\n                    return bindTuple(__dict_Monoid_48[\"__superclasses\"][\"Prelude.Semigroup_0\"]({}));\n                }\n            }\n        };\n    };\n    return {\n        Tuple: Tuple, \n        swap: swap, \n        unzip: unzip, \n        zip: zip, \n        uncurry: uncurry, \n        curry: curry, \n        snd: snd, \n        fst: fst, \n        showTuple: showTuple, \n        eqTuple: eqTuple, \n        ordTuple: ordTuple, \n        functorTuple: functorTuple, \n        applyTuple: applyTuple, \n        applicativeTuple: applicativeTuple, \n        bindTuple: bindTuple, \n        monadTuple: monadTuple\n    };\n})();\nvar PS = PS || {};\nPS.Starter_Kit_Example = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var addThenDivide = function (x) {\n        return function (y) {\n            return function (z) {\n                return function (w) {\n                    return (x + y) / (z + w);\n                };\n            };\n        };\n    };\n    return {\n        addThenDivide: addThenDivide\n    };\n})();\nvar PS = PS || {};\nPS.Control_Monad_Eff = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    function returnE(a) {  return function() {    return a;  };};\n    function bindE(a) {  return function(f) {    return function() {      return f(a())();    };  };};\n    function runPure(f) {  return f();};\n    function untilE(f) {  return function() {    while (!f()) { }    return {};  };};\n    function whileE(f) {  return function(a) {    return function() {      while (f()) {        a();      }      return {};    };  };};\n    function forE(lo) {  return function(hi) {    return function(f) {      return function() {        for (var i = lo; i < hi; i++) {          f(i)();        }      };    };  };};\n    function foreachE(as) {  return function(f) {    for (var i = 0; i < as.length; i++) {      f(as[i])();    }  };};\n    var applicativeEff = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyEff({});\n                }\n            }, \n            pure: returnE\n        };\n    };\n    var applyEff = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Functor_0\": function (_) {\n                    return functorEff({});\n                }\n            }, \n            \"<*>\": Prelude.ap(monadEff({}))\n        };\n    };\n    var functorEff = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<$>\": Prelude.liftA1(applicativeEff({}))\n        };\n    };\n    var monadEff = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Applicative_0\": function (_) {\n                    return applicativeEff({});\n                }, \n                \"Prelude.Bind_1\": function (_) {\n                    return bindEff({});\n                }\n            }\n        };\n    };\n    var bindEff = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyEff({});\n                }\n            }, \n            \">>=\": bindE\n        };\n    };\n    return {\n        foreachE: foreachE, \n        forE: forE, \n        whileE: whileE, \n        untilE: untilE, \n        runPure: runPure, \n        bindE: bindE, \n        returnE: returnE, \n        functorEff: functorEff, \n        applyEff: applyEff, \n        applicativeEff: applicativeEff, \n        bindEff: bindEff, \n        monadEff: monadEff\n    };\n})();\nvar PS = PS || {};\nPS.Control_Monad_Eff_Exception = (function () {\n    \"use strict\";\n    function throwException(e) {  return function() {    throw e;  };};\n    function catchException(c) {  return function(t) {    return function() {      try {        return t();      } catch(e) {        return c(e)();      }    };  };};\n    return {\n        catchException: catchException, \n        throwException: throwException\n    };\n})();\nvar PS = PS || {};\nPS.Control_Monad_Eff_Random = (function () {\n    \"use strict\";\n    function random() {  return Math.random();};\n    return {\n        random: random\n    };\n})();\nvar PS = PS || {};\nPS.Control_Monad_Eff_Unsafe = (function () {\n    \"use strict\";\n    function unsafeInterleaveEff(f) {  return f;};\n    return {\n        unsafeInterleaveEff: unsafeInterleaveEff\n    };\n})();\nvar PS = PS || {};\nPS.Control_Monad_ST = (function () {\n    \"use strict\";\n    function newSTRef(val) {  return function () {    return { value: val };  };};\n    function readSTRef(ref) {  return function() {    return ref.value;  };};\n    function modifySTRef(ref) {  return function(f) {    return function() {      return ref.value = f(ref.value);    };  };};\n    function writeSTRef(ref) {  return function(a) {    return function() {      return ref.value = a;    };  };};\n    function newSTArray(len) {  return function(a) {    return function() {      var arr = [];      for (var i = 0; i < len; i++) {        arr[i] = a;      };      return arr;    };  };};\n    function peekSTArray(arr) {  return function(i) {    return function() {      return arr[i];    };  };};\n    function pokeSTArray(arr) {  return function(i) {    return function(a) {      return function() {        return arr[i] = a;      };    };  };};\n    function runST(f) {  return f;};\n    function runSTArray(f) {  return f;};\n    return {\n        runSTArray: runSTArray, \n        runST: runST, \n        pokeSTArray: pokeSTArray, \n        peekSTArray: peekSTArray, \n        newSTArray: newSTArray, \n        writeSTRef: writeSTRef, \n        modifySTRef: modifySTRef, \n        readSTRef: readSTRef, \n        newSTRef: newSTRef\n    };\n})();\nvar PS = PS || {};\nPS.Debug_Trace = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    function trace(s) {  return function() {    console.log(s);    return {};  };};\n    var print = function (__dict_Show_54) {\n        return function (o) {\n            return trace(Prelude.show(__dict_Show_54)(o));\n        };\n    };\n    return {\n        print: print, \n        trace: trace\n    };\n})();\nvar PS = PS || {};\nPS.Test_QuickCheck_LCG = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Gen = function (value0) {\n        return {\n            ctor: \"Test.QuickCheck.LCG.Gen\", \n            values: [ value0 ]\n        };\n    };\n    function randomSeed() {  return Math.floor(Math.random() * (1 << 30));};\n    function float32ToInt32(n) {  var arr = new ArrayBuffer(4);  var fv = new Float32Array(arr);  var iv = new Int32Array(arr);  fv[0] = n;  return iv[0];};\n    var runGen = function (_176) {\n        return _176.values[0];\n    };\n    var lcgN = 1 << 30;\n    var lcgM = 1103515245;\n    var lcgC = 12345;\n    var lcgNext = function (n) {\n        return (lcgM * n + lcgC) % lcgN;\n    };\n    var lcgStep = Gen(function (l) {\n        return {\n            value: l, \n            newSeed: lcgNext(l)\n        };\n    });\n    var perturbGen = function (_177) {\n        return function (_178) {\n            return Gen(function (l) {\n                return _178.values[0](lcgNext(float32ToInt32(_177)) + l);\n            });\n        };\n    };\n    var functorGen = function (_) {\n        return {\n            \"__superclasses\": {}, \n            \"<$>\": function (_179) {\n                return function (_180) {\n                    return Gen(function (l) {\n                        return (function (_604) {\n                            return {\n                                value: _179(_604.value), \n                                newSeed: _604.newSeed\n                            };\n                        })(_180.values[0](l));\n                    });\n                };\n            }\n        };\n    };\n    var uniform = Prelude[\"<$>\"](functorGen({}))(function (n) {\n        return n / (1 << 30);\n    })(lcgStep);\n    var evalGen = function (gen) {\n        return function (seed) {\n            return (runGen(gen)(seed)).value;\n        };\n    };\n    var applyGen = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Functor_0\": function (_) {\n                    return functorGen({});\n                }\n            }, \n            \"<*>\": function (_181) {\n                return function (_182) {\n                    return Gen(function (l) {\n                        return (function (_610) {\n                            return (function (_611) {\n                                return {\n                                    value: _610.value(_611.value), \n                                    newSeed: _611.newSeed\n                                };\n                            })(_182.values[0](_610.newSeed));\n                        })(_181.values[0](l));\n                    });\n                };\n            }\n        };\n    };\n    var bindGen = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyGen({});\n                }\n            }, \n            \">>=\": function (_183) {\n                return function (_184) {\n                    return Gen(function (l) {\n                        return (function (_620) {\n                            return runGen(_184(_620.value))(_620.newSeed);\n                        })(_183.values[0](l));\n                    });\n                };\n            }\n        };\n    };\n    var applicativeGen = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Apply_0\": function (_) {\n                    return applyGen({});\n                }\n            }, \n            pure: function (a) {\n                return Gen(function (l) {\n                    return {\n                        value: a, \n                        newSeed: l\n                    };\n                });\n            }\n        };\n    };\n    var monadGen = function (_) {\n        return {\n            \"__superclasses\": {\n                \"Prelude.Applicative_0\": function (_) {\n                    return applicativeGen({});\n                }, \n                \"Prelude.Bind_1\": function (_) {\n                    return bindGen({});\n                }\n            }\n        };\n    };\n    return {\n        Gen: Gen, \n        perturbGen: perturbGen, \n        float32ToInt32: float32ToInt32, \n        uniform: uniform, \n        lcgStep: lcgStep, \n        lcgNext: lcgNext, \n        lcgN: lcgN, \n        lcgC: lcgC, \n        lcgM: lcgM, \n        randomSeed: randomSeed, \n        evalGen: evalGen, \n        runGen: runGen, \n        functorGen: functorGen, \n        applyGen: applyGen, \n        applicativeGen: applicativeGen, \n        bindGen: bindGen, \n        monadGen: monadGen\n    };\n})();\nvar PS = PS || {};\nPS.Test_QuickCheck = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Test_QuickCheck_LCG = PS.Test_QuickCheck_LCG;\n    var Control_Monad_Eff = PS.Control_Monad_Eff;\n    var Control_Monad_Eff_Exception = PS.Control_Monad_Eff_Exception;\n    var Debug_Trace = PS.Debug_Trace;\n    var Success = {\n        ctor: \"Test.QuickCheck.Success\", \n        values: [  ]\n    };\n    var Failed = function (value0) {\n        return {\n            ctor: \"Test.QuickCheck.Failed\", \n            values: [ value0 ]\n        };\n    };\n    var $less$qmark$greater = function (_185) {\n        return function (_186) {\n            if (_185) {\n                return Success;\n            };\n            if (!_185) {\n                return Failed(_186);\n            };\n            throw \"Failed pattern match\";\n        };\n    };\n    var testableResult = function (_) {\n        return {\n            \"__superclasses\": {}, \n            test: Prelude[\"return\"](Test_QuickCheck_LCG.monadGen({}))\n        };\n    };\n    var testableBoolean = function (_) {\n        return {\n            \"__superclasses\": {}, \n            test: function (_193) {\n                if (_193) {\n                    return Prelude[\"return\"](Test_QuickCheck_LCG.monadGen({}))(Success);\n                };\n                if (!_193) {\n                    return Prelude[\"return\"](Test_QuickCheck_LCG.monadGen({}))(Failed(\"Test returned false\"));\n                };\n                throw \"Failed pattern match\";\n            }\n        };\n    };\n    var test = function (dict) {\n        return dict.test;\n    };\n    var showResult = function (_) {\n        return {\n            \"__superclasses\": {}, \n            show: function (_187) {\n                if (_187.ctor === \"Test.QuickCheck.Success\") {\n                    return \"Success\";\n                };\n                if (_187.ctor === \"Test.QuickCheck.Failed\") {\n                    return \"Failed: \" + _187.values[0];\n                };\n                throw \"Failed pattern match\";\n            }\n        };\n    };\n    var repeatable = function (f) {\n        return Test_QuickCheck_LCG.Gen(function (l) {\n            return {\n                value: function (a) {\n                    return (Test_QuickCheck_LCG.runGen(f(a))(l)).value;\n                }, \n                newSeed: l\n            };\n        });\n    };\n    var quickCheckPure = function (__dict_Testable_55) {\n        return function (seed) {\n            return function (n) {\n                return function (prop) {\n                    var go = function (_194) {\n                        if (_194 <= 0) {\n                            return Prelude[\"return\"](Test_QuickCheck_LCG.monadGen({}))([  ]);\n                        };\n                        return Prelude[\">>=\"](Test_QuickCheck_LCG.bindGen({}))(test(__dict_Testable_55)(prop))(function (_10) {\n                            return Prelude[\">>=\"](Test_QuickCheck_LCG.bindGen({}))(go(_194 - 1))(function (_9) {\n                                return Prelude[\"return\"](Test_QuickCheck_LCG.monadGen({}))(Prelude[\":\"](_10)(_9));\n                            });\n                        });\n                    };\n                    return Test_QuickCheck_LCG.evalGen(go(n))(seed);\n                };\n            };\n        };\n    };\n    var quickCheck$prime = function (__dict_Testable_56) {\n        return function (n) {\n            return function (prop) {\n                var throwOnFirstFailure = function (__copy__195) {\n                    return function (__copy__196) {\n                        var _195 = __copy__195;\n                        var _196 = __copy__196;\n                        tco: while (true) {\n                            if (_196.length === 0) {\n                                return Prelude[\"return\"](Control_Monad_Eff.monadEff({}))(Prelude.unit);\n                            };\n                            var n = _195;\n                            if (_196.length > 0) {\n                                var _635 = _196.slice(1);\n                                if ((_196[0]).ctor === \"Test.QuickCheck.Failed\") {\n                                    return Control_Monad_Eff_Exception.throwException(\"Test \" + Prelude.show(Prelude.showNumber({}))(n) + \" failed: \\n\" + (_196[0]).values[0]);\n                                };\n                            };\n                            if (_196.length > 0) {\n                                var _638 = _196.slice(1);\n                                var __tco__195 = _195 + 1;\n                                _195 = __tco__195;\n                                _196 = _638;\n                                continue tco;\n                            };\n                            throw \"Failed pattern match\";\n                        };\n                    };\n                };\n                var countSuccesses = function (_197) {\n                    if (_197.length === 0) {\n                        return 0;\n                    };\n                    if (_197.length > 0) {\n                        var _641 = _197.slice(1);\n                        if ((_197[0]).ctor === \"Test.QuickCheck.Success\") {\n                            return 1 + countSuccesses(_641);\n                        };\n                    };\n                    if (_197.length > 0) {\n                        var _643 = _197.slice(1);\n                        return countSuccesses(_643);\n                    };\n                    throw \"Failed pattern match\";\n                };\n                return function __do() {\n                    var _11 = Test_QuickCheck_LCG.randomSeed();\n                    return (function () {\n                        var results = quickCheckPure(__dict_Testable_56)(_11)(n)(prop);\n                        var successes = countSuccesses(results);\n                        return function __do() {\n                            Debug_Trace.trace(Prelude.show(Prelude.showNumber({}))(successes) + \"/\" + Prelude.show(Prelude.showNumber({}))(n) + \" test(s) passed.\")();\n                            return throwOnFirstFailure(1)(results)();\n                        };\n                    })()();\n                };\n            };\n        };\n    };\n    var quickCheck = function (__dict_Testable_57) {\n        return function (prop) {\n            return quickCheck$prime(__dict_Testable_57)(100)(prop);\n        };\n    };\n    var coarbitrary = function (dict) {\n        return dict.coarbitrary;\n    };\n    var coarbNumber = function (_) {\n        return {\n            \"__superclasses\": {}, \n            coarbitrary: Test_QuickCheck_LCG.perturbGen\n        };\n    };\n    var coarbBoolean = function (_) {\n        return {\n            \"__superclasses\": {}, \n            coarbitrary: function (_188) {\n                return function (_189) {\n                    if (_188) {\n                        return Test_QuickCheck_LCG.Gen(function (l) {\n                            return _189.values[0](l + 1);\n                        });\n                    };\n                    if (!_188) {\n                        return Test_QuickCheck_LCG.Gen(function (l) {\n                            return _189.values[0](l + 2);\n                        });\n                    };\n                    throw \"Failed pattern match\";\n                };\n            }\n        };\n    };\n    var coarbArray = function (__dict_CoArbitrary_58) {\n        return {\n            \"__superclasses\": {}, \n            coarbitrary: function (_192) {\n                if (_192.length === 0) {\n                    return Prelude.id(Prelude.categoryArr({}));\n                };\n                if (_192.length > 0) {\n                    var _651 = _192.slice(1);\n                    return Prelude[\"<<<\"](Prelude.semigroupoidArr({}))(coarbitrary(coarbArray(__dict_CoArbitrary_58))(_651))(coarbitrary(__dict_CoArbitrary_58)(_192[0]));\n                };\n                throw \"Failed pattern match\";\n            }\n        };\n    };\n    var arbitrary = function (dict) {\n        return dict.arbitrary;\n    };\n    var testableFunction = function (__dict_Arbitrary_61) {\n        return function (__dict_Testable_62) {\n            return {\n                \"__superclasses\": {}, \n                test: function (f) {\n                    return Prelude[\">>=\"](Test_QuickCheck_LCG.bindGen({}))(arbitrary(__dict_Arbitrary_61))(function (_8) {\n                        return test(__dict_Testable_62)(f(_8));\n                    });\n                }\n            };\n        };\n    };\n    var arbNumber = function (_) {\n        return {\n            \"__superclasses\": {}, \n            arbitrary: Test_QuickCheck_LCG.uniform\n        };\n    };\n    var arbFunction = function (__dict_CoArbitrary_63) {\n        return function (__dict_Arbitrary_64) {\n            return {\n                \"__superclasses\": {}, \n                arbitrary: repeatable(function (a) {\n                    return coarbitrary(__dict_CoArbitrary_63)(a)(arbitrary(__dict_Arbitrary_64));\n                })\n            };\n        };\n    };\n    var arbBoolean = function (_) {\n        return {\n            \"__superclasses\": {}, \n            arbitrary: Prelude[\">>=\"](Test_QuickCheck_LCG.bindGen({}))(Test_QuickCheck_LCG.uniform)(function (_3) {\n                return Prelude[\"return\"](Test_QuickCheck_LCG.monadGen({}))((_3 * 2) < 1);\n            })\n        };\n    };\n    var arbArray = function (__dict_Arbitrary_65) {\n        return {\n            \"__superclasses\": {}, \n            arbitrary: Prelude[\">>=\"](Test_QuickCheck_LCG.bindGen({}))(arbitrary(arbBoolean({})))(function (_7) {\n                return _7 ? Prelude[\"return\"](Test_QuickCheck_LCG.monadGen({}))([  ]) : Prelude[\">>=\"](Test_QuickCheck_LCG.bindGen({}))(arbitrary(__dict_Arbitrary_65))(function (_6) {\n    return Prelude[\">>=\"](Test_QuickCheck_LCG.bindGen({}))(arbitrary(arbArray(__dict_Arbitrary_65)))(function (_5) {\n        return Prelude[\"return\"](Test_QuickCheck_LCG.monadGen({}))(Prelude[\":\"](_6)(_5));\n    });\n});\n            })\n        };\n    };\n    var coarbFunction = function (__dict_Arbitrary_59) {\n        return function (__dict_CoArbitrary_60) {\n            return {\n                \"__superclasses\": {}, \n                coarbitrary: function (f) {\n                    return function (gen) {\n                        var map = function (_190) {\n                            return function (_191) {\n                                if (_191.length === 0) {\n                                    return [  ];\n                                };\n                                if (_191.length > 0) {\n                                    var _660 = _191.slice(1);\n                                    return Prelude[\":\"](_190(_191[0]))(map(_190)(_660));\n                                };\n                                throw \"Failed pattern match\";\n                            };\n                        };\n                        return Prelude[\">>=\"](Test_QuickCheck_LCG.bindGen({}))(arbitrary(arbArray(__dict_Arbitrary_59)))(function (_4) {\n                            return coarbitrary(coarbArray(__dict_CoArbitrary_60))(map(f)(_4))(gen);\n                        });\n                    };\n                }\n            };\n        };\n    };\n    return {\n        Success: Success, \n        Failed: Failed, \n        quickCheck: quickCheck, \n        \"quickCheck'\": quickCheck$prime, \n        quickCheckPure: quickCheckPure, \n        test: test, \n        repeatable: repeatable, \n        \"<?>\": $less$qmark$greater, \n        coarbitrary: coarbitrary, \n        arbitrary: arbitrary, \n        showResult: showResult, \n        arbNumber: arbNumber, \n        coarbNumber: coarbNumber, \n        arbBoolean: arbBoolean, \n        coarbBoolean: coarbBoolean, \n        arbFunction: arbFunction, \n        coarbFunction: coarbFunction, \n        arbArray: arbArray, \n        coarbArray: coarbArray, \n        testableResult: testableResult, \n        testableBoolean: testableBoolean, \n        testableFunction: testableFunction\n    };\n})();\nvar PS = PS || {};\nPS.Control_Monad = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var when = function (__dict_Monad_66) {\n        return function (_203) {\n            return function (_204) {\n                if (_203) {\n                    return _204;\n                };\n                if (!_203) {\n                    return Prelude[\"return\"](__dict_Monad_66)(Prelude.unit);\n                };\n                throw \"Failed pattern match\";\n            };\n        };\n    };\n    var unless = function (__dict_Monad_67) {\n        return function (_205) {\n            return function (_206) {\n                if (!_205) {\n                    return _206;\n                };\n                if (_205) {\n                    return Prelude[\"return\"](__dict_Monad_67)(Prelude.unit);\n                };\n                throw \"Failed pattern match\";\n            };\n        };\n    };\n    var replicateM = function (__dict_Monad_68) {\n        return function (_198) {\n            return function (_199) {\n                if (_198 === 0) {\n                    return Prelude[\"return\"](__dict_Monad_68)([  ]);\n                };\n                return Prelude[\">>=\"](__dict_Monad_68[\"__superclasses\"][\"Prelude.Bind_1\"]({}))(_199)(function (_13) {\n                    return Prelude[\">>=\"](__dict_Monad_68[\"__superclasses\"][\"Prelude.Bind_1\"]({}))(replicateM(__dict_Monad_68)(_198 - 1)(_199))(function (_12) {\n                        return Prelude[\"return\"](__dict_Monad_68)(Prelude[\":\"](_13)(_12));\n                    });\n                });\n            };\n        };\n    };\n    var foldM = function (__dict_Monad_69) {\n        return function (_200) {\n            return function (_201) {\n                return function (_202) {\n                    if (_202.length === 0) {\n                        return Prelude[\"return\"](__dict_Monad_69)(_201);\n                    };\n                    if (_202.length > 0) {\n                        var _674 = _202.slice(1);\n                        return Prelude[\">>=\"](__dict_Monad_69[\"__superclasses\"][\"Prelude.Bind_1\"]({}))(_200(_201)(_202[0]))(function (a$prime) {\n                            return foldM(__dict_Monad_69)(_200)(a$prime)(_674);\n                        });\n                    };\n                    throw \"Failed pattern match\";\n                };\n            };\n        };\n    };\n    return {\n        unless: unless, \n        when: when, \n        foldM: foldM, \n        replicateM: replicateM\n    };\n})();\nvar PS = PS || {};\nPS.Control_Bind = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var $greater$eq$greater = function (__dict_Bind_70) {\n        return function (f) {\n            return function (g) {\n                return function (a) {\n                    return Prelude[\">>=\"](__dict_Bind_70)(f(a))(g);\n                };\n            };\n        };\n    };\n    var $eq$less$less = function (__dict_Bind_71) {\n        return function (f) {\n            return function (m) {\n                return Prelude[\">>=\"](__dict_Bind_71)(m)(f);\n            };\n        };\n    };\n    var $less$eq$less = function (__dict_Bind_72) {\n        return function (f) {\n            return function (g) {\n                return function (a) {\n                    return $eq$less$less(__dict_Bind_72)(f)(g(a));\n                };\n            };\n        };\n    };\n    var join = function (__dict_Bind_73) {\n        return function (m) {\n            return Prelude[\">>=\"](__dict_Bind_73)(m)(Prelude.id(Prelude.categoryArr({})));\n        };\n    };\n    var ifM = function (__dict_Bind_74) {\n        return function (cond) {\n            return function (t) {\n                return function (f) {\n                    return Prelude[\">>=\"](__dict_Bind_74)(cond)(function (cond$prime) {\n                        return cond$prime ? t : f;\n                    });\n                };\n            };\n        };\n    };\n    return {\n        ifM: ifM, \n        join: join, \n        \"<=<\": $less$eq$less, \n        \">=>\": $greater$eq$greater, \n        \"=<<\": $eq$less$less\n    };\n})();\nvar PS = PS || {};\nPS.Control_Apply = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var $less$times = function (__dict_Apply_75) {\n        return function (a) {\n            return function (b) {\n                return Prelude[\"<*>\"](__dict_Apply_75)(Prelude[\"<$>\"](__dict_Apply_75[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(Prelude[\"const\"])(a))(b);\n            };\n        };\n    };\n    var $times$greater = function (__dict_Apply_76) {\n        return function (a) {\n            return function (b) {\n                return Prelude[\"<*>\"](__dict_Apply_76)(Prelude[\"<$>\"](__dict_Apply_76[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(Prelude[\"const\"](Prelude.id(Prelude.categoryArr({}))))(a))(b);\n            };\n        };\n    };\n    var lift5 = function (__dict_Apply_77) {\n        return function (f) {\n            return function (a) {\n                return function (b) {\n                    return function (c) {\n                        return function (d) {\n                            return function (e) {\n                                return Prelude[\"<*>\"](__dict_Apply_77)(Prelude[\"<*>\"](__dict_Apply_77)(Prelude[\"<*>\"](__dict_Apply_77)(Prelude[\"<*>\"](__dict_Apply_77)(Prelude[\"<$>\"](__dict_Apply_77[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(f)(a))(b))(c))(d))(e);\n                            };\n                        };\n                    };\n                };\n            };\n        };\n    };\n    var lift4 = function (__dict_Apply_78) {\n        return function (f) {\n            return function (a) {\n                return function (b) {\n                    return function (c) {\n                        return function (d) {\n                            return Prelude[\"<*>\"](__dict_Apply_78)(Prelude[\"<*>\"](__dict_Apply_78)(Prelude[\"<*>\"](__dict_Apply_78)(Prelude[\"<$>\"](__dict_Apply_78[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(f)(a))(b))(c))(d);\n                        };\n                    };\n                };\n            };\n        };\n    };\n    var lift3 = function (__dict_Apply_79) {\n        return function (f) {\n            return function (a) {\n                return function (b) {\n                    return function (c) {\n                        return Prelude[\"<*>\"](__dict_Apply_79)(Prelude[\"<*>\"](__dict_Apply_79)(Prelude[\"<$>\"](__dict_Apply_79[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(f)(a))(b))(c);\n                    };\n                };\n            };\n        };\n    };\n    var lift2 = function (__dict_Apply_80) {\n        return function (f) {\n            return function (a) {\n                return function (b) {\n                    return Prelude[\"<*>\"](__dict_Apply_80)(Prelude[\"<$>\"](__dict_Apply_80[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(f)(a))(b);\n                };\n            };\n        };\n    };\n    var forever = function (__dict_Apply_81) {\n        return function (a) {\n            return $times$greater(__dict_Apply_81)(a)(forever(__dict_Apply_81)(a));\n        };\n    };\n    return {\n        forever: forever, \n        lift5: lift5, \n        lift4: lift4, \n        lift3: lift3, \n        lift2: lift2, \n        \"*>\": $times$greater, \n        \"<*\": $less$times\n    };\n})();\nvar PS = PS || {};\nPS.Data_Foldable = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Control_Apply = PS.Control_Apply;\n    var Data_Monoid = PS.Data_Monoid;\n    var Data_Monoid_First = PS.Data_Monoid_First;\n    var Data_Maybe = PS.Data_Maybe;\n    function foldrArray(f) {  return function(z) {    return function(xs) {      var acc = z;      for (var i = xs.length - 1; i >= 0; --i) {        acc = f(xs[i])(acc);      }      return acc;    }  }};\n    function foldlArray(f) {  return function(z) {    return function(xs) {      var acc = z;      for (var i = 0, len = xs.length; i < len; ++i) {        acc = f(acc)(xs[i]);      }      return acc;    }  }};\n    var foldr = function (dict) {\n        return dict.foldr;\n    };\n    var traverse_ = function (__dict_Applicative_82) {\n        return function (__dict_Foldable_83) {\n            return function (f) {\n                return foldr(__dict_Foldable_83)(Prelude[\"<<<\"](Prelude.semigroupoidArr({}))(Control_Apply[\"*>\"](__dict_Applicative_82[\"__superclasses\"][\"Prelude.Apply_0\"]({})))(f))(Prelude.pure(__dict_Applicative_82)(Prelude.unit));\n            };\n        };\n    };\n    var for_ = function (__dict_Applicative_84) {\n        return function (__dict_Foldable_85) {\n            return Prelude.flip(traverse_(__dict_Applicative_84)(__dict_Foldable_85));\n        };\n    };\n    var sequence_ = function (__dict_Applicative_86) {\n        return function (__dict_Foldable_87) {\n            return traverse_(__dict_Applicative_86)(__dict_Foldable_87)(Prelude.id(Prelude.categoryArr({})));\n        };\n    };\n    var foldl = function (dict) {\n        return dict.foldl;\n    };\n    var mconcat = function (__dict_Foldable_88) {\n        return function (__dict_Monoid_89) {\n            return foldl(__dict_Foldable_88)(Prelude[\"<>\"](__dict_Monoid_89[\"__superclasses\"][\"Prelude.Semigroup_0\"]({})))(Data_Monoid.mempty(__dict_Monoid_89));\n        };\n    };\n    var or = function (__dict_Foldable_90) {\n        return foldl(__dict_Foldable_90)(Prelude[\"||\"](Prelude.boolLikeBoolean({})))(false);\n    };\n    var product = function (__dict_Foldable_91) {\n        return foldl(__dict_Foldable_91)(Prelude[\"*\"](Prelude.numNumber({})))(1);\n    };\n    var sum = function (__dict_Foldable_92) {\n        return foldl(__dict_Foldable_92)(Prelude[\"+\"](Prelude.numNumber({})))(0);\n    };\n    var foldableTuple = function (_) {\n        return {\n            \"__superclasses\": {}, \n            foldr: function (_232) {\n                return function (_233) {\n                    return function (_234) {\n                        return _232(_234.values[1])(_233);\n                    };\n                };\n            }, \n            foldl: function (_235) {\n                return function (_236) {\n                    return function (_237) {\n                        return _235(_236)(_237.values[1]);\n                    };\n                };\n            }, \n            foldMap: function (__dict_Monoid_93) {\n                return function (_238) {\n                    return function (_239) {\n                        return _238(_239.values[1]);\n                    };\n                };\n            }\n        };\n    };\n    var foldableRef = function (_) {\n        return {\n            \"__superclasses\": {}, \n            foldr: function (_224) {\n                return function (_225) {\n                    return function (_226) {\n                        return _224(_226.values[0])(_225);\n                    };\n                };\n            }, \n            foldl: function (_227) {\n                return function (_228) {\n                    return function (_229) {\n                        return _227(_228)(_229.values[0]);\n                    };\n                };\n            }, \n            foldMap: function (__dict_Monoid_94) {\n                return function (_230) {\n                    return function (_231) {\n                        return _230(_231.values[0]);\n                    };\n                };\n            }\n        };\n    };\n    var foldableMaybe = function (_) {\n        return {\n            \"__superclasses\": {}, \n            foldr: function (_216) {\n                return function (_217) {\n                    return function (_218) {\n                        if (_218.ctor === \"Data.Maybe.Nothing\") {\n                            return _217;\n                        };\n                        if (_218.ctor === \"Data.Maybe.Just\") {\n                            return _216(_218.values[0])(_217);\n                        };\n                        throw \"Failed pattern match\";\n                    };\n                };\n            }, \n            foldl: function (_219) {\n                return function (_220) {\n                    return function (_221) {\n                        if (_221.ctor === \"Data.Maybe.Nothing\") {\n                            return _220;\n                        };\n                        if (_221.ctor === \"Data.Maybe.Just\") {\n                            return _219(_220)(_221.values[0]);\n                        };\n                        throw \"Failed pattern match\";\n                    };\n                };\n            }, \n            foldMap: function (__dict_Monoid_95) {\n                return function (_222) {\n                    return function (_223) {\n                        if (_223.ctor === \"Data.Maybe.Nothing\") {\n                            return Data_Monoid.mempty(__dict_Monoid_95);\n                        };\n                        if (_223.ctor === \"Data.Maybe.Just\") {\n                            return _222(_223.values[0]);\n                        };\n                        throw \"Failed pattern match\";\n                    };\n                };\n            }\n        };\n    };\n    var foldableEither = function (_) {\n        return {\n            \"__superclasses\": {}, \n            foldr: function (_208) {\n                return function (_209) {\n                    return function (_210) {\n                        if (_210.ctor === \"Data.Either.Left\") {\n                            return _209;\n                        };\n                        if (_210.ctor === \"Data.Either.Right\") {\n                            return _208(_210.values[0])(_209);\n                        };\n                        throw \"Failed pattern match\";\n                    };\n                };\n            }, \n            foldl: function (_211) {\n                return function (_212) {\n                    return function (_213) {\n                        if (_213.ctor === \"Data.Either.Left\") {\n                            return _212;\n                        };\n                        if (_213.ctor === \"Data.Either.Right\") {\n                            return _211(_212)(_213.values[0]);\n                        };\n                        throw \"Failed pattern match\";\n                    };\n                };\n            }, \n            foldMap: function (__dict_Monoid_96) {\n                return function (_214) {\n                    return function (_215) {\n                        if (_215.ctor === \"Data.Either.Left\") {\n                            return Data_Monoid.mempty(__dict_Monoid_96);\n                        };\n                        if (_215.ctor === \"Data.Either.Right\") {\n                            return _214(_215.values[0]);\n                        };\n                        throw \"Failed pattern match\";\n                    };\n                };\n            }\n        };\n    };\n    var foldableArray = function (_) {\n        return {\n            \"__superclasses\": {}, \n            foldr: function (f) {\n                return function (z) {\n                    return function (xs) {\n                        return foldrArray(f)(z)(xs);\n                    };\n                };\n            }, \n            foldl: function (f) {\n                return function (z) {\n                    return function (xs) {\n                        return foldlArray(f)(z)(xs);\n                    };\n                };\n            }, \n            foldMap: function (__dict_Monoid_97) {\n                return function (f) {\n                    return function (xs) {\n                        return foldr(foldableArray({}))(function (x) {\n                            return function (acc) {\n                                return Prelude[\"<>\"](__dict_Monoid_97[\"__superclasses\"][\"Prelude.Semigroup_0\"]({}))(f(x))(acc);\n                            };\n                        })(Data_Monoid.mempty(__dict_Monoid_97))(xs);\n                    };\n                };\n            }\n        };\n    };\n    var foldMap = function (dict) {\n        return dict.foldMap;\n    };\n    var lookup = function (__dict_Eq_98) {\n        return function (__dict_Foldable_99) {\n            return function (a) {\n                return function (f) {\n                    return Data_Monoid_First.runFirst(foldMap(__dict_Foldable_99)(Data_Monoid_First.monoidFirst({}))(function (_207) {\n                        return Data_Monoid_First.First(Prelude[\"==\"](__dict_Eq_98)(a)(_207.values[0]) ? Data_Maybe.Just(_207.values[1]) : Data_Maybe.Nothing);\n                    })(f));\n                };\n            };\n        };\n    };\n    var fold = function (__dict_Foldable_100) {\n        return function (__dict_Monoid_101) {\n            return foldMap(__dict_Foldable_100)(__dict_Monoid_101)(Prelude.id(Prelude.categoryArr({})));\n        };\n    };\n    var find = function (__dict_Foldable_102) {\n        return function (p) {\n            return function (f) {\n                return (function (_728) {\n                    if (_728.length > 0) {\n                        var _730 = _728.slice(1);\n                        return Data_Maybe.Just(_728[0]);\n                    };\n                    if (_728.length === 0) {\n                        return Data_Maybe.Nothing;\n                    };\n                    throw \"Failed pattern match\";\n                })(foldMap(__dict_Foldable_102)(Data_Monoid.monoidArray({}))(function (x) {\n                    return p(x) ? [ x ] : [  ];\n                })(f));\n            };\n        };\n    };\n    var any = function (__dict_Foldable_103) {\n        return function (p) {\n            return Prelude[\"<<<\"](Prelude.semigroupoidArr({}))(or(foldableArray({})))(foldMap(__dict_Foldable_103)(Data_Monoid.monoidArray({}))(function (x) {\n                return [ p(x) ];\n            }));\n        };\n    };\n    var elem = function (__dict_Eq_104) {\n        return function (__dict_Foldable_105) {\n            return Prelude[\"<<<\"](Prelude.semigroupoidArr({}))(any(__dict_Foldable_105))(Prelude[\"==\"](__dict_Eq_104));\n        };\n    };\n    var notElem = function (__dict_Eq_106) {\n        return function (__dict_Foldable_107) {\n            return function (x) {\n                return Prelude[\"<<<\"](Prelude.semigroupoidArr({}))(Prelude.not(Prelude.boolLikeBoolean({})))(elem(__dict_Eq_106)(__dict_Foldable_107)(x));\n            };\n        };\n    };\n    var and = function (__dict_Foldable_108) {\n        return foldl(__dict_Foldable_108)(Prelude[\"&&\"](Prelude.boolLikeBoolean({})))(true);\n    };\n    var all = function (__dict_Foldable_109) {\n        return function (p) {\n            return Prelude[\"<<<\"](Prelude.semigroupoidArr({}))(and(foldableArray({})))(foldMap(__dict_Foldable_109)(Data_Monoid.monoidArray({}))(function (x) {\n                return [ p(x) ];\n            }));\n        };\n    };\n    return {\n        foldlArray: foldlArray, \n        foldrArray: foldrArray, \n        lookup: lookup, \n        find: find, \n        notElem: notElem, \n        elem: elem, \n        product: product, \n        sum: sum, \n        all: all, \n        any: any, \n        or: or, \n        and: and, \n        mconcat: mconcat, \n        \"sequence_\": sequence_, \n        \"for_\": for_, \n        \"traverse_\": traverse_, \n        fold: fold, \n        foldMap: foldMap, \n        foldl: foldl, \n        foldr: foldr, \n        foldableArray: foldableArray, \n        foldableEither: foldableEither, \n        foldableMaybe: foldableMaybe, \n        foldableRef: foldableRef, \n        foldableTuple: foldableTuple\n    };\n})();\nvar PS = PS || {};\nPS.Data_Traversable = (function () {\n    \"use strict\";\n    var Prelude = PS.Prelude;\n    var Data_Tuple = PS.Data_Tuple;\n    var Data_Eq = PS.Data_Eq;\n    var Data_Maybe = PS.Data_Maybe;\n    var Data_Either = PS.Data_Either;\n    var Data_Array = PS.Data_Array;\n    var traverse = function (dict) {\n        return dict.traverse;\n    };\n    var traversableTuple = function (_) {\n        return {\n            \"__superclasses\": {}, \n            traverse: function (__dict_Applicative_110) {\n                return function (_252) {\n                    return function (_253) {\n                        return Prelude[\"<$>\"]((__dict_Applicative_110[\"__superclasses\"][\"Prelude.Apply_0\"]({}))[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(Data_Tuple.Tuple(_253.values[0]))(_252(_253.values[1]));\n                    };\n                };\n            }, \n            sequence: function (__dict_Applicative_111) {\n                return function (_254) {\n                    return Prelude[\"<$>\"]((__dict_Applicative_111[\"__superclasses\"][\"Prelude.Apply_0\"]({}))[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(Data_Tuple.Tuple(_254.values[0]))(_254.values[1]);\n                };\n            }\n        };\n    };\n    var traversableRef = function (_) {\n        return {\n            \"__superclasses\": {}, \n            traverse: function (__dict_Applicative_112) {\n                return function (_246) {\n                    return function (_247) {\n                        return Prelude[\"<$>\"]((__dict_Applicative_112[\"__superclasses\"][\"Prelude.Apply_0\"]({}))[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(Data_Eq.Ref)(_246(_247.values[0]));\n                    };\n                };\n            }, \n            sequence: function (__dict_Applicative_113) {\n                return function (_248) {\n                    return Prelude[\"<$>\"]((__dict_Applicative_113[\"__superclasses\"][\"Prelude.Apply_0\"]({}))[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(Data_Eq.Ref)(_248.values[0]);\n                };\n            }\n        };\n    };\n    var traversableMaybe = function (_) {\n        return {\n            \"__superclasses\": {}, \n            traverse: function (__dict_Applicative_114) {\n                return function (_249) {\n                    return function (_250) {\n                        if (_250.ctor === \"Data.Maybe.Nothing\") {\n                            return Prelude.pure(__dict_Applicative_114)(Data_Maybe.Nothing);\n                        };\n                        if (_250.ctor === \"Data.Maybe.Just\") {\n                            return Prelude[\"<$>\"]((__dict_Applicative_114[\"__superclasses\"][\"Prelude.Apply_0\"]({}))[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(Data_Maybe.Just)(_249(_250.values[0]));\n                        };\n                        throw \"Failed pattern match\";\n                    };\n                };\n            }, \n            sequence: function (__dict_Applicative_115) {\n                return function (_251) {\n                    if (_251.ctor === \"Data.Maybe.Nothing\") {\n                        return Prelude.pure(__dict_Applicative_115)(Data_Maybe.Nothing);\n                    };\n                    if (_251.ctor === \"Data.Maybe.Just\") {\n                        return Prelude[\"<$>\"]((__dict_Applicative_115[\"__superclasses\"][\"Prelude.Apply_0\"]({}))[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(Data_Maybe.Just)(_251.values[0]);\n                    };\n                    throw \"Failed pattern match\";\n                };\n            }\n        };\n    };\n    var traversableEither = function (_) {\n        return {\n            \"__superclasses\": {}, \n            traverse: function (__dict_Applicative_116) {\n                return function (_243) {\n                    return function (_244) {\n                        if (_244.ctor === \"Data.Either.Left\") {\n                            return Prelude.pure(__dict_Applicative_116)(Data_Either.Left(_244.values[0]));\n                        };\n                        if (_244.ctor === \"Data.Either.Right\") {\n                            return Prelude[\"<$>\"]((__dict_Applicative_116[\"__superclasses\"][\"Prelude.Apply_0\"]({}))[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(Data_Either.Right)(_243(_244.values[0]));\n                        };\n                        throw \"Failed pattern match\";\n                    };\n                };\n            }, \n            sequence: function (__dict_Applicative_117) {\n                return function (_245) {\n                    if (_245.ctor === \"Data.Either.Left\") {\n                        return Prelude.pure(__dict_Applicative_117)(Data_Either.Left(_245.values[0]));\n                    };\n                    if (_245.ctor === \"Data.Either.Right\") {\n                        return Prelude[\"<$>\"]((__dict_Applicative_117[\"__superclasses\"][\"Prelude.Apply_0\"]({}))[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(Data_Either.Right)(_245.values[0]);\n                    };\n                    throw \"Failed pattern match\";\n                };\n            }\n        };\n    };\n    var sequence = function (dict) {\n        return dict.sequence;\n    };\n    var traversableArray = function (_) {\n        return {\n            \"__superclasses\": {}, \n            traverse: function (__dict_Applicative_118) {\n                return function (_240) {\n                    return function (_241) {\n                        if (_241.length === 0) {\n                            return Prelude.pure(__dict_Applicative_118)([  ]);\n                        };\n                        if (_241.length > 0) {\n                            var _758 = _241.slice(1);\n                            return Prelude[\"<*>\"](__dict_Applicative_118[\"__superclasses\"][\"Prelude.Apply_0\"]({}))(Prelude[\"<$>\"]((__dict_Applicative_118[\"__superclasses\"][\"Prelude.Apply_0\"]({}))[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(Prelude[\":\"])(_240(_241[0])))(traverse(traversableArray({}))(__dict_Applicative_118)(_240)(_758));\n                        };\n                        throw \"Failed pattern match\";\n                    };\n                };\n            }, \n            sequence: function (__dict_Applicative_119) {\n                return function (_242) {\n                    if (_242.length === 0) {\n                        return Prelude.pure(__dict_Applicative_119)([  ]);\n                    };\n                    if (_242.length > 0) {\n                        var _761 = _242.slice(1);\n                        return Prelude[\"<*>\"](__dict_Applicative_119[\"__superclasses\"][\"Prelude.Apply_0\"]({}))(Prelude[\"<$>\"]((__dict_Applicative_119[\"__superclasses\"][\"Prelude.Apply_0\"]({}))[\"__superclasses\"][\"Prelude.Functor_0\"]({}))(Prelude[\":\"])(_242[0]))(sequence(traversableArray({}))(__dict_Applicative_119)(_761));\n                    };\n                    throw \"Failed pattern match\";\n                };\n            }\n        };\n    };\n    var zipWithA = function (__dict_Applicative_120) {\n        return function (f) {\n            return function (xs) {\n                return function (ys) {\n                    return sequence(traversableArray({}))(__dict_Applicative_120)(Data_Array.zipWith(f)(xs)(ys));\n                };\n            };\n        };\n    };\n    var $$for = function (__dict_Applicative_121) {\n        return function (__dict_Traversable_122) {\n            return function (x) {\n                return function (f) {\n                    return traverse(__dict_Traversable_122)(__dict_Applicative_121)(f)(x);\n                };\n            };\n        };\n    };\n    return {\n        zipWithA: zipWithA, \n        \"for\": $$for, \n        sequence: sequence, \n        traverse: traverse, \n        traversableArray: traversableArray, \n        traversableEither: traversableEither, \n        traversableRef: traversableRef, \n        traversableMaybe: traversableMaybe, \n        traversableTuple: traversableTuple\n    };\n})();\n",
-			"file": "lib/psc.js",
-			"file_size": -1,
-			"file_write_time": -1,
-			"settings":
-			{
-				"buffer_size": 128834,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Package Control Messages\n========================\n\nSublimeLinter-jshint:\n--------------------\n\n  SublimeLinter-jshint\n  -------------------------------\n  This linter plugin for SublimeLinter provides an interface to jshint.\n  \n  ** IMPORTANT! **\n  \n  Before this plugin will activate, you *must*\n  follow the installation instructions here:\n  \n  https://github.com/SublimeLinter/SublimeLinter-jshint\n  \n\n\nSublimeLinter:\n-------------\n\n  \n    ____        _     _ _                _     _       _\n   / ___| _   _| |__ | (_)_ __ ___   ___| |   (_)_ __ | |_ ___ _ __\n   \\___ \\| | | | '_ \\| | | '_ ` _ \\ / _ \\ |   | | '_ \\| __/ _ \\ '__|\n    ___) | |_| | |_) | | | | | | | |  __/ |___| | | | | ||  __/ |\n   |____/ \\__,_|_.__/|_|_|_| |_| |_|\\___|_____|_|_| |_|\\__\\___|_|\n  \n  \n  Welcome to SublimeLinter, a linter framework for Sublime Text 3.\n  \n                   * * * IMPORTANT! * * *\n  \n          SublimeLinter 3 is NOT a drop-in replacement for\n          earlier versions.\n  \n          Linters *NOT* included with SublimeLinter 3, they\n          must be installed separately.\n  \n          Settings are different.\n  \n                  * * * READ THE DOCS! * * *\n  \n  Otherwise you will never know how to install linters, nor will\n  you know about all of the great new features in SublimeLinter 3.\n  \n  For complete documentation on how to install and use SublimeLinter,\n  please see:\n  \n  http://sublimelinter.readthedocs.org\n  \n  \n                   _   _      _       _\n                  | | | | ___| |_ __ | |\n                  | |_| |/ _ \\ | '_ \\| |\n                  |  _  |  __/ | |_) |_|\n                  |_| |_|\\___|_| .__/(_)\n                               |_|\n  \n  \n  I spent hundreds of hours writing and documenting SublimeLinter\n  to make it the best it can be — easy to use, easy to configure,\n  easy to update, easy to extend. If you use SublimeLinter and feel\n  it is making your coding life better and easier, please consider\n  making a donation to help fund development and support.\n  \n  To donate: https://github.com/SublimeLinter/SublimeLinter3#share-the-love\n  \n  Thank you!\n  \n",
-			"settings":
-			{
-				"buffer_size": 2098,
-				"line_ending": "Unix",
-				"name": "Package Control Messages",
-				"scratch": true
-			}
-		},
-		{
-			"file": "init.sh",
-			"settings":
-			{
-				"buffer_size": 814,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "package.json",
-			"settings":
-			{
-				"buffer_size": 259,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "\"use strict\";\nvar Prelude = require(\"Prelude\");\nvar addThenDivide = function (x) {\n    return function (y) {\n        return function (z) {\n            return function (w) {\n                return (x + y) / (z + w);\n            };\n        };\n    };\n};\nmodule.exports = {\n    addThenDivide: addThenDivide\n};",
-			"file": "output/Starter.Kit.Example/index.js",
-			"file_size": -1,
-			"file_write_time": -1,
-			"settings":
-			{
-				"buffer_size": 305,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/isaac/.config/sublime-text-3/Packages/User/Test.sublime-build",
-			"settings":
-			{
-				"buffer_size": 66,
-				"line_ending": "Unix",
-				"name": "untitled.sublime-build"
-			}
-		},
-		{
-			"contents": "module Starter.Kit.Example where\n\nimport Data.Array\nimport Data.Maybe\n\n-- This module defines a single function diffs, which\n-- returns the differences for an increasing array.\n--\n-- If the input is not increasing, it returns Nothing.\n--\n-- This contrived example was chosen to demonstrate the use\n-- of the Data.Array and Data.Maybe standard libraries.\n\n\naddThenDivide :: Number -> Number -> Number -> Number -> Number\naddThenDivide x y z w = (x + y) / (z + w)",
-			"file": "src/Starter/Kit/Example.purs",
-			"file_size": -1,
-			"file_write_time": -1,
-			"settings":
-			{
-				"buffer_size": 461,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".psci",
-			"settings":
-			{
-				"buffer_size": 1642,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/isaac/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
-			"settings":
-			{
-				"buffer_size": 218,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/isaac/.config/sublime-text-3/Packages/User/SublimeOnSaveBuild.sublime-settings",
-			"settings":
-			{
-				"buffer_size": 85,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "module Main where\n\nimport Data.Array\nimport Data.Maybe\n\nimport Debug.Trace\nimport Control.Monad.Eff\n\n-- Import the library's module(s)\nimport Starter.Kit.Example\n\n-- Import Test.QuickCheck, which supports property-based testing\nimport Test.QuickCheck\n\n-- Main.main is the entry point of the application\n--\n-- In the case of the test suite, Main.main will use QuickCheck to test a collection\n-- of properties that we expect of the diffs function.\nmain = do\n\n  -- Use quickCheck' to override the number of tests to perform.\n  -- In this case, we only need to run the test once, since there is\n  -- only one empty list.\n\n\n  trace \"what?\"\n  quickCheck' 1 $ addThenDivide 2 4 2 1 == 2\n\n",
-			"file": "tests/Tests.purs",
-			"file_size": -1,
-			"file_write_time": -1,
-			"settings":
-			{
-				"buffer_size": 681,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "tests/Presentable/Router.spec.purs",
-			"settings":
-			{
-				"buffer_size": 208,
+				"buffer_size": 861,
 				"line_ending": "Unix"
 			}
 		},
@@ -252,15 +91,47 @@
 			"file": "bower.json",
 			"settings":
 			{
-				"buffer_size": 448,
+				"buffer_size": 441,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "bower_components/purescript-math/src/Math.purs",
+			"file": "tmp/Test.js",
 			"settings":
 			{
-				"buffer_size": 1974,
+				"buffer_size": 73879,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tests/Mocha/Mocha.purs",
+			"settings":
+			{
+				"buffer_size": 1555,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tests/Presentable/Router.spec.purs",
+			"settings":
+			{
+				"buffer_size": 423,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "gulpfile.js",
+			"settings":
+			{
+				"buffer_size": 2852,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "bower_components/chai/chai.js",
+			"settings":
+			{
+				"buffer_size": 119983,
 				"line_ending": "Unix"
 			}
 		}
@@ -312,6 +183,28 @@
 	},
 	"file_history":
 	[
+		"/home/isaac/.config/sublime-text-3/Packages/User/Test.sublime-build",
+		"/home/isaac/Projects/Presentable/tests/Mocha/Mocha.purs",
+		"/home/isaac/Projects/Presentable/src/Starter/Kit/Example.purs",
+		"/home/isaac/Projects/Presentable/.psci",
+		"/home/isaac/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/isaac/.config/sublime-text-3/Packages/User/SublimeOnSaveBuild.sublime-settings",
+		"/home/isaac/Projects/Presentable/tests/Tests.purs",
+		"/home/isaac/Projects/Presentable/tests/Presentable/Router.spec.purs",
+		"/home/isaac/Projects/Presentable/bower.json",
+		"/home/isaac/Projects/Presentable/gulpfile.js",
+		"/home/isaac/Projects/Presentable/tests/karma.conf.js",
+		"/home/isaac/Projects/Presentable/tmp/Test.js",
+		"/home/isaac/Projects/Presentable/output/Starter.Kit.Example/index.js",
+		"/home/isaac/Projects/Presentable/package.json",
+		"/home/isaac/Projects/Presentable/init.sh",
+		"/home/isaac/Projects/Presentable/lib/psc.js",
+		"/home/isaac/Projects/Presentable/example/index.html",
+		"/home/isaac/Projects/Presentable/src/Presentable/Router.purs",
+		"/home/isaac/Projects/Presentable/example/js/Main.js",
+		"/home/isaac/Projects/Presentable/example/app/Main.purs",
+		"/home/isaac/Projects/Presentable/Presentable.sublime-project",
+		"/home/isaac/Projects/Presentable/README.md",
 		"/home/isaac/Projects/Presentable/node_modules/grunt/lib/grunt/fail.js",
 		"/home/isaac/Projects/Presentable/node_modules/grunt/node_modules/underscore.string/test/test_underscore/functions.js",
 		"/home/isaac/Projects/Presentable/node_modules/grunt/node_modules/findup-sync/node_modules/glob/examples/usr-local.js",
@@ -322,10 +215,8 @@
 		"/home/isaac/Projects/Presentable/bower_components/purescript-monoid/src/Data/Monoid.purs",
 		"/home/isaac/Projects/Presentable/node_modules/grunt/internal-tasks/subgrunt.js",
 		"/home/isaac/.config/sublime-text-3/Packages/SublimeOnSaveBuild/SublimeOnSaveBuild.sublime-settings",
-		"/home/isaac/Projects/Presentable/Presentable.sublime-project",
 		"/home/isaac/Projects/AngularPresentable/bower.json",
 		"/home/isaac/Projects/AngularPresentable/package.json",
-		"/home/isaac/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 		"/home/isaac/Projects/AngularPIXI/_public/js/vendor.js",
 		"/home/isaac/.config/sublime-text-3/Packages/User/Distraction Free.sublime-settings",
 		"/home/isaac/Projects/AngularPIXI/test/unit/src/PresentableRouter.spec.ls",
@@ -360,6 +251,14 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"chai",
+			"window.desc",
+			"window.describe",
+			"(describe)",
+			"describe",
+			"context",
+			"describe",
+			"mocha",
 			"out",
 			"Main",
 			"',\n",
@@ -389,648 +288,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Presentable.sublime-project",
+					"file": "tests/Chai/Chai.purs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 73,
+						"buffer_size": 861,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								73,
-								73
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 16,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "README.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 150,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								125,
-								125
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 21,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "gulpfile.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2624,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2267,
-								2267
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1122.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "tmp/Test.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 129444,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								129444,
-								129444
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 64090.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"default_dir": "/home/isaac/Projects/Presentable/example/app",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"default_dir": "/home/isaac/Projects/Presentable/example/app",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "example/app/Main.purs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 64,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								64,
-								64
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PureScript/purescript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "example/app/Main.purs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 64,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PureScript/purescript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "example/js/Main.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 128919,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								29132,
-								29132
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 15193.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "src/Presentable/Router.purs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 116,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								59,
-								59
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PureScript/purescript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "example/index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 193,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								111,
-								111
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 14,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "lib/psc.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 128834,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								79883,
-								79883
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 18,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2098,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								399,
-								346
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"word_wrap": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 20,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "init.sh",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 814,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								624,
-								624
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "package.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 259,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								122,
-								122
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "output/Starter.Kit.Example/index.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 305,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								305,
-								305
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 23,
-					"type": "text"
-				},
-				{
-					"buffer": 16,
-					"file": "/home/isaac/.config/sublime-text-3/Packages/User/Test.sublime-build",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 66,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								27,
-								27
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 17,
-					"type": "text"
-				},
-				{
-					"buffer": 17,
-					"file": "src/Starter/Kit/Example.purs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 461,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								461,
-								461
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PureScript/purescript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 19,
-					"type": "text"
-				},
-				{
-					"buffer": 18,
-					"file": ".psci",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1642,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 15,
-					"type": "text"
-				},
-				{
-					"buffer": 19,
-					"file": "/home/isaac/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 218,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								218,
-								218
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 24,
-					"type": "text"
-				},
-				{
-					"buffer": 20,
-					"file": "/home/isaac/.config/sublime-text-3/Packages/User/SublimeOnSaveBuild.sublime-settings",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 85,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								56,
-								56
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 25,
-					"type": "text"
-				},
-				{
-					"buffer": 21,
-					"file": "tests/Tests.purs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 681,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								681,
-								681
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PureScript/purescript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 22,
-					"type": "text"
-				},
-				{
-					"buffer": 22,
-					"file": "tests/Presentable/Router.spec.purs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 208,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								208,
-								208
+								861,
+								861
 							]
 						],
 						"settings":
@@ -1045,20 +320,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 23,
+					"buffer": 1,
 					"file": "bower.json",
-					"semi_transient": false,
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 448,
+						"buffer_size": 441,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								438,
-								438
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1071,24 +346,60 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 6,
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 3,
+			"sheets":
+			[
 				{
-					"buffer": 24,
-					"file": "bower_components/purescript-math/src/Math.purs",
-					"semi_transient": true,
+					"buffer": 2,
+					"file": "tmp/Test.js",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1974,
+						"buffer_size": 73879,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								875,
-								875
+								54579,
+								54583
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 28003.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "tests/Mocha/Mocha.purs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1555,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								754,
+								754
 							]
 						],
 						"settings":
@@ -1101,35 +412,95 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "gulpfile.js",
+					"buffer": 4,
+					"file": "tests/Presentable/Router.spec.purs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2624,
+						"buffer_size": 423,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1986,
-								1986
+								123,
+								123
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/PureScript/purescript.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "gulpfile.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2852,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								771,
+								771
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 255.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "bower_components/chai/chai.js",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 119983,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								116097,
+								116097
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 79008.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1152,6 +523,12 @@
 				0,
 				1,
 				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
 			]
 		],
 		"cols":
@@ -1162,13 +539,14 @@
 		"rows":
 		[
 			0.0,
+			0.5,
 			1.0
 		]
 	},
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 404.0
+		"height": 161.0
 	},
 	"output.find_results":
 	{
@@ -1191,7 +569,7 @@
 		[
 			[
 				"",
-				"tests/Presentable/Router.spec.purs"
+				"gulpfile.js"
 			],
 			[
 				"g",

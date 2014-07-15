@@ -1,8 +1,7 @@
 module.exports = function(config) {
   config.set({
-    basePath : "../tmp",
     frameworks : ['mocha'],
-    files : [ 'Test.js' ],
+    files : ["../bower_components/chai/chai.js",  '../tmp/Test.js'],
     browsers : [ 'PhantomJS' ],
     autoWatch : true,
     singleRun : false,
