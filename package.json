@@ -1,8 +1,8 @@
 {
   "name": "Presentable",
   "private": false,
-  "srcipts":{
-    "test":"karma run --no-auto-watch tests/karma.conf.js"
+  "scripts":{
+    "test":"karma start tests/karma.conf.js --single-run"
     },
   "devDependencies": {
     "gulp-purescript": "0.0.9",
