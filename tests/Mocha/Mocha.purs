@@ -1,10 +1,7 @@
-module Mocha where
+module Test.Mocha where
 
 import Control.Monad.Eff
 
-foreign import describe 
-  "function describe(n){         \
-  \ return function(){           \
-  \   window.describe(n);        \
-  \ };                           \  
-  \}" :: forall a. Eff a -> Eff a
+foreign import data Describe :: !
+
+foreign import describe :: forall e a. Eff e a -> Eff (describe :: Describe | e) {}

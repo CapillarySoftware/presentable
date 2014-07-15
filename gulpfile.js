@@ -90,7 +90,7 @@ build = function(k){
     runSq('build:prim','build:concat'); 
   };
 
-};
+}; // end var
 
 server.use(express.static('./example'));
 
@@ -106,7 +106,7 @@ gulp.task('clean', function(cb){
 
 gulp.task('test:unit', function(){
   console.log("Running Tests...");
-  exec('node ./tmp/Test.js', function(err, out, serr){
+  exec('karma start ./tests/karma.conf.js', function(err, out, serr){
     console.log(out);
     if(err){  return console.log(err); }
     if(out){  return console.log(out); }
