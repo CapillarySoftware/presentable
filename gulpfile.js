@@ -25,7 +25,10 @@ paths      = {
       "src/**/*.purs",
       "tests/**/*.purs"
     ],
-    js : ["bower_components/mocha/mocha.js"],
+    js : [
+      "bower_components/mocha/mocha.js",
+      "bower_components/chai/chai.js"
+    ],
     dest : 'tmp'
   },
   example : {
@@ -56,6 +59,8 @@ options    = {
 port       = 3333,
 server     = express(),
 
+
+// FUCK YOU GULP! DID THIS EVER WORK? NO IDEA
 build = function(k){
   return function(){
 
@@ -79,7 +84,7 @@ build = function(k){
     gulp.task('build:concat', function(){
       var finalSrc = [x.dest + '/' + o.output];
 
-      if(x.js){ finalSrc.concat(x.js); }
+      if(x.js){ finalSrc = finalSrc.concat(x.js); }
 
       gulp.src(finalSrc)
         .pipe( concat(o.output) )
