@@ -1,5 +1,7 @@
-language: node_js
-before_script:
+language : haskell
+ghc : 7.6.3
+before_script :
+  - 'cabal install purescript'
   - 'npm install -g gulp bower karma karma-cli'
   - 'bower install'
   - 'gulp build:test'
