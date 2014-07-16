@@ -1063,6 +1063,21 @@ PS.Data_Function = (function () {
     };
 })();
 var PS = PS || {};
+PS.Data_Foreign_EasyFFI = (function () {
+    "use strict";
+    var Prelude = PS.Prelude;
+    function unsafeForeignProcedure(args) {  return function (stmt) {    return Function(wrap(args.slice()))();    function wrap() {      return !args.length ? stmt : 'return function (' + args.shift() + ') { ' + wrap() + ' };';    }  };};
+    var unsafeForeignFunction = function (args) {
+        return function (expr) {
+            return unsafeForeignProcedure(args)("return " + expr + ";");
+        };
+    };
+    return {
+        unsafeForeignProcedure: unsafeForeignProcedure, 
+        unsafeForeignFunction: unsafeForeignFunction
+    };
+})();
+var PS = PS || {};
 PS.Data_Eq = (function () {
     "use strict";
     var Prelude = PS.Prelude;
