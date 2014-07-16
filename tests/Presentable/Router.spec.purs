@@ -7,11 +7,20 @@ import Test.Mocha
 import Test.Chai
 import Test.QuickCheck
 
-main = describe "Router" $ do
-  describe "History" $ do
-    trace "what?"
-    beforeEach $ do 
-      replaceState {title = "wowzers!", url = "/foos"}
+expectTitleAndDataToMatch os ts = do
+  expect ts.title `toEqual` os.title
+  expect ts."data" `toDeepEqual` os."data"
+
+main = describe "History" $ do
+  let os = {title : "wowzers!", url : "/foos", "data" : { foo : 1}}
+  
+  it "replaceState should change the state" $ do   
+    replaceState os
+    getState >>= expectTitleAndDataToMatch os
+
+  it "pushState should change the state" $ do
+    pushState os
+    getState >>= expectTitleAndDataToMatch os
 
 
     

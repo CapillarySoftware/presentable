@@ -3,52 +3,50 @@ module History where
 import Data.Foreign.EasyFFI
 import Control.Monad.Eff
 
-type Title        = String
-type Url          = String
-type State        = forall a. {title :: Title, url :: Url | a}
-type Data         = forall a. { | a}
-type StateUpdater = Data -> Title -> Url -> Unit
+-- This is the record both sent and returned by History.js
+type State d        = {title :: Title, url :: Url, "data" :: { | d }}
+type Title          = String
+type Url            = String
 
 foreign import data History :: !
 
-foreign import getData 
-  "function getData(state){ return state['data']; }" 
-  :: forall a b. { | a} -> b
+type StateUpdater d = forall eff. { | d } -> Title -> Url -> Eff (history :: History | eff) {}
 
-unwrapState :: StateUpdater -> State -> Unit
-unwrapState f s = f (getData s) s.title s.url
+pushState' :: forall d. StateUpdater d
+pushState' = unsafeForeignProcedure ["data","title","url", ""] "History.pushState(data,title,url)"
 
-pushState' :: StateUpdater
-pushState' = unsafeForeignProcedure ["data","title","url"] "History.pushState(data,title,url)"
-pushState :: State -> Unit
-pushState = unwrapState pushState'
+pushState :: forall eff d. State d -> Eff (history :: History | eff) {}
+pushState s = pushState' s."data" s.title s.url
 
-replaceState' :: StateUpdater
-replaceState' = unsafeForeignProcedure ["data","title","url"] "History.replaceState(data,title,url)"
-replaceState :: State -> Unit
-replaceState = unwrapState replaceState'
 
-getState :: forall m. (Monad m) => m State
-getState = unsafeForeignProcedure [""] "History.getState()"
+replaceState' :: forall d. StateUpdater d
+replaceState' = unsafeForeignProcedure ["d","title","url", ""] "History.replaceState(d,title,url)"
 
-getStateByIndex :: Number -> State
-getStateByIndex i = unsafeForeignProcedure ["i", ""] "History.getStateByIndex(i)"
+replaceState :: forall eff d. State d -> Eff (history :: History | eff) {}
+replaceState s = replaceState' s."data" s.title s.url
 
-getCurrentIndex :: Number 
-getCurrentIndex = unsafeForeignProcedure [""] "History.getCurrentIndex()"
 
-getHash :: forall m. (Monad m) => m String 
-getHash = unsafeForeignProcedure [""] "History.getHash()"
+getState :: forall d m. (Monad m) => m (State d)
+getState = unsafeForeignFunction [""] "History.getState()"
 
-stateChange :: Unit -> Unit
-stateChange = unsafeForeignProcedure ["fn",""] "History.Adapter.bind(window, 'stateChange', fn)"
+-- getStateByIndex :: Number -> State
+-- getStateByIndex i = unsafeForeignProcedure ["i", ""] "History.getStateByIndex(i)"
 
-goBack :: Unit
-goBack = unsafeForeignProcedure [""] "History.back()"
+-- getCurrentIndex :: Number 
+-- getCurrentIndex = unsafeForeignProcedure [""] "History.getCurrentIndex()"
 
-goForward :: Unit
-goForward = unsafeForeignProcedure [""] "History.forward()"
+-- getHash :: forall m. (Monad m) => m String 
+-- getHash = unsafeForeignProcedure [""] "History.getHash()"
 
-setOption :: forall a. String -> a -> Unit
-setOption = unsafeForeignProcedure ["option", "value", ""] "History.options[option] = value"
+-- stateChange :: Unit -> Unit
+-- stateChange = unsafeForeignProcedure ["fn",""] "History.Adapter.bind(window, 'stateChange', fn)"
+
+-- goBack :: Unit
+-- goBack = unsafeForeignProcedure [""] "History.back()"
+
+-- goForward :: Unit
+-- goForward = unsafeForeignProcedure [""] "History.forward()"
+
+-- setOption :: forall a. String -> a -> Unit
+-- setOption = unsafeForeignProcedure ["option", "value", ""] "History.options[option] = value"
 
