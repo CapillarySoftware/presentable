@@ -39,10 +39,10 @@ getState' = unsafeForeignFunction [""] "window.history.state"
 -- getUrl :: String
 -- getUrl = unsafeForeignFunction [""] "location.pathname"
 
-getState :: forall m. (Monad m) => m State
+getState :: forall m d. (Monad m) => m (State d)
 getState = do
   d <- getState'
-  return {title : "getTitle", url : "getUrl", "data" : d}
+  return { title : "getTitle", url : "getUrl", "data" : d }
 
 
 -- getHash :: forall m. (Monad m) => m String 
