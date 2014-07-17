@@ -11,10 +11,10 @@ import Test.Mocha
 import Test.Chai
 import Test.QuickCheck
 
-expectStateToMatch os ts = do
-  -- fprint ts
-  expect ts.title `toEqual` os.title
-  expect ts."data" `toDeepEqual` os."data"
+expectStateToMatch os = do
+  ts <- getState
+  expect os.url `toEqual` ts.url
+  expect os."data" `toDeepEqual` ts."data"
 
 main = describe "History" $ do
   let os    = {title : "wowzers!",   url : "/foo", "data" : { foo : 1}}
@@ -25,29 +25,18 @@ main = describe "History" $ do
   
   it "initial state should have no title" $ do
     ts <- getState
-    fprint ts
     expect ts.title `toEqual` ""
 
-  itSkip "pushState should change the state" $ do
+  it "pushState should change the state" $ do
     pushState os
-    getState >>= expectStateToMatch os
+    expectStateToMatch os
 
-  -- it "pushing the same state again does NOT increment" $ do
-  --   expectCurrentIndexToBe 1
-  --   pushState os
-  --   expectCurrentIndexToBe 1
-  --   getState >>= expectStateToMatch os
-
-  it "goback reverts to earlier state and does NOT decrement the index" $ do
-    trace $ "pushing " ++ os.url
-    pushState os
-    getState >>= expectStateToMatch os
-    trace $ "pushing " ++ os'.url
+  it "goback reverts to earlier state" $ do    
     pushState os'
-    getState >>= expectStateToMatch os'
+    expectStateToMatch os'
+
     goBack    
-    -- expectCurrentIndexToBe 2    
-    getState >>= expectStateToMatch os
+    expectStateToMatch os
 
   -- it "goForward moves forward but does NOT increment the index " $ do 
   --   expectCurrentIndexToBe 2

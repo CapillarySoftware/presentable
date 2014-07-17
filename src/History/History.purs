@@ -1,5 +1,6 @@
 module History where
 
+import Debug.Foreign
 import Data.Foreign.EasyFFI
 import Control.Monad.Eff
 
@@ -30,19 +31,20 @@ replaceState s = replaceState' s."data" s.title s.url
 
 ------
 
-getState' :: forall d m. (Monad m) => m { | d }
-getState' = unsafeForeignFunction [""] "window.history.state"
+getData :: forall d m. (Monad m) => m { | d }
+getData = unsafeForeignFunction [""] "window.history.state"
 
--- getTitle :: String
--- getTitle = unsafeForeignFunction [""] "document.title"
+getTitle :: forall m. (Monad m) => m String
+getTitle = unsafeForeignFunction [""] "document.title"
 
--- getUrl :: String
--- getUrl = unsafeForeignFunction [""] "location.pathname"
+getUrl :: forall m. (Monad m) => m String
+getUrl = unsafeForeignFunction [""] "location.pathname"
 
 getState :: forall m d. (Monad m) => m (State d)
-getState = do
-  d <- getState'
-  return { title : "getTitle", url : "getUrl", "data" : d }
+getState = do t <- getTitle
+              u <- getUrl
+              d <- getData
+              return { title : t, url : u, "data" : d }
 
 
 -- getHash :: forall m. (Monad m) => m String 
@@ -52,8 +54,7 @@ getState = do
 -- stateChange = unsafeForeignProcedure ["fn",""] "History.Adapter.bind(window, 'stateChange', fn)"
 
 goBack :: forall eff. Eff (history :: History | eff) {}
-goBack = unsafeForeignProcedure [""] "window.history.back()"
-
+goBack = unsafeForeignProcedure [""] "window.history.go(-1)"
 
 goForward :: forall eff. Eff (history :: History | eff) {}
 goForward = unsafeForeignFunction [""] "window.history.forward()"
