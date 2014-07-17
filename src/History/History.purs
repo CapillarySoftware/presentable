@@ -50,10 +50,10 @@ getCurrentIndex = unsafeForeignFunction [""] "History.getCurrentIndex()"
 -- stateChange = unsafeForeignProcedure ["fn",""] "History.Adapter.bind(window, 'stateChange', fn)"
 
 goBack :: forall eff. Eff (history :: History | eff) {}
-goBack = unsafeForeignProcedure [""] "History.back()"
+goBack = unsafeForeignFunction [""] "History.back()"
 
--- goForward :: Unit
--- goForward = unsafeForeignProcedure [""] "History.forward()"
+goForward :: forall eff. Eff (history :: History | eff) {}
+goForward = unsafeForeignFunction [""] "History.forward()"
 
 -- setOption :: forall a. String -> a -> Unit
 -- setOption = unsafeForeignProcedure ["option", "value", ""] "History.options[option] = value"
