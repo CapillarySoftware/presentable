@@ -4,16 +4,24 @@ import Control.Monad.Eff
 import Data.Foreign.EasyFFI
 
 foreign import data Describe :: !
-describe :: forall e a. String -> Eff e a -> Eff (describe :: Describe | e) {}
+type DoDescribe = forall e a. String -> Eff e a -> Eff (describe :: Describe | e) {}
+
+describe :: DoDescribe
 describe = unsafeForeignProcedure ["description", "fn", ""] "window.describe(description, fn);"
-describeOnly :: forall e a. String -> Eff e a -> Eff (describe :: Describe | e) {}
+describeOnly :: DoDescribe
 describeOnly = unsafeForeignProcedure ["description", "fn", ""] "window.describe.only(description, fn);"
+describeSkip :: DoDescribe
+describeSkip = unsafeForeignProcedure ["description", "fn", ""] "window.describe.skip(description, fn);"
 
 foreign import data It :: !
-it :: forall e a. String -> Eff e a -> Eff (it :: It | e) {}
+type DoIt = forall e a. String -> Eff e a -> Eff (it :: It | e) {}
+
+it :: DoIt
 it = unsafeForeignProcedure ["description", "fn", ""] "window.it(description, fn);"
-itOnly :: forall e a. String -> Eff e a -> Eff (it :: It | e) {}
+itOnly :: DoIt
 itOnly = unsafeForeignProcedure ["description", "fn", ""] "window.it.only(description, fn);"
+itSkip ::  DoIt
+itSkip = unsafeForeignProcedure ["description", "fn", ""] "window.it.skip(description, fn);"
 
 -- TODO: Async Tests with done
 
