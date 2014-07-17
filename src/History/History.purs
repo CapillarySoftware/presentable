@@ -40,8 +40,8 @@ getStateByIndex i = unsafeForeignFunction ["i"] "History.getStateByIndex(i)"
 
 ----------
 
--- getCurrentIndex :: forall m. (Monad m) => m Number
--- getCurrentIndex = unsafeForeignProcedure [""] "History.getCurrentIndex()"
+getCurrentIndex :: forall m. (Monad m) => m Number
+getCurrentIndex = unsafeForeignFunction [""] "History.getCurrentIndex()"
 
 -- getHash :: forall m. (Monad m) => m String 
 -- getHash = unsafeForeignProcedure [""] "History.getHash()"
@@ -49,8 +49,8 @@ getStateByIndex i = unsafeForeignFunction ["i"] "History.getStateByIndex(i)"
 -- stateChange :: Unit -> Unit
 -- stateChange = unsafeForeignProcedure ["fn",""] "History.Adapter.bind(window, 'stateChange', fn)"
 
--- goBack :: Unit
--- goBack = unsafeForeignProcedure [""] "History.back()"
+goBack :: forall eff. Eff (history :: History | eff) {}
+goBack = unsafeForeignProcedure [""] "History.back()"
 
 -- goForward :: Unit
 -- goForward = unsafeForeignProcedure [""] "History.forward()"
