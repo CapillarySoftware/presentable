@@ -9,3 +9,6 @@ fprint = unsafeForeignProcedure ["x", ""] "console.log(x)"
 
 ftrace :: forall a r. a -> Eff (trace :: Trace | r) {}
 ftrace = unsafeForeignProcedure ["x", ""] "console.log(JSON.stringify(x))"
+
+fpeek :: forall r. String -> Eff (trace :: Trace | r) {}
+fpeek = unsafeForeignProcedure ["x", ""]
