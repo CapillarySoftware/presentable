@@ -1,9 +1,9 @@
 {
   "name": "Presentable",
   "private": false,
-  "scripts":{
-    "test":"karma start tests/karma.conf.js --single-run"
-    },
+  "scripts": {
+    "test": "karma start tests/karma.conf.js --single-run"
+  },
   "devDependencies": {
     "gulp-purescript": "0.0.9",
     "gulp": "~3.8.6",
@@ -16,6 +16,7 @@
     "karma": "~0.12.17",
     "mocha": "~1.20.1",
     "karma-mocha": "~0.1.4",
-    "karma-phantomjs-launcher": "~0.1.4"
+    "karma-phantomjs-launcher": "~0.1.4",
+    "karma-chrome-launcher": "~0.1.4"
   }
 }

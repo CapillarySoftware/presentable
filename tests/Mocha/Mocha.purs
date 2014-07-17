@@ -13,6 +13,8 @@ describeOnly = unsafeForeignProcedure ["description", "fn", ""] "window.describe
 describeSkip :: DoDescribe
 describeSkip = unsafeForeignProcedure ["description", "fn", ""] "window.describe.skip(description, fn);"
 
+------
+
 foreign import data It :: !
 type DoIt = forall e a. String -> Eff e a -> Eff (it :: It | e) {}
 
@@ -23,7 +25,14 @@ itOnly = unsafeForeignProcedure ["description", "fn", ""] "window.it.only(descri
 itSkip ::  DoIt
 itSkip = unsafeForeignProcedure ["description", "fn", ""] "window.it.skip(description, fn);"
 
--- TODO: Async Tests with done
+foreign import itAsync 
+  "function itAsync(description){                \
+  \   return function(fn){                       \
+  \      window.it(description, function(done){  \
+  \        fn(done);                             \
+  \      });                                     \      
+  \   };                                         \
+  \ }" :: DoIt
 
 -- 
 -- HOOKS
