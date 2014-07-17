@@ -50,14 +50,17 @@ getState = do t <- getTitle
 -- getHash :: forall m. (Monad m) => m String 
 -- getHash = unsafeForeignProcedure [""] "History.getHash()"
 
--- stateChange :: Unit -> Unit
--- stateChange = unsafeForeignProcedure ["fn",""] "History.Adapter.bind(window, 'stateChange', fn)"
+stateChange :: forall a e. Eff e a -> Eff (history :: History | e) {}
+stateChange = unsafeForeignFunction ["fn",""] "window.addEventListener('click', fn)"
 
 goBack :: forall eff. Eff (history :: History | eff) {}
-goBack = unsafeForeignProcedure [""] "window.history.go(-1)"
+goBack = unsafeForeignFunction [""] "window.history.back()"
 
 goForward :: forall eff. Eff (history :: History | eff) {}
 goForward = unsafeForeignFunction [""] "window.history.forward()"
+
+go :: forall eff. Number -> Eff (history :: History | eff) {}
+go = unsafeForeignProcedure ["dest",""] "window.history.go(dest)"
 
 -- setHistoryOption :: forall eff a. String -> a -> Eff (history :: History | eff) {}
 -- setHistoryOption = unsafeForeignFunction ["option", "value", ""] "window.history.options[option] = value"
