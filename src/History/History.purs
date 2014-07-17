@@ -12,12 +12,15 @@ foreign import data History :: !
 
 type StateUpdater d = forall eff. { | d } -> Title -> Url -> Eff (history :: History | eff) {}
 
+----------
+
 pushState' :: forall d. StateUpdater d
 pushState' = unsafeForeignProcedure ["data","title","url", ""] "History.pushState(data,title,url)"
 
 pushState :: forall eff d. State d -> Eff (history :: History | eff) {}
 pushState s = pushState' s."data" s.title s.url
 
+----------
 
 replaceState' :: forall d. StateUpdater d
 replaceState' = unsafeForeignProcedure ["d","title","url", ""] "History.replaceState(d,title,url)"
@@ -25,14 +28,19 @@ replaceState' = unsafeForeignProcedure ["d","title","url", ""] "History.replaceS
 replaceState :: forall eff d. State d -> Eff (history :: History | eff) {}
 replaceState s = replaceState' s."data" s.title s.url
 
+----------
 
 getState :: forall d m. (Monad m) => m (State d)
 getState = unsafeForeignFunction [""] "History.getState()"
 
--- getStateByIndex :: Number -> State
--- getStateByIndex i = unsafeForeignProcedure ["i", ""] "History.getStateByIndex(i)"
+----------
 
--- getCurrentIndex :: Number 
+getStateByIndex :: forall d m. (Monad m) => Number -> m (State d)
+getStateByIndex i = unsafeForeignFunction ["i"] "History.getStateByIndex(i)"
+
+----------
+
+-- getCurrentIndex :: forall m. (Monad m) => m Number
 -- getCurrentIndex = unsafeForeignProcedure [""] "History.getCurrentIndex()"
 
 -- getHash :: forall m. (Monad m) => m String 
