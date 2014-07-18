@@ -14,10 +14,10 @@ expectStateToMatch os = do
   -- This works in Chrome but not PhantomJS
   -- expect os."data" `toDeepEqual` ts."data"
   
-main = describe "History" $ do
-  let os    = {title : "wowzers!",   url : "/foo", "data" : { foo : 1}}
-  let os'   = {title : "wowzers!!",  url : "/bar", "data" : { foo : 2}}
-  let os''  = {title : "wowzers!!!", url : "/baz", "data" : { foo : 3}}
+spec = describe "History" $ do
+  let os   = {title : "wowzers!",   url : "/foo", "data" : { foo : 1 }}
+  let os'  = {title : "wowzers!!",  url : "/bar", "data" : { foo : 2 }}
+  let os'' = {title : "wowzers!!!", url : "/baz", "data" : { foo : 3 }}
   
   it "initial state should have no title" $ do
     ts <- getState

@@ -1,3 +1,4 @@
 module Main where
 
-main = History.Spec.main
+main = do 
+  History.Spec.spec
