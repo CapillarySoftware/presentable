@@ -5,7 +5,7 @@ module.exports = function(config) {
       "../bower_components/chai/chai.js",
       '../tmp/Test.js'
     ],
-    browsers : [ 'Chrome' ],
+    browsers : [ 'PhantomJS' ],
     autoWatch : true,
     singleRun : false,
     plugins : [
