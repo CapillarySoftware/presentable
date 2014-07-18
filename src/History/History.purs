@@ -3,8 +3,10 @@ module History where
 import Debug.Foreign
 import Data.Foreign.EasyFFI
 import Control.Monad.Eff
+import Control.Reactive
 
--- This is the record both sent and returned by History.js
+                    --- Record representing browser state 
+                    --- Passed to and returned by history
 type State d        = {title :: Title, url :: Url, "data" :: { | d }}
 type Title          = String
 type Url            = String
