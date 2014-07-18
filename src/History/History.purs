@@ -7,13 +7,15 @@ import Control.Reactive
 
 --- Record representing browser state 
 --- Passed to and returned by history
-type State d               = {title :: Title, url :: Url, "data" :: { | d }}
+type State d               = {
+    title  :: Title, 
+    url    :: Url, 
+    "data" :: { | d }
+  }
 type Title                 = String
 type Url                   = String
 
 foreign import data History:: !
-
-type StateUpdater d        = forall eff. (State d) -> Eff (history :: History | eff) {}
 
 ------
 
@@ -34,13 +36,27 @@ getState                   = do t <- getTitle
 
 ------
 
-pushState                  :: forall d. StateUpdater d
-pushState                  = unsafeForeignProcedure ["d","title","url", ""] "window.history.pushState(d,title,url)"
+type StateUpdaterNative d   = forall eff. 
+                            Title   -> -- State.title 
+                            Url     -> -- State.url
+                            { | d } -> -- State.data
+                            Eff (history :: History | eff) {}
 
-------
+type StateUpdater d        = forall eff d. 
+                           State d -> 
+                           Eff (history :: History | eff) {}
 
-replaceState               :: forall d. StateUpdater d
-replaceState               = unsafeForeignProcedure ["d","title","url", ""] "window.history.replaceState(d,title,url)"
+pushState'                 :: forall d. StateUpdaterNative d
+pushState'                 = unsafeForeignProcedure ["title","url","d", ""] "window.history.pushState(d,title,url)"
+
+pushState                  :: forall eff d. State d -> Eff (history :: History | eff) {}
+pushState s                = pushState' s.title s.url s."data"
+
+replaceState'              :: forall d. StateUpdaterNative d
+replaceState'              = unsafeForeignProcedure ["d","title","url", ""] "window.history.replaceState(d,title,url)"
+
+replaceState               :: forall eff d. State d -> Eff (history :: History | eff) {}
+replaceState s             = replaceState' s.title s.url s."data"
 
 ------
 
