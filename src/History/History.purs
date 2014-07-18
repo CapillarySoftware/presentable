@@ -46,10 +46,6 @@ getState = do t <- getTitle
               d <- getData
               return { title : t, url : u, "data" : d }
 
-
--- getHash :: forall m. (Monad m) => m String 
--- getHash = unsafeForeignProcedure [""] "History.getHash()"
-
 stateChange :: forall a e. Eff e a -> Eff (history :: History | e) {}
 stateChange = unsafeForeignFunction ["fn",""] "window.addEventListener('click', fn)"
 
@@ -61,7 +57,3 @@ goForward = unsafeForeignFunction [""] "window.history.forward()"
 
 go :: forall eff. Number -> Eff (history :: History | eff) {}
 go = unsafeForeignProcedure ["dest",""] "window.history.go(dest)"
-
--- setHistoryOption :: forall eff a. String -> a -> Eff (history :: History | eff) {}
--- setHistoryOption = unsafeForeignFunction ["option", "value", ""] "window.history.options[option] = value"
--- History.options.debug

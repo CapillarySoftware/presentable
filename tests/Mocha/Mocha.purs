@@ -3,6 +3,8 @@ module Test.Mocha where
 import Control.Monad.Eff
 import Data.Foreign.EasyFFI
 
+------
+
 foreign import data Describe :: !
 type DoDescribe = forall e a. String -> Eff e a -> Eff (describe :: Describe | e) {}
 
@@ -25,15 +27,6 @@ itOnly = unsafeForeignProcedure ["description", "fn", ""] "window.it.only(descri
 itSkip ::  DoIt
 itSkip = unsafeForeignProcedure ["description", "fn", ""] "window.it.skip(description, fn);"
 
-foreign import itAsync 
-  "function itAsync(description){                \
-  \   return function(fn){                       \
-  \      window.it(description, function(done){  \
-  \        fn(done);                             \
-  \      });                                     \      
-  \   };                                         \
-  \ }" :: DoIt
-
 -- 
 -- HOOKS
 -- 
@@ -45,6 +38,8 @@ before = unsafeForeignProcedure ["fn",""] "window.before(fn);"
 foreign import data After :: !
 after :: forall e a. Eff e a -> Eff (beforeEach :: After | e) {}
 after = unsafeForeignProcedure ["fn",""] "window.after(fn);"
+
+------
 
 foreign import data BeforeEach :: !
 beforeEach :: forall e a. Eff e a -> Eff (beforeEach :: BeforeEach | e) {}
