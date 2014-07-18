@@ -26,6 +26,7 @@ paths      = {
       "tests/**/*.purs"
     ],
     js : [
+      "bower_components/history.js/scripts/bundled/html5/native.history.js",
       "bower_components/mocha/mocha.js",
       "bower_components/chai/chai.js"
     ],
