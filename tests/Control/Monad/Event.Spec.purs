@@ -9,8 +9,13 @@ import Debug.Foreign
 
 spec = do
   describe "Control.Monad.Event" $ do
-    it "what???" $ do 
-      expect "" `toEqual` ""
+    let emitTheFoo = emit Event "foo" {}
+
+    it "events should dispatch without error" $ do 
+      emitTheFoo
+      expect bad `toNotThrow` Error
 
     itAsync "events should dispatch without error" $ \done ->
-      itIs done
+      subscribeEvented "foo" $ \e ->
+        itIs done
+      emit Event "foo" {}
