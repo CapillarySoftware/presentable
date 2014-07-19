@@ -1,4 +1,5 @@
 Presentable 
+![](https://travis-ci.org/CapillarySoftware/Presentable.svg?branch=develop)
 ====
 A minimal PureScript rendering agnostic UI framework
 
