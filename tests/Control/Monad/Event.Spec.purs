@@ -9,13 +9,12 @@ import Debug.Foreign
 
 spec = do
   describe "Control.Monad.Event" $ do
-    let emitTheFoo = emit Event "foo" {}
+    -- let emitTheFoo = Event "foo" {} `emitOn` window
 
-    it "events should dispatch without error" $ do 
-      emitTheFoo
-      expect bad `toNotThrow` Error
+    -- it "events should dispatch without error" $ do 
+    --   expect emitTheFoo `toNotThrow` Error
 
     itAsync "events should dispatch without error" $ \done ->
-      subscribeEvented "foo" $ \e ->
+      subscribeEventedOn "foo" window $ \e ->
         itIs done
-      emit Event "foo" {}
+      emitOn (Event "foo" {}) window

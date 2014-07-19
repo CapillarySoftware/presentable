@@ -45,11 +45,9 @@ foreign import itAsync
          Eff (it :: It | eff) {}
 
 foreign import itIs
-  "function itIs(d){      \
-  \     return d();       \
-  \ }" :: forall eff. 
-          DoneToken -> 
-          Eff (done :: Done | eff) {}
+  "function itIs(d){ return d(); }" :: forall eff. 
+                                       DoneToken -> 
+                                       Eff (done :: Done | eff) {}
 
 
     --- HOOKS
