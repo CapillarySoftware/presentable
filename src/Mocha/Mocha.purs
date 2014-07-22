@@ -35,7 +35,7 @@ foreign import itAsync
   \    return function (fn) {                     \  
   \       return function(){                      \ 
   \         return window.it(d, function(done){   \
-  \           return fn(done);                    \
+  \           return fn(done)();                  \
   \         });                                   \  
   \       };                                      \
   \    };                                         \
@@ -53,20 +53,20 @@ foreign import itIs
     --- HOOKS
 
 
-foreign import data Before    :: !
-before                        :: forall e a. Eff e a -> Eff (beforeEach :: Before | e) {}
-before                        = unsafeForeignProcedure ["fn",""] "window.before(fn);"
+foreign import data Before     :: !
+before                         :: forall e a. Eff e a -> Eff (beforeEach :: Before | e) {}
+before                         = unsafeForeignProcedure ["fn",""] "window.before(fn);"
 
-foreign import data After     :: !
-after                         :: forall e a. Eff e a -> Eff (beforeEach :: After | e) {}
-after                         = unsafeForeignProcedure ["fn",""] "window.after(fn);"
+foreign import data After      :: !
+after                          :: forall e a. Eff e a -> Eff (beforeEach :: After | e) {}
+after                          = unsafeForeignProcedure ["fn",""] "window.after(fn);"
 
 
 
-foreign import data BeforeEach:: !
-beforeEach                    :: forall e a. Eff e a -> Eff (beforeEach :: BeforeEach | e) {}
-beforeEach                    = unsafeForeignProcedure ["fn",""] "window.beforeEach(fn);"
+foreign import data BeforeEach :: !
+beforeEach                     :: forall e a. Eff e a -> Eff (beforeEach :: BeforeEach | e) {}
+beforeEach                     = unsafeForeignProcedure ["fn",""] "window.beforeEach(fn);"
 
-foreign import data AfterEach :: !
-afterEach                     :: forall e a. Eff e a -> Eff (beforeEach :: AfterEach | e) {}
-afterEach                     = unsafeForeignProcedure ["fn",""] "window.afterEach(fn);"
+foreign import data AfterEach  :: !
+afterEach                      :: forall e a. Eff e a -> Eff (beforeEach :: AfterEach | e) {}
+afterEach                      = unsafeForeignProcedure ["fn",""] "window.afterEach(fn);"

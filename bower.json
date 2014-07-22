@@ -19,6 +19,7 @@
     "mocha": "~1.20.1",
     "chai": "~1.9.1",
     "purescript-easy-ffi": "~1.0.1",
-    "purescript-reactive": "*"
+    "purescript-reactive": "*",
+    "EventEmitter": "~1.1.0"
   }
 }
