@@ -13,9 +13,9 @@ data Event d = Event String {
 
 getWindow = unsafeForeignFunction [""] "window"
 
-eventBC n d = Event n {
+newEvent n d = Event n {
     bubbles    : true,
-    cancelable : true,
+    cancelable : false,
     detail     : d
   }
 
@@ -49,7 +49,6 @@ foreign import emitOn_
   \  return function(d){                  \
   \    return function(o){                \
   \     return function(){                \
-  \        console.log('heil');           \
   \        var e = new CustomEvent(n,d);  \
   \        o.dispatchEvent(e);            \
   \        return o;                      \
@@ -64,14 +63,24 @@ foreign import emitOn_
 
 emitOn (Event n d) o = emitOn_ n d o
 
-foreign import subscribeEventedOn
-  "function subscribeEventedOn(n){  \
-  \ return function(fn){            \
-  \    return function(obj){        \
-  \       return function(){        \
-  \         console.log('hitler');  \
-  \         return obj;             \
-  \       };                        \
-  \     };                          \
-  \  };                             \
-  \}" :: forall d a o eff. String -> ((Event d) -> a) -> o -> Eff (customEvent :: CustomEvent | eff) o
+foreign import subscribeEventedOnPrime
+  "function subscribeEventedOnPrime(n){  \
+  \ return function(fn){                 \
+  \    return function(obj){             \
+  \       return function(){             \
+  \         obj.addEventListener(n, fn); \
+  \         return obj;                  \
+  \       };                             \
+  \     };                               \
+  \  };                                  \
+  \}" :: forall d a o eff. 
+         String -> 
+         (d -> a) -> 
+         o -> 
+         Eff (customEvent :: CustomEvent | eff) o
+
+subscribeEventedOn n f o = subscribeEventedOnPrime n (\e -> 
+    f $ newEvent e."type" e."detail"
+  ) o
+
+unwrapDetail (Event n d) = d.detail

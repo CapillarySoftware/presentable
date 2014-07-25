@@ -41,13 +41,13 @@ foreign import itAsync
   \    };                                         \
   \}" :: forall eff. 
          String -> 
-         (DoneToken -> Eff (done :: Done | eff) {}) -> 
+         (DoneToken -> Eff (done :: Done | eff) Unit) -> 
          Eff (it :: It | eff) {}
 
 foreign import itIs
   "function itIs(d){ return d(); }" :: forall eff. 
                                        DoneToken -> 
-                                       Eff (done :: Done | eff) {}
+                                       Eff (done :: Done | eff) Unit
 
 
     --- HOOKS

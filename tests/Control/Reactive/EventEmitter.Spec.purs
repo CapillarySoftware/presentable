@@ -9,20 +9,29 @@ import Debug.Foreign
 
 spec = do
   describe "Control.Monad.Event" $ do
-    w <- getWindow  
-    -- let emitTheFoo = (eventBC "foo" {}) `emitOn` w
+    
+    let d'          = { wowzers : "in my trousers" }
+    let sampleEvent = newEvent "foo" d'
 
-    -- itSkip "events should dispatch without error" $ do 
-    --   expect emitTheFoo `toNotThrow` Error
+    it "events should dispatch without error" $ do 
+      let emitTheFoo = getWindow >>= emitOn sampleEvent
+      expect emitTheFoo `toNotThrow` Error
 
-    itAsync "subscribeEventedOn does what it says" $ \done -> do
-      subscribeEventedOn "foo" (\_ -> itIs done) w
-      emitOn (eventBC "foo" {}) w
+    itAsync "subscribeEventedOn hears emitted events" $ \done ->
+      getWindow 
+      >>= subscribeEventedOn "foo" (\_ -> itIs done)
+      >>= emitOn sampleEvent
+
+    itAsync "subscribeEventedOn should receive any attached data" $ \done -> do 
       
+      getWindow 
+      >>= subscribeEventedOn "foo" (\event -> do
+        fprint event
+        expect (unwrapDetail event) `toDeepEqual` d'
+        itIs done
+      )
 
-
+      getWindow
+      >>= emitOn sampleEvent
       
-        
-
-      
-      
+      expect true `toEqual` true
