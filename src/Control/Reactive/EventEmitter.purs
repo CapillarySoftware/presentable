@@ -1,23 +1,34 @@
 module Control.Reactive.EventEmitter where
 
 import Control.Monad.Eff
-import Control.Reactive
+-- import Control.Reactive
 import Data.Foreign.EasyFFI
-import Debug.Trace
 
-data Event d = Event String {
+type EventName                = String
+
+data Event d                  = Event EventName {
     bubbles    :: Boolean,
     cancelable :: Boolean,
     detail     :: { | d }
   }
 
-getWindow = unsafeForeignFunction [""] "window"
+eventDMap                     :: forall a b. ({ | a} -> { | b}) -> Event a -> Event b 
+eventDMap f (Event n d)       = Event n $ d { detail = (f d.detail) }
 
-newEvent n d = Event n {
+eventNMap                     :: forall a. (EventName -> EventName) -> Event a -> Event a
+eventNMap f (Event n d)       = Event (f n) d
+
+newEvent                      :: forall d. EventName -> { | d} -> Event d
+newEvent n d                  = Event n {
     bubbles    : true,
     cancelable : false,
     detail     : d
   }
+
+getWindow                     = unsafeForeignFunction [""] "window"
+
+unwrapEventDetail (Event n d) = d.detail
+unwrapEventName   (Event n d) = n
 
     -- Shamlessly ripped off from
     -- https://raw.githubusercontent.com/d4tocchini/customevent-polyfill/master/CustomEvent.js
@@ -60,8 +71,7 @@ foreign import emitOn_
           { | d} -> 
           o -> 
           Eff (customEvent :: CustomEvent | eff) o
-
-emitOn (Event n d) o = emitOn_ n d o
+emitOn (Event n d) o        = emitOn_ n d o
 
 foreign import subscribeEventedOnPrime
   "function subscribeEventedOnPrime(n){  \
@@ -78,8 +88,7 @@ foreign import subscribeEventedOnPrime
          (d -> a) -> 
          o -> 
          Eff (customEvent :: CustomEvent | eff) o
-
-subscribeEventedOn n f o = subscribeEventedOnPrime n (\e ->
+subscribeEventedOn n f o      = subscribeEventedOnPrime n (\e ->
     f $ newEvent e."type" e."detail"
   ) o
 
@@ -101,9 +110,9 @@ foreign import subscribeEventedEffOnPrime
          (d -> Eff eff a) -> 
          o -> 
          Eff (customEvent :: CustomEvent | eff) o
-
-subscribeEventedEffOn n f o = subscribeEventedEffOnPrime n (\e ->
-    f $ newEvent e."type" e."detail"
+subscribeEventedEffOn n f o   = subscribeEventedEffOnPrime n (\e -> 
+    f $ newEvent e."type" e."detail" 
   ) o
 
-unwrapDetail (Event n d) = d.detail
+
+
