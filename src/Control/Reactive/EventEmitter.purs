@@ -83,4 +83,27 @@ subscribeEventedOn n f o = subscribeEventedOnPrime n (\e ->
     f $ newEvent e."type" e."detail"
   ) o
 
+foreign import subscribeEventedEffOnPrime
+  "function subscribeEventedEffOnPrime(n){\
+  \ return function(fn){                  \
+  \    return function(obj){              \
+  \       return function(){              \
+  \         var fnE = function (event) {  \
+  \           return fn(event)();         \
+  \         };                            \
+  \         obj.addEventListener(n, fnE); \
+  \         return obj;                   \
+  \       };                              \
+  \     };                                \
+  \  };                                   \
+  \}" :: forall d a o e eff. 
+         String -> 
+         (d -> Eff eff a) -> 
+         o -> 
+         Eff (customEvent :: CustomEvent | eff) o
+
+subscribeEventedEffOn n f o = subscribeEventedEffOnPrime n (\e ->
+    f $ newEvent e."type" e."detail"
+  ) o
+
 unwrapDetail (Event n d) = d.detail
