@@ -79,7 +79,7 @@ foreign import subscribeEventedOnPrime
          o -> 
          Eff (customEvent :: CustomEvent | eff) o
 
-subscribeEventedOn n f o = subscribeEventedOnPrime n (\e -> 
+subscribeEventedOn n f o = subscribeEventedOnPrime n (\e ->
     f $ newEvent e."type" e."detail"
   ) o
 

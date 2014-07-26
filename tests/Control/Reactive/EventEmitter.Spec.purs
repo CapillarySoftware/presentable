@@ -7,6 +7,11 @@ import Test.Chai
 import Debug.Trace
 import Debug.Foreign
 
+handler done d' event = do
+  trace "what?"
+  expect (unwrapDetail event) `toDeepEqual` d'
+  itIs done
+
 spec = do
   describe "Control.Monad.Event" $ do
     
@@ -17,21 +22,19 @@ spec = do
       let emitTheFoo = getWindow >>= emitOn sampleEvent
       expect emitTheFoo `toNotThrow` Error
 
-    itAsync "subscribeEventedOn hears emitted events" $ \done ->
-      getWindow 
+    itAsync "subscribeEventedOn hears emitted events" $ \done -> do
+      w <- getWindow 
+      subscribeEventedOn "foo" (\_ -> itIs done) w
+      emitOn sampleEvent w
+
+    itAsync "subscribeEventedOn hears emitted events as binding" $ \done ->
+      getWindow
       >>= subscribeEventedOn "foo" (\_ -> itIs done)
       >>= emitOn sampleEvent
 
-    itAsync "subscribeEventedOn should receive any attached data" $ \done -> do 
-      
-      getWindow 
-      >>= subscribeEventedOn "foo" (\event -> do
-        fprint event
-        expect (unwrapDetail event) `toDeepEqual` d'
-        itIs done
-      )
+    itAsync "subscribeEventedOn should receive any attached data" $ \done -> do      
+      w <- getWindow 
+        
+      subscribeEventedOn "foo" (handler done d') w
 
-      getWindow
-      >>= emitOn sampleEvent
-      
-      expect true `toEqual` true
+      emitOn sampleEvent w
