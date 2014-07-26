@@ -7,11 +7,6 @@ import Test.Chai
 import Debug.Trace
 import Debug.Foreign
 
-handler done d' event = do
-  trace "what?"
-  expect (unwrapDetail event) `toDeepEqual` d'
-  return $ itIs done
-
 spec = do
   describe "Control.Monad.Event" $ do
     
@@ -33,8 +28,9 @@ spec = do
       >>= emitOn sampleEvent
 
     itAsync "subscribeEventedOn should receive any attached data" $ \done -> do      
-      w <- getWindow 
-        
-      subscribeEventedEffOn "foo" (handler done d') w
-
-      emitOn sampleEvent w
+      getWindow        
+      >>= subscribeEventedEffOn "foo" (\event -> do 
+        expect (unwrapDetail event) `toDeepEqual` d'
+        return $ itIs done
+        )
+      >>= emitOn sampleEvent
