@@ -10,7 +10,7 @@ import Debug.Foreign
 handler done d' event = do
   trace "what?"
   expect (unwrapDetail event) `toDeepEqual` d'
-  itIs done
+  return $ itIs done
 
 spec = do
   describe "Control.Monad.Event" $ do
@@ -35,6 +35,6 @@ spec = do
     itAsync "subscribeEventedOn should receive any attached data" $ \done -> do      
       w <- getWindow 
         
-      subscribeEventedOn "foo" (handler done d') w
+      subscribeEventedEffOn "foo" (handler done d') w
 
       emitOn sampleEvent w
