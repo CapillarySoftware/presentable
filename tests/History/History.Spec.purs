@@ -40,7 +40,10 @@ spec = describe "History" $ do
     expectStateToMatch os''
 
   itAsync "replaceState shoud fire statechange" $ \done -> do 
-    subscribeStateChange  \_ -> return $ itIs done
+    subscribeStateChange  \event -> do
+      let d = unwrapEventDetail event
+      expect d.state `toDeepEqual` os
+      return $ itIs done
     replaceState os
     expectStateToMatch os
 
