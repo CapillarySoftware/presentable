@@ -1,4 +1,12 @@
-module Test.Chai where
+module Test.Chai
+  ( Chai(..), Error(..)
+  , expect, Expect(..), Expectation(..)
+  , toEqual, toNotEqual
+  , toDeepEqual, toNotDeepEqual, toEql, toNotEql
+  , toBeAbove, toNotBeAbove, toBeAtLeast, toNotBeAtLeast
+  , toBeBelow, toNotBeBelow, toBeAtMost, toNotBeAtMost
+  , toInclude, toNotInclude
+  , toThrow, toNotThrow, ErrorExpectation(..)) where
 
 import Control.Monad.Eff
 import Data.Foreign.EasyFFI

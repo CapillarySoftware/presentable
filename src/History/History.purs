@@ -1,8 +1,19 @@
-module History where
+module History
+  ( getState
+  , pushState
+  , replaceState    
+  , goBack
+  , goForward
+  , go
+  , subscribeStateChange
+  , History(..)
+  , State(..)
+  ) where
 
 import Debug.Foreign
 import Data.Foreign.EasyFFI
 import Control.Monad.Eff
+import Control.Reactive
 import Control.Reactive.EventEmitter
 
 type Title                  = String
@@ -16,7 +27,9 @@ type State d                = {
     url    :: Url    
   }
 
+foreign import data History :: !
 
+statechange = "statechange"
 
 getData                     = unsafeForeignFunction [""] "window.history.state"
 getTitle                    = unsafeForeignFunction [""] "document.title"
@@ -29,19 +42,26 @@ getState                    = do d <- getData
                                  return { title : t, url : u, "data" : d }
 
 
-foreign import data History :: !
 stateUpdaterNative          :: forall d eff. String ->
                              { | d } -> -- State.data
                              Title   -> -- State.title 
                              Url     -> -- State.url
                              Eff (history :: History | eff) {}
-stateUpdaterNative       x  = unsafeForeignProcedure ["d","title","url", ""] $ x ++ "(d,title,url)"
+stateUpdaterNative        x = unsafeForeignProcedure ["d","title","url", ""] $ x ++ "(d,title,url)"
 
 pushState'                  = stateUpdaterNative "window.history.pushState"
-pushState s                 = pushState'    s."data" s.title s.url
+pushState s                 = do
+  pushState'    s."data" s.title s.url
+  emit $ newEvent statechange { state : s }
 
 replaceState'               = stateUpdaterNative "window.history.replaceState"
-replaceState s              = replaceState' s."data" s.title s.url
+replaceState s              = do
+  replaceState' s."data" s.title s.url
+  emit $ newEvent statechange { state : s }
+
+
+
+subscribeStateChange      f = subscribeEvented statechange f 
 
 
 

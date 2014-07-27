@@ -1,4 +1,9 @@
-module Test.Mocha where
+module Test.Mocha
+  ( Describe(..), DoDescribe(..)
+  , It(..), DoIt(..)
+  , itIs, Done(..), DoneToken(..)  
+  , it, itAsync, itSkip, itOnly
+  , describe, describeSkip, describeOnly) where
 
 import Control.Monad.Eff
 import Data.Foreign.EasyFFI
@@ -39,9 +44,9 @@ foreign import itAsync
   \         });                                   \  
   \       };                                      \
   \    };                                         \
-  \}" :: forall eff. 
+  \}" :: forall a eff. 
          String -> 
-         (DoneToken -> Eff (done :: Done | eff) Unit) -> 
+         (DoneToken -> Eff (done :: Done | eff) a) -> 
          Eff (it :: It | eff) Unit
 
 foreign import itIs

@@ -1,4 +1,11 @@
-module Control.Reactive.EventEmitter where
+module Control.Reactive.EventEmitter
+  ( EventName(..), Event(..)
+  , newEvent, eventDMap, eventNMap
+  , getWindow
+  , unwrapEventDetail, unwrapEventName
+  , emitOn, subscribeEventedOn
+  , emit, subscribeEvented
+  ) where
 
 import Control.Monad.Eff
 import Control.Reactive

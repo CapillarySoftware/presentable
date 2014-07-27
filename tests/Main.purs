@@ -6,4 +6,5 @@ import Control.Monad.Eff
 main = do
   History.Spec.spec
   Control.Reactive.EventEmitter.Spec.spec
+  Control.Reactive.Timer.Spec.spec
   return Unit
