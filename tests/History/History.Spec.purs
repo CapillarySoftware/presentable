@@ -64,13 +64,11 @@ spec = describe "History" $ do
       expectStateToMatch os'
       return $ itIs done
 
-  -- itAsync "go accepts a number to move in the state" $ \done -> do
-  --   expectStateToMatch os'
+  itAsync "go accepts a number to move in the state" $ \done -> do
+    expectStateToMatch os'
 
-  --   go -2
+    goState (-1)
 
-  --   timeout 5 \_ -> do
-  --     expectStateToMatch os''
-  --     return $ itIs done
-
-      
+    timeout 5 \_ -> do
+      expectStateToMatch os
+      return $ itIs done

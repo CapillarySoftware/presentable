@@ -4,7 +4,7 @@ module History
   , replaceState    
   , goBack
   , goForward
-  , go
+  , goState
   , subscribeStateChange
   , History(..)
   , State(..)
@@ -67,4 +67,6 @@ subscribeStateChange      f = subscribeEvented statechange f
 
 goBack                      = unsafeForeignFunction  [""]        "window.history.back()"
 goForward                   = unsafeForeignFunction  [""]        "window.history.forward()"
-go                          = unsafeForeignProcedure ["dest",""] "window.history.go(dest)"
+
+goState                     :: forall eff. Number -> Eff (history :: History | eff) Unit
+goState                     = unsafeForeignProcedure ["dest",""] "window.history.go(dest)"
