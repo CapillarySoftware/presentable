@@ -16,6 +16,10 @@ expectStateToMatch os = do
   expect os.url `toEqual` ts.url
   -- This works in Chrome but not PhantomJS
   -- expect os."data" `toDeepEqual` ts."data"
+
+expectDetailStateToBe e os = do
+  let d = unwrapEventDetail e
+  expect d.state `toDeepEqual` os
   
 spec = describe "History" $ do
   let os   = {title : "wowzers!",   url : "/foo", "data" : { foo : 1 }}
@@ -31,9 +35,8 @@ spec = describe "History" $ do
     expectStateToMatch os
 
   itAsync "pushState should fire statechange" $ \done -> do
-    sub <- subscribeStateChange  \event -> do
-      let d = unwrapEventDetail event
-      expect d.state `toDeepEqual` os'
+    sub <- subscribeStateChange  \e -> do
+      expectDetailStateToBe e os'
       return $ itIs done
     pushState os'
     expectStateToMatch os'
@@ -44,9 +47,8 @@ spec = describe "History" $ do
     expectStateToMatch os''
 
   itAsync "replaceState shoud fire statechange" $ \done -> do 
-    sub <- subscribeStateChange  \event -> do
-      let d = unwrapEventDetail event
-      expect d.state `toDeepEqual` os
+    sub <- subscribeStateChange  \e -> do
+      expectDetailStateToBe e os
       return $ itIs done    
     replaceState os
     expectStateToMatch os
@@ -57,12 +59,8 @@ spec = describe "History" $ do
     pushState os'
     expectStateToMatch os'
 
-    sub <- subscribeStateChange \event -> do
-      let d = unwrapEventDetail event 
-      expect d.state `toEqual` "back"
-    
+    sub <- subscribeStateChange \e -> expectDetailStateToBe e "back"
     goBack
-    
     unsubscribe sub
     
     timeout 5 \_ -> do
@@ -72,17 +70,21 @@ spec = describe "History" $ do
   itAsync "goForward should go forward a state" $ \done -> do
     expectStateToMatch os
 
+    sub <- subscribeStateChange \e -> expectDetailStateToBe e "forward"
     goForward
+    unsubscribe sub
 
     timeout 5 \_ -> do
       expectStateToMatch os'
       return $ itIs done
 
-  -- itAsync "go accepts a number to move in the state" $ \done -> do
-  --   expectStateToMatch os'
+  itAsync "go accepts a number to move in the state" $ \done -> do
+    expectStateToMatch os'
 
-  --   goState (-1)
+    sub <- subscribeStateChange \e -> expectDetailStateToBe e "goState(-1)"
+    goState (-1)
+    unsubscribe sub
 
-  --   timeout 5 \_ -> do
-  --     expectStateToMatch os
-  --     return $ itIs done
+    timeout 5 \_ -> do
+      expectStateToMatch os
+      return $ itIs done

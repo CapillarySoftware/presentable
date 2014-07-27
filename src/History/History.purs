@@ -79,5 +79,5 @@ goForward                   = do
 goState_                    :: forall eff. Number -> Eff (history :: History | eff) Unit
 goState_                    = unsafeForeignProcedure ["dest",""] "window.history.go(dest)"
 goState                   x = do 
-  emitStateChange $ "go(" ++ (show x) ++ ")"
+  emitStateChange $ "goState(" ++ (show x) ++ ")"
   goState_ x
