@@ -6,10 +6,15 @@
 
     data Chai :: !
 
+    data Error where
+      Error :: Error
+
+    type ErrorExpectation  = forall eff. Expect -> Error -> Eff (chai :: Chai | eff) Unit
+
     data Expect where
       Expect :: Expect
 
-    type Expectation  = forall a e. Expect -> a -> Eff (chai :: Chai | e) {  }
+    type Expectation  = forall a e. Expect -> a -> Eff (chai :: Chai | e) Unit
 
 
 ### Values
@@ -47,6 +52,10 @@
     toNotEqual :: Expectation
 
     toNotInclude :: Expectation
+
+    toNotThrow :: ErrorExpectation
+
+    toThrow :: ErrorExpectation
 
 
 
