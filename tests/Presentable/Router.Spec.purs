@@ -13,9 +13,9 @@ import Debug.Foreign
 
 spec = describe "Router" $ do
   
-  let sampleRoutes = [( Tuple "/"  "views/index.yaml" ), 
-                      ( Tuple "/foo" "views/foo.yaml" ), 
-                      ( Tuple "/bar" "views/bar.yaml" )]
+  let sampleRoutes = [ (Tuple "/"  "views/index.yaml")
+                     , (Tuple "/foo" "views/foo.yaml")
+                     , (Tuple "/bar" "views/bar.yaml") ]
 
   it "should default to the first of the list" $ do
     -- route sampleRoutes
