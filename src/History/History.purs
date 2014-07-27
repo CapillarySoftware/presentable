@@ -1,61 +1,72 @@
-module History where
+module History
+  ( getState
+  , pushState
+  , replaceState    
+  , goBack
+  , goForward
+  , goState
+  , subscribeStateChange
+  , History(..)
+  , State(..)
+  ) where
 
 import Debug.Foreign
 import Data.Foreign.EasyFFI
 import Control.Monad.Eff
 import Control.Reactive
+import Control.Reactive.EventEmitter
 
-                    --- Record representing browser state 
-                    --- Passed to and returned by history
-type State d        = {title :: Title, url :: Url, "data" :: { | d }}
-type Title          = String
-type Url            = String
+type Title                  = String
+type Url                    = String
+
+--- Record representing browser state 
+--- Passed to and returned by history
+type State d                = {
+    "data" :: { | d },
+    title  :: Title, 
+    url    :: Url    
+  }
 
 foreign import data History :: !
 
-type StateUpdater d = forall eff. { | d } -> Title -> Url -> Eff (history :: History | eff) {}
+statechange = "statechange"
 
-------
+getData                     = unsafeForeignFunction [""] "window.history.state"
+getTitle                    = unsafeForeignFunction [""] "document.title"
+getUrl                      = unsafeForeignFunction [""] "location.pathname"
 
-pushState' :: forall d. StateUpdater d
-pushState' = unsafeForeignProcedure ["d","title","url", ""] "window.history.pushState(d,title,url)"
+getState                    :: forall m d. (Monad m) => m (State d)
+getState                    = do d <- getData
+                                 t <- getTitle
+                                 u <- getUrl
+                                 return { title : t, url : u, "data" : d }
 
-pushState :: forall eff d. State d -> Eff (history :: History | eff) {}
-pushState s = pushState' s."data" s.title s.url
 
-------
+stateUpdaterNative          :: forall d eff. String ->
+                             { | d } -> -- State.data
+                             Title   -> -- State.title 
+                             Url     -> -- State.url
+                             Eff (history :: History | eff) Unit
+stateUpdaterNative        x = unsafeForeignProcedure ["d","title","url", ""] $ x ++ "(d,title,url)"
 
-replaceState' :: forall d. StateUpdater d
-replaceState' = unsafeForeignProcedure ["d","title","url", ""] "window.history.replaceState(d,title,url)"
+pushState'                  = stateUpdaterNative "window.history.pushState"
+pushState s                 = do
+  pushState'    s."data" s.title s.url
+  emit $ newEvent statechange { state : s }
 
-replaceState :: forall eff d. State d -> Eff (history :: History | eff) {}
-replaceState s = replaceState' s."data" s.title s.url
+replaceState'               = stateUpdaterNative "window.history.replaceState"
+replaceState s              = do
+  replaceState' s."data" s.title s.url
+  emit $ newEvent statechange { state : s }
 
-------
 
-getData :: forall d m. (Monad m) => m { | d }
-getData = unsafeForeignFunction [""] "window.history.state"
 
-getTitle :: forall m. (Monad m) => m String
-getTitle = unsafeForeignFunction [""] "document.title"
+subscribeStateChange      f = subscribeEvented statechange f 
 
-getUrl :: forall m. (Monad m) => m String
-getUrl = unsafeForeignFunction [""] "location.pathname"
 
-getState :: forall m d. (Monad m) => m (State d)
-getState = do t <- getTitle
-              u <- getUrl
-              d <- getData
-              return { title : t, url : u, "data" : d }
 
-stateChange :: forall a e. Eff e a -> Eff (history :: History | e) {}
-stateChange = unsafeForeignFunction ["fn",""] "window.addEventListener('click', fn)"
+goBack                      = unsafeForeignFunction  [""]        "window.history.back()"
+goForward                   = unsafeForeignFunction  [""]        "window.history.forward()"
 
-goBack :: forall eff. Eff (history :: History | eff) {}
-goBack = unsafeForeignFunction [""] "window.history.back()"
-
-goForward :: forall eff. Eff (history :: History | eff) {}
-goForward = unsafeForeignFunction [""] "window.history.forward()"
-
-go :: forall eff. Number -> Eff (history :: History | eff) {}
-go = unsafeForeignProcedure ["dest",""] "window.history.go(dest)"
+goState                     :: forall eff. Number -> Eff (history :: History | eff) Unit
+goState                     = unsafeForeignProcedure ["dest",""] "window.history.go(dest)"
