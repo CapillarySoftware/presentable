@@ -37,10 +37,12 @@ spec = describe "Control.Monad.Event" $ do
 
   itAsync "unsubscribe cancels a subscription" $ \done -> do
     isSubbed <- newSTRef false
-    sub <- subscribeEvented "foo" $ \_ -> do
+    sub      <- subscribeEvented "foo" $ \_ -> do
       modifySTRef isSubbed \_ -> true
-    unsubscribe sub 
+
+    unsubscribe sub     
     emit sampleEvent
+
     timeout 10 \_ -> do
       isSubbed' <- readSTRef isSubbed
       expect isSubbed' `toEqual` false

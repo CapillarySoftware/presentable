@@ -31,31 +31,42 @@ spec = describe "History" $ do
     expectStateToMatch os
 
   itAsync "pushState should fire statechange" $ \done -> do
-    subscribeStateChange  \_ -> return $ itIs done
+    sub <- subscribeStateChange  \event -> do
+      let d = unwrapEventDetail event
+      expect d.state `toDeepEqual` os'
+      return $ itIs done
     pushState os'
     expectStateToMatch os'
+    unsubscribe sub
 
   it "replaceState should change the state" $ do
     replaceState os''
     expectStateToMatch os''
 
   itAsync "replaceState shoud fire statechange" $ \done -> do 
-    subscribeStateChange  \event -> do
-      -- let d = unwrapEventDetail event
-      -- expect d.state `toDeepEqual` os
-      return $ itIs done
+    sub <- subscribeStateChange  \event -> do
+      let d = unwrapEventDetail event
+      expect d.state `toDeepEqual` os
+      return $ itIs done    
     replaceState os
     expectStateToMatch os
+    unsubscribe sub
 
   itAsync "goBack should go back a state" $ \done -> do
     expectStateToMatch os
     pushState os'
     expectStateToMatch os'
+
+    sub <- subscribeStateChange \event -> do
+      let d = unwrapEventDetail event 
+      expect d.state `toEqual` "back"
     
     goBack
     
+    unsubscribe sub
+    
     timeout 5 \_ -> do
-      expectStateToMatch os
+      expectStateToMatch os      
       return $ itIs done
 
   itAsync "goForward should go forward a state" $ \done -> do
@@ -67,11 +78,11 @@ spec = describe "History" $ do
       expectStateToMatch os'
       return $ itIs done
 
-  itAsync "go accepts a number to move in the state" $ \done -> do
-    expectStateToMatch os'
+  -- itAsync "go accepts a number to move in the state" $ \done -> do
+  --   expectStateToMatch os'
 
-    goState (-1)
+  --   goState (-1)
 
-    timeout 5 \_ -> do
-      expectStateToMatch os
-      return $ itIs done
+  --   timeout 5 \_ -> do
+  --     expectStateToMatch os
+  --     return $ itIs done
