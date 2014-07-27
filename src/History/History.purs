@@ -31,7 +31,7 @@ getData                     = unsafeForeignFunction [""] "window.history.state"
 getTitle                    = unsafeForeignFunction [""] "document.title"
 getUrl                      = unsafeForeignFunction [""] "location.pathname"
 
-getState                    :: forall m d. (Monad m) => m (State d)
+getState                    :: forall eff d. Eff (history :: History | eff) (State d)
 getState                    = do d <- getData
                                  t <- getTitle
                                  u <- getUrl
