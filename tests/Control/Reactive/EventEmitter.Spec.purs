@@ -20,16 +20,11 @@ spec = do
       expect emitTheFoo `toNotThrow` Error
 
     itAsync "subscribeEventedOn hears emitted events" $ \done -> do
-      subscribeEventedOn "foo" (\_ -> itIs done) window
+      subscribeEventedOn "foo" (\_ -> return $ itIs done) window
       emitOn sampleEvent window
 
-    itAsync "subscribeEventedOn hears emitted events as binding" $ \done ->
-      getWindow
-      >>= subscribeEventedOn "foo" (\_ -> itIs done)
-      >>= emitOn sampleEvent
-
     itAsync "subscribeEventedOn should receive any attached data" $ \done -> do         
-      subscribeEventedEffOn "foo" (\event -> do 
+      subscribeEventedOn "foo" (\event -> do 
         expect (unwrapEventDetail event) `toDeepEqual` d'
         return $ itIs done
         ) window

@@ -6,7 +6,7 @@ import Data.Foreign.EasyFFI
 
 
 foreign import data Describe  :: !
-type DoDescribe               = forall e a. String -> Eff e a -> Eff (describe :: Describe | e) {}
+type DoDescribe               = forall e a. String -> Eff e a -> Eff (describe :: Describe | e) Unit
 
 describe                      :: DoDescribe
 describe                      = unsafeForeignProcedure ["description", "fn", ""] "window.describe(description, fn);"
@@ -18,7 +18,7 @@ describeSkip                  = unsafeForeignProcedure ["description", "fn", ""]
 
 
 foreign import data It        :: !
-type DoIt                     = forall e a. String -> Eff e a -> Eff (it :: It | e) {}
+type DoIt                     = forall e a. String -> Eff e a -> Eff (it :: It | e) Unit
 
 it                            :: DoIt
 it                            = unsafeForeignProcedure ["description", "fn", ""] "window.it(description, fn);"
@@ -41,32 +41,32 @@ foreign import itAsync
   \    };                                         \
   \}" :: forall eff. 
          String -> 
-         (DoneToken -> Eff (done :: Done | eff) {}) -> 
-         Eff (it :: It | eff) {}
+         (DoneToken -> Eff (done :: Done | eff) Unit) -> 
+         Eff (it :: It | eff) Unit
 
 foreign import itIs
   "function itIs(d){ return d(); }" :: forall eff. 
                                        DoneToken -> 
-                                       Eff (done :: Done | eff) {}
+                                       Eff (done :: Done | eff) Unit
 
 
     --- HOOKS
 
 
 foreign import data Before     :: !
-before                         :: forall e a. Eff e a -> Eff (beforeEach :: Before | e) {}
+before                         :: forall e a. Eff e a -> Eff (beforeEach :: Before | e) Unit
 before                         = unsafeForeignProcedure ["fn",""] "window.before(fn);"
 
 foreign import data After      :: !
-after                          :: forall e a. Eff e a -> Eff (beforeEach :: After | e) {}
+after                          :: forall e a. Eff e a -> Eff (beforeEach :: After | e) Unit
 after                          = unsafeForeignProcedure ["fn",""] "window.after(fn);"
 
 
 
 foreign import data BeforeEach :: !
-beforeEach                     :: forall e a. Eff e a -> Eff (beforeEach :: BeforeEach | e) {}
+beforeEach                     :: forall e a. Eff e a -> Eff (beforeEach :: BeforeEach | e) Unit
 beforeEach                     = unsafeForeignProcedure ["fn",""] "window.beforeEach(fn);"
 
 foreign import data AfterEach  :: !
-afterEach                      :: forall e a. Eff e a -> Eff (beforeEach :: AfterEach | e) {}
+afterEach                      :: forall e a. Eff e a -> Eff (beforeEach :: AfterEach | e) Unit
 afterEach                      = unsafeForeignProcedure ["fn",""] "window.afterEach(fn);"

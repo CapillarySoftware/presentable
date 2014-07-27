@@ -1,7 +1,7 @@
 module Control.Reactive.EventEmitter where
 
 import Control.Monad.Eff
--- import Control.Reactive
+import Control.Reactive
 import Data.Foreign.EasyFFI
 
 type EventName                = String
@@ -53,7 +53,7 @@ foreign import customEventPolyFill
   \  };" :: forall a. 
             a -> Unit
 
-foreign import data CustomEvent :: !
+
 
 foreign import emitOn_
   "function emitOn_(n){                   \
@@ -67,33 +67,17 @@ foreign import emitOn_
   \    };                                 \
   \  };                                   \
   \ }" :: forall d o eff. 
-          String -> 
+          EventName -> 
           { | d} -> 
           o -> 
-          Eff (customEvent :: CustomEvent | eff) o
+          Eff (reactive :: Reactive | eff) o
+
 emitOn (Event n d) o        = emitOn_ n d o
 
-foreign import subscribeEventedOnPrime
-  "function subscribeEventedOnPrime(n){  \
-  \ return function(fn){                 \
-  \    return function(obj){             \
-  \       return function(){             \
-  \         obj.addEventListener(n, fn); \
-  \         return obj;                  \
-  \       };                             \
-  \     };                               \
-  \  };                                  \
-  \}" :: forall d a o eff. 
-         String -> 
-         (d -> a) -> 
-         o -> 
-         Eff (customEvent :: CustomEvent | eff) o
-subscribeEventedOn n f o      = subscribeEventedOnPrime n (\e ->
-    f $ newEvent e."type" e."detail"
-  ) o
 
-foreign import subscribeEventedEffOnPrime
-  "function subscribeEventedEffOnPrime(n){\
+
+foreign import subscribeEventedOnPrime
+  "function subscribeEventedOnPrime(n){\
   \ return function(fn){                  \
   \    return function(obj){              \
   \       return function(){              \
@@ -105,12 +89,13 @@ foreign import subscribeEventedEffOnPrime
   \       };                              \
   \     };                                \
   \  };                                   \
-  \}" :: forall d a o e eff. 
-         String -> 
-         (d -> Eff eff a) -> 
+  \}" :: forall d a o eff. 
+         EventName -> 
+         (d -> Eff (reactive :: Reactive | eff) a) -> 
          o -> 
-         Eff (customEvent :: CustomEvent | eff) o
-subscribeEventedEffOn n f o   = subscribeEventedEffOnPrime n (\e -> 
+         Eff (reactive :: Reactive | eff) Subscription
+
+subscribeEventedOn n f o   = subscribeEventedOnPrime n (\e -> 
     f $ newEvent e."type" e."detail" 
   ) o
 
