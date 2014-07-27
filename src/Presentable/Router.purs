@@ -1,4 +1,6 @@
 module Presentable.Router where
 
-foozle :: Number -> String
-foozle x = "In Port Foozle " ++ (show x) ++ " eats you!"
+import Data.Tuple
+import History
+
+type Route = Tuple
