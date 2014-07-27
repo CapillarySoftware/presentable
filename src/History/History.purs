@@ -46,7 +46,7 @@ stateUpdaterNative          :: forall d eff. String ->
                              { | d } -> -- State.data
                              Title   -> -- State.title 
                              Url     -> -- State.url
-                             Eff (history :: History | eff) {}
+                             Eff (history :: History | eff) Unit
 stateUpdaterNative        x = unsafeForeignProcedure ["d","title","url", ""] $ x ++ "(d,title,url)"
 
 pushState'                  = stateUpdaterNative "window.history.pushState"

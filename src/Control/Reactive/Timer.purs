@@ -26,7 +26,9 @@ foreign import clearTimeout
   \   return function(){\
   \     return window.clearTimeout(timer);\
   \   };\
-  \ }" :: forall eff. Timeout -> Eff (timer :: Timer | eff) Unit
+  \ }" :: forall eff. 
+          Timeout -> 
+          Eff (timer :: Timer | eff) Unit
 
 foreign import interval
   "function interval(time){                     \
@@ -47,4 +49,6 @@ foreign import clearInterval
   \   return function(){\
   \     return window.clearInterval(timer);\
   \   };\
-  \ }" :: forall eff. Interval -> Eff (timer :: Timer | eff) Unit
+  \ }" :: forall eff. 
+          Interval -> 
+          Eff (timer :: Timer | eff) Unit

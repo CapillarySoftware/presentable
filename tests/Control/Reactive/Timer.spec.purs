@@ -45,7 +45,7 @@ spec = describe "Timer" $ do
     t <- interval 5 \_ -> do
       modifySTRef runCount \n -> n + 1
 
-    clearInterval t 
+    clearInterval t
 
     timeout 10 \_ -> do
       runCount' <- readSTRef runCount

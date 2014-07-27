@@ -8,10 +8,12 @@ import Test.Mocha
 import Test.Chai
 import Control.Monad.Eff
 import Control.Reactive.EventEmitter
+import Control.Reactive.Timer
+import Debug.Foreign
 
 expectStateToMatch os = do
   ts <- getState
-  expect os.url    `toEqual`     ts.url
+  expect os.url `toEqual` ts.url
   -- This works in Chrome but not PhantomJS
   -- expect os."data" `toDeepEqual` ts."data"
   
@@ -24,8 +26,6 @@ spec = describe "History" $ do
     ts <- getState
     expect ts.title `toEqual` ""
 
-
-
   it "pushState should change the state" $ do
     pushState os
     expectStateToMatch os
@@ -34,8 +34,6 @@ spec = describe "History" $ do
     subscribeStateChange  \_ -> return $ itIs done
     pushState os'
     expectStateToMatch os'
-
-
 
   it "replaceState should change the state" $ do
     replaceState os''
@@ -46,11 +44,33 @@ spec = describe "History" $ do
     replaceState os
     expectStateToMatch os
 
+  itAsync "goBack should go back a state" $ \done -> do
+    expectStateToMatch os
+    pushState os'
+    expectStateToMatch os'
+    
+    goBack
+    
+    timeout 5 \_ -> do
+      expectStateToMatch os
+      return $ itIs done
 
+  itAsync "goForward should go forward a state" $ \done -> do
+    expectStateToMatch os
 
-  -- itAsync "back should go back a state" $ \done -> do
-  --   expectStateToMatch os
-  --   _ <- goBack
-  --   expectStateToMatch os''
+    goForward
+
+    timeout 5 \_ -> do
+      expectStateToMatch os'
+      return $ itIs done
+
+  -- itAsync "go accepts a number to move in the state" $ \done -> do
+  --   expectStateToMatch os'
+
+  --   go -2
+
+  --   timeout 5 \_ -> do
+  --     expectStateToMatch os''
+  --     return $ itIs done
 
       
