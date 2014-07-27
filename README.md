@@ -15,3 +15,8 @@ Do it!
 ```
 gulp
 ```
+
+Test it!
+```
+karma start tests/karma.conf.js
+```
