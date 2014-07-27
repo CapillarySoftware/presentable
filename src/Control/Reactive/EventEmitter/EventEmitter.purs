@@ -5,6 +5,7 @@ module Control.Reactive.EventEmitter
   , unwrapEventDetail, unwrapEventName
   , emitOn, subscribeEventedOn
   , emit, subscribeEvented
+  , unsubscribe
   ) where
 
 import Control.Monad.Eff
@@ -84,18 +85,20 @@ emitOn (Event n d) o        = emitOn_ n d o
 
 
 foreign import subscribeEventedOn_
-  "function subscribeEventedOn_(n){\
-  \ return function(fn){                  \
-  \    return function(obj){              \
-  \       return function(){              \
-  \         var fnE = function (event) {  \
-  \           return fn(event)();         \
-  \         };                            \
-  \         obj.addEventListener(n, fnE); \
-  \         return obj;                   \
-  \       };                              \
-  \     };                                \
-  \  };                                   \
+  "function subscribeEventedOn_(n){           \
+  \ return function(fn){                      \
+  \    return function(obj){                  \
+  \       return function(){                  \
+  \         var fnE = function (event) {      \
+  \           return fn(event)();             \
+  \         };                                \
+  \         obj.addEventListener(n, fnE);     \
+  \         return function(){                \
+  \           obj.removeEventListener(n, fnE); \
+  \         };                                \
+  \       };                                  \
+  \     };                                    \
+  \  };                                       \
   \}" :: forall d a o eff. 
          EventName -> 
          (d -> Eff (reactive :: Reactive | eff) a) -> 
@@ -105,6 +108,16 @@ foreign import subscribeEventedOn_
 subscribeEventedOn n f o   = subscribeEventedOn_ n (\e -> 
     f $ newEvent e."type" e."detail" 
   ) o
+
+
+
+foreign import unsubscribe
+  "function unsubscribe(sub){ \
+  \   return function(){      \
+  \     sub();                \
+  \   };                      \
+  \ }" :: forall eff. Subscription -> Eff (reactive :: Reactive | eff) Unit
+
 
 
 emit ev                    = getWindow >>= emitOn ev

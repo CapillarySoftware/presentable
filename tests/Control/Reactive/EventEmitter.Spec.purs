@@ -1,6 +1,8 @@
 module Control.Reactive.EventEmitter.Spec where
 
+import Control.Monad.ST
 import Control.Reactive.EventEmitter
+import Control.Reactive.Timer
 import Test.Mocha
 import Test.Chai
 
@@ -33,14 +35,27 @@ spec = describe "Control.Monad.Event" $ do
     subscribeEvented "foo" $ \_ -> return $ itIs done
     emit sampleEvent
 
-  it "eventDMap maps over the details data passing area" $ do 
-    let mapped = eventDMap (\d -> d { wowzers = "gadget" }) sampleEvent      
-    expect (unwrapEventDetail mapped) `toDeepEqual` { wowzers : "gadget"}
-    expect (unwrapEventName mapped) `toEqual` (unwrapEventName sampleEvent)
-    expect (unwrapEventDetail mapped) `toNotEqual` (unwrapEventDetail sampleEvent)
+  itAsync "unsubscribe cancels a subscription" $ \done -> do
+    isSubbed <- newSTRef false
+    sub <- subscribeEvented "foo" $ \_ -> do
+      modifySTRef isSubbed \_ -> true
+    unsubscribe sub 
+    emit sampleEvent
+    timeout 10 \_ -> do
+      isSubbed' <- readSTRef isSubbed
+      expect isSubbed' `toEqual` false
+      return $ itIs done
 
-  it "eventNMap maps over the name of the event" $ do
-    let mapped = eventNMap (\_ -> "Merv Griffen") sampleEvent
-    expect (unwrapEventDetail mapped) `toDeepEqual` (unwrapEventDetail sampleEvent)
-    expect (unwrapEventName mapped) `toEqual` "Merv Griffen"
-    expect (unwrapEventName mapped) `toNotEqual` (unwrapEventName sampleEvent)
+  describe "maps" $ do 
+
+    it "eventDMap maps over the details data passing area" $ do 
+      let mapped = eventDMap (\d -> d { wowzers = "gadget" }) sampleEvent      
+      expect (unwrapEventDetail mapped) `toDeepEqual` { wowzers : "gadget"}
+      expect (unwrapEventName mapped) `toEqual` (unwrapEventName sampleEvent)
+      expect (unwrapEventDetail mapped) `toNotEqual` (unwrapEventDetail sampleEvent)
+
+    it "eventNMap maps over the name of the event" $ do
+      let mapped = eventNMap (\_ -> "Merv Griffen") sampleEvent
+      expect (unwrapEventDetail mapped) `toDeepEqual` (unwrapEventDetail sampleEvent)
+      expect (unwrapEventName mapped) `toEqual` "Merv Griffen"
+      expect (unwrapEventName mapped) `toNotEqual` (unwrapEventName sampleEvent)
