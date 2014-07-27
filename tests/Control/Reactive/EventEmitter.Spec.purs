@@ -30,6 +30,10 @@ spec = do
         ) window
       emitOn sampleEvent window
 
+    itAsync "emit and subscribeEvented should be global" $ \done -> do 
+      subscribeEvented "foo" $ \_ -> return $ itIs done
+      emit sampleEvent
+
     it "eventDMap maps over the details data passing area" $ do 
       let mapped = eventDMap (\d -> d { wowzers = "gadget" }) sampleEvent      
       expect (unwrapEventDetail mapped) `toDeepEqual` { wowzers : "gadget"}

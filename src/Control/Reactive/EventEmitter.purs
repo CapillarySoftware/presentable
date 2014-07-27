@@ -76,8 +76,8 @@ emitOn (Event n d) o        = emitOn_ n d o
 
 
 
-foreign import subscribeEventedOnPrime
-  "function subscribeEventedOnPrime(n){\
+foreign import subscribeEventedOn_
+  "function subscribeEventedOn_(n){\
   \ return function(fn){                  \
   \    return function(obj){              \
   \       return function(){              \
@@ -95,9 +95,13 @@ foreign import subscribeEventedOnPrime
          o -> 
          Eff (reactive :: Reactive | eff) Subscription
 
-subscribeEventedOn n f o   = subscribeEventedOnPrime n (\e -> 
+subscribeEventedOn n f o   = subscribeEventedOn_ n (\e -> 
     f $ newEvent e."type" e."detail" 
   ) o
+
+
+emit ev                    = getWindow >>= emitOn ev
+subscribeEvented n f       = getWindow >>= subscribeEventedOn n f
 
 
 

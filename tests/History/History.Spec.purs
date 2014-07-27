@@ -7,6 +7,7 @@ import History
 import Test.Mocha
 import Test.Chai
 import Control.Monad.Eff
+import Control.Reactive.EventEmitter
 
 expectStateToMatch os = do
   ts <- getState
@@ -28,9 +29,11 @@ spec = do
       pushState os
       expectStateToMatch os
 
-    it "replaceState should change the state" $ do   
+    itAsync "replaceState should change the state and fire changeState" $ \done -> do
+      subscribeEvented "changeState" $ \_ -> return $ itIs done
       pushState os''
       expectStateToMatch os''
 
     it "current state will be from last test" $ do
       expectStateToMatch os''
+      

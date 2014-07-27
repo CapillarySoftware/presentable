@@ -3,7 +3,7 @@ module History where
 import Debug.Foreign
 import Data.Foreign.EasyFFI
 import Control.Monad.Eff
-import Control.Reactive
+import Control.Reactive.EventEmitter
 
 type Title                  = String
 type Url                    = String

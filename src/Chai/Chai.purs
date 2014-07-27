@@ -10,7 +10,7 @@ data Error               = Error
 expect                   :: forall a. a -> Expect
 expect                   = unsafeForeignFunction ["source"] "chai.expect(source)"
 
-type Expectation         = forall a e. Expect -> a -> Eff (chai :: Chai | e) {}
+type Expectation         = forall a e. Expect -> a -> Eff (chai :: Chai | e) Unit
 bindExpectation        x = unsafeForeignProcedure ["expect", "target", ""] $ "expect." ++ x ++ "(target)"
 
 toEqual                  :: Expectation
@@ -53,7 +53,7 @@ toInclude                = bindExpectation "to.include"
 toNotInclude             :: Expectation
 toNotInclude             = bindExpectation "to.not.include"
 
-type ErrorExpectation    = forall eff. Expect -> Error -> Eff (chai :: Chai | eff) {}
+type ErrorExpectation    = forall eff. Expect -> Error -> Eff (chai :: Chai | eff) Unit
 
 toThrow                  :: ErrorExpectation
 toThrow                  = unsafeForeignProcedure ["expect", "", ""] "expect.to.throw(Error)"
