@@ -26,8 +26,8 @@ spec = describe "Router" $ do
     s <- getState
 
     case fst <$> head sampleRoutes of
-      Nothing -> expect Nothing `toEqual` "something"
-      Just a  -> expect a `toEqual` s.url
+      Nothing -> expect Nothing `toEqual` s.url
+      Just a  -> expect a       `toEqual` s.url
 
   
   
