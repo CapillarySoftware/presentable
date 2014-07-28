@@ -5,11 +5,9 @@ import Test.Mocha
 import Test.Chai
 import History
 import Data.Tuple
-import Data.Array.Unsafe
+import Data.Array
 import Data.Maybe
 import Debug.Foreign
-
--- spec = fprint "moo"
 
 spec = describe "Router" $ do
   
@@ -17,10 +15,20 @@ spec = describe "Router" $ do
                      , (Tuple "/foo" "views/foo.yaml")
                      , (Tuple "/bar" "views/bar.yaml") ]
 
+  beforeEach $ do
+    replaceState { title : "", url : "/before", "data" : {}}
+
   it "should default to the first of the list" $ do
-    -- route sampleRoutes
-    pushState { title : "", url : "/notOnTheList", "data" : {} }
-    s <- getState    
-    expect s.url `toEqual` (fst $ head sampleRoutes)
-  
+
+    route sampleRoutes
     
+    pushState { title : "", url : "/notOnTheList", "data" : {} }    
+    s <- getState
+
+    case fst <$> head sampleRoutes of
+      Nothing -> expect Nothing `toEqual` "something"
+      Just a  -> expect a `toEqual` s.url
+
+  
+  
+
