@@ -13,6 +13,8 @@ type View = String
 -- route :: forall a eff. [(Tuple Url View)] -> Eff ( reactive :: Reactive, history :: History | eff) a
 route routes = do subscribeStateChange \e -> do 
   s <- getState
-  let match = filter (\x -> (fst x) == s.url) routes
-  ftrace match
+  let match = filter (\x -> fst x == s.url) routes
+  fprint match
+
+  
 
