@@ -25,7 +25,7 @@ extractUrl e = (unwrapEventDetail e).state.url
 
 route :: forall eff. 
          [Route] -> 
-         (Route -> Eff (reactive :: Reactive, 
+         (View -> Eff (reactive :: Reactive, 
                         history  :: History, 
                         err      :: Exception String | eff) Unit) -> 
          Eff (reactive :: Reactive,                             -- pushState will fire a reaction 
@@ -34,6 +34,6 @@ route :: forall eff.
          
 route rs f = subscribeStateChange \e -> do 
   d <- defaultRoute rs
-  case filter (\x -> fst x == (extractUrl e)) rs of
+  case filter (\x -> fst x == extractUrl e) rs of
     []    -> pushState {title : "t", url : fst d, "data" : {}}
-    (x:_) -> f x
+    (x:_) -> f $ snd x
