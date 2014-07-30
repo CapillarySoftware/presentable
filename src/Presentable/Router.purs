@@ -27,11 +27,7 @@ route routes = subscribeStateChange \e -> do
     filterRoute :: forall r eff. { url :: Url | r} -> Route -> [Route] -> 
                    Eff (trace :: Trace, history :: History, reactive :: Reactive | eff) Unit
     filterRoute state default routes = case filter (\x -> fst x == state.url) routes of
-      []    -> do
-        trace "fst default"
-        let target = {title : "t", url : (fst default), "data" : {}}
-        ftrace target
-        pushState target
+      []    -> pushState {title : "t", url : (fst default), "data" : {}}
       (x:_) -> fprint $ snd x
 
   
