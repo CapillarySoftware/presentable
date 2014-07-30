@@ -4,6 +4,7 @@ gulp       = require('gulp'),
 purescript = require('gulp-purescript'),
 concat     = require('gulp-concat'),
 gulpif     = require('gulp-if'),
+gulpFilter = require('gulp-filter'),
 express    = require('express'),
 runSq      = require('run-sequence'),
 karma      = require('gulp-karma'),
@@ -99,6 +100,13 @@ gulp.task('serve', function(){
   console.log("listening on port " + port);
   server.use(express.static('./example'));
   server.listen(port); 
+});
+
+gulp.task('doc', function(){
+  var noBower = gulpFilter(["*", "!bower_components/**/*"]);
+  gulp.src("src/**/*.purs")
+    .pipe(purescript.docgen())
+    .pipe( gulp.dest("DocGen.md"));
 });
 
 gulp.task('default', ['build:src']);

@@ -5,7 +5,6 @@ Presentable
 
 A minimal PureScript rendering agnostic UI framework
 
-
 ### Make code do thing:
 
 Preliminary
@@ -22,3 +21,7 @@ Test it!
 ```
 karma start tests/karma.conf.js
 ```
+
+### Generated Documentation
+
+[Type signatures a plenty](DogGen.md)
