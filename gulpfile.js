@@ -2,14 +2,11 @@ var
 
 gulp       = require('gulp'),
 purescript = require('gulp-purescript'),
-shell      = require('gulp-shell'),
 concat     = require('gulp-concat'),
 gulpif     = require('gulp-if'),
 express    = require('express'),
-rimraf     = require('rimraf'),
 runSq      = require('run-sequence'),
 karma      = require('gulp-karma'),
-exec       = require('child_process').exec,
 
 paths      = {
   src : {
@@ -49,7 +46,7 @@ options    = {
     output : 'Test.js',
     main : true,
     runtimeTypeChecks : false,
-    externs : "extern"
+    externs : "extern.purs"
   },
   example : {
     output : 'Main.js',
