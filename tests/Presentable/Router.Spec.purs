@@ -27,7 +27,7 @@ testRoute' srs url mUrl done = do
       Just a | a == s.state.url -> return $ itIs done
       Just a -> return $ expect a `toNotEqual` s.state.url
 
-  sub' <- route srs
+  sub' <- route srs $ snd >>> trace
 
   pushState <<< toState $ url
   
