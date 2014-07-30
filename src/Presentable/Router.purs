@@ -15,15 +15,14 @@ type View   = String
 type Route  = Tuple Url View
 
 filterRoute :: forall r eff. [Route] -> { url :: Url | r} -> Route ->
-               Eff (
-                    trace    :: Trace,         -- temporary until there is the compiler
-                    history  :: History,       -- pushState effects the history object
-                    reactive :: Reactive | eff -- pushState fires reactions
+               Eff (  trace    :: Trace,         -- temporary until there is the compiler
+                      history  :: History,       -- pushState effects the history object
+                      reactive :: Reactive | eff -- pushState fires reactions
                     ) Unit
 
-filterRoute rs s d = case filter (\x -> fst x == s.url) rs of
-  []    -> pushState {title : "t", url : (fst d), "data" : {}}
-  (x:_) -> trace $ snd x
+filterRoute rs s d = case filter (\x ->  fst x == s.url) rs of
+  []    -> pushState {title : "t", url : fst d, "data" : {}}
+  (x:_) -> (trace <<< snd) x
 
 route rs = subscribeStateChange \e ->
   defaultRoute rs >>= filterRoute rs (state e) 
