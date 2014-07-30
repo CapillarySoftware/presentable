@@ -27,12 +27,14 @@ defaultRoute rs = case head rs of
   Just r  -> return r
 
 route :: forall a eff. [Route] -> 
-         Eff (  
-                reactive  :: Reactive, -- pushState fires reactions
-                history   :: History,  -- pushState effects the history object
-                trace     :: Trace,    -- temporary until there is the compiler
-                err       :: (Exception String) | eff
-             ) Subscription
-route rs = subscribeStateChange \e -> do  
+         Eff (            -- pushState fires reactions
+                reactive  :: Reactive, 
+                          -- pushState effects the history object
+                history   :: History,                 
+                          -- temporary until there is the compiler
+                trace     :: Trace,                   
+                          -- a runtime exception is thrown if no routes are passed
+                err       :: (Exception String) | eff 
+             ) Subscription         
+route rs = subscribeStateChange \e ->  
   defaultRoute rs >>= filterRoute rs (unwrapEventDetail e).state.url
-    
