@@ -78,8 +78,6 @@ build = function(k){
   };
 }; // end var
 
-server.use(express.static('./example'));
-
 gulp.task('build:test',    build('test'));
 gulp.task('build:src',     build('src'));
 gulp.task('build:example', build('example'));
@@ -99,6 +97,7 @@ gulp.task('watch', function(){
 
 gulp.task('serve', function(){ 
   console.log("listening on port " + port);
+  server.use(express.static('./example'));
   server.listen(port); 
 });
 
