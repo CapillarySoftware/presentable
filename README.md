@@ -24,4 +24,4 @@ karma start tests/karma.conf.js
 
 ### Generated Documentation
 
-[Type signatures a plenty](DogGen.md)
+[Type signatures a plenty](https://github.com/CapillarySoftware/Presentable/blob/Router/DocGen.md)
