@@ -15,20 +15,21 @@ type Url    = String
 type View   = String
 type Route  = Tuple Url View
 
-defaultRoute routes = case head routes of 
-  Nothing -> throwException "Your Routes are empty"
-  Just r  -> return r
+filterRoute :: forall r eff. [Route] -> { url :: Url | r} -> Route ->
+               Eff (
+                    trace    :: Trace,         -- temporary until there is the compiler
+                    history  :: History,       -- pushState effects the history object
+                    reactive :: Reactive | eff -- pushState fires reactions
+                    ) Unit
 
-route routes = subscribeStateChange \e -> do
-  let state = unwrapEventDetail e
-  default <- defaultRoute routes
-  filterRoute state.state default routes
-  where  
-    filterRoute :: forall r eff. { url :: Url | r} -> Route -> [Route] -> 
-                   Eff (trace :: Trace, history :: History, reactive :: Reactive | eff) Unit
-    filterRoute state default routes = case filter (\x -> fst x == state.url) routes of
-      []    -> pushState {title : "t", url : (fst default), "data" : {}}
-      (x:_) -> fprint $ snd x
+filterRoute rs s d = case filter (\x -> fst x == s.url) rs of
+  []    -> pushState {title : "t", url : (fst d), "data" : {}}
+  (x:_) -> fprint $ snd x
 
-  
-
+route rs = subscribeStateChange \e ->
+  defaultRoute rs >>= filterRoute rs (state e) 
+  where 
+    defaultRoute rs = case head rs of 
+      Nothing -> throwException "Your Routes are empty"
+      Just r  -> return r
+    state e = (unwrapEventDetail e).state
