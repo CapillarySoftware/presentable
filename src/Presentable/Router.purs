@@ -1,5 +1,6 @@
-module Presentable.Router(
-  route, Url(..), View(..), Route(..)
+module Presentable.Router
+  ( Url(..), View(..), Route(..)
+  , route
   ) where
 
 import Data.Tuple
@@ -16,11 +17,10 @@ type Url    = String
 type View   = String
 type Route  = Tuple Url View
 
-filterRoute rs u d = do 
-  let u = u :: Url
-  case filter (\x -> fst x == u) rs of
+filterRoute rs u d = case filter (\x -> fst x == u) rs of
     []    -> pushState {title : "t", url : fst d, "data" : {}}
     (x:_) -> (trace <<< snd) x
+  where u = u :: Url
 
 defaultRoute rs = case head rs of 
   Nothing -> throwException "Your Routes are empty"
