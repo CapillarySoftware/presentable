@@ -18,17 +18,17 @@ import Debug.Foreign
 import Debug.Trace
 
 toState url   = { title : "", url : url, "data" : {} }
-extractUrl e  = (unwrapEventDetail e).state.url
+eventUnwrapUrl e  = (unwrapEventDetail e).state.url
+routeUnwrapUrl :: forall a. Route a -> Url
+routeUnwrapUrl s  = (fst s).url
 
-testRoute' rs url r done = do 
-  let  r = r :: Maybe Route
-  case r of
+testRoute' rs url r done = case r of
     Just a -> do
       sub' <- route rs \v -> expect (snd a) `toEqual` v 
       sub  <- subscribeStateChange \e -> 
-        if fst a == extractUrl e
+        if   routeUnwrapUrl a == eventUnwrapUrl e
         then return $ itIs done
-        else return $ expect (fst a) `toNotEqual` extractUrl e
+        else return $ expect (routeUnwrapUrl a) `toNotEqual` eventUnwrapUrl e
 
       pushState <<< toState $ url
   
@@ -38,9 +38,12 @@ testRoute' rs url r done = do
 
 spec = describe "Router" $ do
   
-  let sampleRoutes = [ (Tuple "/index" "views/index.yaml")
-                     , (Tuple "/fooo"    "views/foo.yaml")
-                     , (Tuple "/barr"    "views/bar.yaml") ]
+  let sampleRoutes = [ (Tuple { url : "/index", title : "home",     "data" : {}} 
+                              "views/index.yaml")
+                     , (Tuple { url : "/fooo",  title : "foo page", "data" : {}} 
+                              "views/foo.yaml")
+                     , (Tuple { url : "/barr",  title : "bar page", "data" : {}} 
+                              "views/bar.yaml") ]
 
   let testRoute    = testRoute' sampleRoutes
 
