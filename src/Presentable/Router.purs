@@ -6,7 +6,6 @@ module Presentable.Router
 import Data.Tuple
 import Data.Array
 import Data.Maybe
-import Debug.Trace
 import History
 import Control.Reactive
 import Control.Reactive.EventEmitter

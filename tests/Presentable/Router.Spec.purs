@@ -7,20 +7,13 @@ import History
 import Data.Tuple
 import Data.Array
 import Data.Maybe
-import Control.Monad.ST
-import Control.Monad.Eff
-import Control.Monad.Eff.Exception
-import Control.Reactive
 import Control.Reactive.Timer
 import Control.Reactive.EventEmitter
-
-import Debug.Foreign
-import Debug.Trace
 
 toState         u = { title : "", url : u, "data" : {} }
 eventUnwrapUrl    :: forall a b. Event (state :: (State b) | a) -> Url
 eventUnwrapUrl  e = (unwrapEventDetail e).state.url
-routeUnwrapUrl    :: forall a. Route a -> Url
+routeUnwrapUrl    :: forall a.   Route a -> Url
 routeUnwrapUrl  s = (fst s).url
 
 sampleRoutes      = [ (Tuple { url : "/index", title : "home",     "data" : { }} 
