@@ -23,8 +23,7 @@ spec = describe "Router" $ do
     replaceState { title : "", url : "/before", "data" : {}}
 
   itAsync "should default to the first of the list" $ \done -> do    
-
-    subscribeStateChange \e -> do
+    sub <- subscribeStateChange \e -> do
       let s = unwrapEventDetail e
       case fst <$> head sampleRoutes of
         Just a | a == s.state.url -> return $ itIs done
@@ -32,4 +31,5 @@ spec = describe "Router" $ do
 
     route sampleRoutes
     pushState { title : "", url : "/notOnTheList", "data" : {} }
+    unsubscribe sub
 
