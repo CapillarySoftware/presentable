@@ -17,21 +17,24 @@ type Url        = String
 type View       = String
 type Route a    = Tuple (State a) View
 
-defaultRoute :: forall a eff. [(Route a)] -> Eff (err :: Exception String | eff) (State a)
+defaultRoute    :: forall a eff. [Route a] -> Eff (err :: Exception String | eff) (State a)
 defaultRoute rs = case head rs of 
   Nothing -> throwException "Your Routes are empty"
   Just r  -> return $ fst r
 
 extractUrl e    = (unwrapEventDetail e).state.url
 
-route :: forall a eff. 
-         [(Route a)] -> 
-         (View -> Eff (reactive :: Reactive, 
-                       history  :: History, 
-                       err      :: Exception String | eff) Unit) -> 
-         Eff (reactive :: Reactive,                             -- pushState will fire a reaction 
-              history  :: History,                              -- pushState will effect history 
-              err      :: Exception String | eff) Subscription  -- this occurs if [Route] is emtpy 
+route           :: forall a eff. 
+                   [Route a] -> 
+                   (View -> Eff (reactive :: Reactive, 
+                                 history  :: History, 
+                                 err      :: Exception String | eff) Unit) -> 
+                        -- pushState will fire a reaction 
+                   Eff (reactive :: Reactive,                             
+                        -- pushState will effect history 
+                        history  :: History,                              
+                        -- this occurs if [Route] is emtpy 
+                        err      :: Exception String | eff) Subscription  
 
 route rs f      = subscribeStateChange \e -> do
   d <- defaultRoute rs

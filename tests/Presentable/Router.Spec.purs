@@ -17,35 +17,34 @@ import Control.Reactive.EventEmitter
 import Debug.Foreign
 import Debug.Trace
 
-toState url   = { title : "", url : url, "data" : {} }
-eventUnwrapUrl e  = (unwrapEventDetail e).state.url
-routeUnwrapUrl :: forall a. Route a -> Url
-routeUnwrapUrl s  = (fst s).url
+toState         u = { title : "", url : u, "data" : {} }
+eventUnwrapUrl    :: forall a b. Event (state :: (State b) | a) -> Url
+eventUnwrapUrl  e = (unwrapEventDetail e).state.url
+routeUnwrapUrl    :: forall a. Route a -> Url
+routeUnwrapUrl  s = (fst s).url
 
-testRoute' rs url r done = case r of
-    Just a -> do
-      sub' <- route rs \v -> expect (snd a) `toEqual` v 
-      sub  <- subscribeStateChange \e -> 
-        if   routeUnwrapUrl a == eventUnwrapUrl e
-        then return $ itIs done
-        else return $ expect (routeUnwrapUrl a) `toNotEqual` eventUnwrapUrl e
+sampleRoutes      = [ (Tuple { url : "/index", title : "home",     "data" : { }} 
+                             "views/index.yaml")
+                    , (Tuple { url : "/fooo",  title : "foo page", "data" : { }} 
+                             "views/foo.yaml")
+                    , (Tuple { url : "/barr",  title : "bar page", "data" : { }} 
+                             "views/bar.yaml") ]
 
-      pushState <<< toState $ url
-  
-      -- clean up for the next test
-      unsubscribe sub
-      unsubscribe sub'
+testRoute url r done = case r of
+  Just a -> do
+    sub' <- route sampleRoutes   \v -> expect (snd a) `toEqual` v 
+    sub  <- subscribeStateChange \e -> 
+      if   routeUnwrapUrl a == eventUnwrapUrl e
+      then return $ itIs done
+      else return $ expect (routeUnwrapUrl a) `toNotEqual` eventUnwrapUrl e
+
+    pushState <<< toState $ url
+
+    -- clean up for the next test
+    unsubscribe sub
+    unsubscribe sub'
 
 spec = describe "Router" $ do
-  
-  let sampleRoutes = [ (Tuple { url : "/index", title : "home",     "data" : {}} 
-                              "views/index.yaml")
-                     , (Tuple { url : "/fooo",  title : "foo page", "data" : {}} 
-                              "views/foo.yaml")
-                     , (Tuple { url : "/barr",  title : "bar page", "data" : {}} 
-                              "views/bar.yaml") ]
-
-  let testRoute    = testRoute' sampleRoutes
 
   beforeEach <<< replaceState <<< toState $ "/before"
 
