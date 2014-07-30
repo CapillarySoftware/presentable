@@ -8,4 +8,5 @@ main = do
   Control.Reactive.EventEmitter.Spec.spec
   Control.Reactive.Timer.Spec.spec
   Presentable.Router.Spec.spec
+  Presentable.ViewParser.Spec.spec
   return Unit
