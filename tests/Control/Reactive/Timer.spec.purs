@@ -14,9 +14,7 @@ spec = describe "Timer" $ do
   itAsync "clearTimeout cancels the timer" $ \done -> do
     hasRun <- newSTRef false
     
-    t <- timeout 5 \_ -> do 
-      modifySTRef hasRun \_ -> true
-    
+    t <- timeout 5 \_ -> modifySTRef hasRun \_ -> true    
     clearTimeout t
 
     timeout 10 \_ -> do
@@ -29,9 +27,7 @@ spec = describe "Timer" $ do
     let count = 7
     
     runCount <- newSTRef 0
-
-    t <- interval rate \_ -> do
-      modifySTRef runCount \n -> n + 1
+    t <- interval rate \_ -> modifySTRef runCount \n -> n + 1
 
     timeout (rate * (count + 1)) \_ -> do
       runCount' <- readSTRef runCount
@@ -40,16 +36,14 @@ spec = describe "Timer" $ do
       return $ itIs done
 
   itAsync "clearInterval cancels the timer" $ \done -> do 
-    runCount <- newSTRef 0
+    hasRun <- newSTRef false
 
-    t <- interval 5 \_ -> do
-      modifySTRef runCount \n -> n + 1
-
+    t <- interval 5 \_ -> modifySTRef hasRun \_ -> true
     clearInterval t
 
     timeout 10 \_ -> do
-      runCount' <- readSTRef runCount
-      expect runCount' `toEqual` 0
+      hasRun' <- readSTRef hasRun
+      expect hasRun' `toEqual` false
       return $ itIs done
 
 

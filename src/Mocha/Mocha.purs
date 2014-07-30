@@ -3,7 +3,9 @@ module Test.Mocha
   , It(..), DoIt(..)
   , itIs, Done(..), DoneToken(..)  
   , it, itAsync, itSkip, itOnly
-  , describe, describeSkip, describeOnly) where
+  , describe, describeSkip, describeOnly
+  , before, beforeEach, Before(..)
+  , after, afterEach, After(..)) where
 
 import Control.Monad.Eff
 import Data.Foreign.EasyFFI
@@ -59,19 +61,15 @@ foreign import itIs
 
 
 foreign import data Before     :: !
-before                         :: forall e a. Eff e a -> Eff (beforeEach :: Before | e) Unit
-before                         = unsafeForeignProcedure ["fn",""] "window.before(fn);"
+before                         :: forall e a. Eff e a -> Eff (before :: Before | e) Unit
+before                         = unsafeForeignProcedure ["fn", ""] "window.before(fn);"
+
+beforeEach                     :: forall e a. Eff e a -> Eff (before :: Before | e) Unit
+beforeEach                     = unsafeForeignProcedure ["fn", ""] "window.beforeEach(fn);"
 
 foreign import data After      :: !
-after                          :: forall e a. Eff e a -> Eff (beforeEach :: After | e) Unit
-after                          = unsafeForeignProcedure ["fn",""] "window.after(fn);"
+after                          :: forall e a. Eff e a -> Eff (after :: After | e) Unit
+after                          = unsafeForeignProcedure ["fn", ""] "window.after(fn);"
 
-
-
-foreign import data BeforeEach :: !
-beforeEach                     :: forall e a. Eff e a -> Eff (beforeEach :: BeforeEach | e) Unit
-beforeEach                     = unsafeForeignProcedure ["fn",""] "window.beforeEach(fn);"
-
-foreign import data AfterEach  :: !
-afterEach                      :: forall e a. Eff e a -> Eff (beforeEach :: AfterEach | e) Unit
-afterEach                      = unsafeForeignProcedure ["fn",""] "window.afterEach(fn);"
+afterEach                      :: forall e a. Eff e a -> Eff (after :: After | e) Unit
+afterEach                      = unsafeForeignProcedure ["fn", ""] "window.afterEach(fn);"

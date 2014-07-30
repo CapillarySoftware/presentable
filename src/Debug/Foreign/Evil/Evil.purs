@@ -13,5 +13,5 @@ foreign import data WTF  :: *
 evil :: forall r. String -> Eff (evil :: Evil | r) WTF
 evil = unsafeForeignFunction ["x", ""] "eval(x)"
 
-fpeek :: forall r. String -> Eff (trace :: Trace, evil :: Evil | r) {}
+fpeek :: forall r. String -> Eff (trace :: Trace, evil :: Evil | r) Unit
 fpeek x = evil x >>= fprint

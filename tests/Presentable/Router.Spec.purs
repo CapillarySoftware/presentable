@@ -1,0 +1,32 @@
+module Presentable.Router.Spec where
+
+import Presentable.Router
+import Test.Mocha
+import Test.Chai
+import History
+import Data.Tuple
+import Data.Array
+import Data.Maybe
+import Control.Reactive.Timer
+import Control.Reactive.EventEmitter
+
+spec = describe "Router" $ do
+  
+  let sampleRoutes = [ (Tuple "/index" "views/index.yaml")
+                     , (Tuple "/fooo"    "views/foo.yaml")
+                     , (Tuple "/barr"    "views/bar.yaml") ]
+
+  beforeEach $ do
+    replaceState { title : "", url : "/before", "data" : {}}
+
+  itAsync "should default to the first of the list" $ \done -> do    
+    sub <- subscribeStateChange \e -> do
+      let s = unwrapEventDetail e
+      case fst <$> head sampleRoutes of
+        Just a | a == s.state.url -> return $ itIs done
+        Just a -> return $ expect a `toNotEqual` s.state.url
+
+    route sampleRoutes
+    pushState { title : "", url : "/notOnTheList", "data" : {} }
+    unsubscribe sub
+

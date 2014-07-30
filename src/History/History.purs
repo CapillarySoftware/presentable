@@ -13,6 +13,7 @@ import Control.Reactive.EventEmitter
 
 type Title                  = String
 type Url                    = String
+type Delta                  = Number
 
 --- Record representing browser state 
 --- Passed to and returned by history
@@ -30,7 +31,7 @@ getData                     = unsafeForeignFunction [""] "window.history.state"
 getTitle                    = unsafeForeignFunction [""] "document.title"
 getUrl                      = unsafeForeignFunction [""] "location.pathname"
 
-getState                    :: forall m d. (Monad m) => m (State d)
+getState                    :: forall eff d. Eff (history :: History | eff) (State d)
 getState                    = do d <- getData
                                  t <- getTitle
                                  u <- getUrl
@@ -76,8 +77,8 @@ goForward                   = do
   emitStateChange "forward"
   goForward_
 
-goState_                    :: forall eff. Number -> Eff (history :: History | eff) Unit
-goState_                    = unsafeForeignProcedure ["dest",""] "window.history.go(dest)"
+goState_                    :: forall eff. Delta -> Eff (history :: History | eff) Unit
+goState_                    = unsafeForeignProcedure ["Δ",""] "window.history.go(Δ)"
 goState                   x = do 
   emitStateChange $ "goState(" ++ (show x) ++ ")"
   goState_ x
