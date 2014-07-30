@@ -8,27 +8,27 @@ import Data.Tuple
 import Data.Array
 import Data.Maybe
 import Debug.Foreign
+import Control.Reactive.Timer
 
 spec = describe "Router" $ do
   
-  let sampleRoutes = [ (Tuple "/"  "views/index.yaml")
-                     , (Tuple "/foo" "views/foo.yaml")
-                     , (Tuple "/bar" "views/bar.yaml") ]
+  let sampleRoutes = [ (Tuple "/ind"  "views/index.yaml")
+                     , (Tuple "/fooo" "views/foo.yaml")
+                     , (Tuple "/barr" "views/bar.yaml") ]
 
   beforeEach $ do
     replaceState { title : "", url : "/before", "data" : {}}
 
-  it "should default to the first of the list" $ do
+  itAsync "should default to the first of the list" $ \done -> do
 
     route sampleRoutes
-    
-    pushState { title : "", url : "/notOnTheList", "data" : {} }    
-    s <- getState
 
-    case fst <$> head sampleRoutes of
-      Nothing -> expect Nothing `toEqual` s.url
-      Just a  -> expect a       `toEqual` s.url
+    fprint "/notOnTheList pushed"    
+    pushState { title : "", url : "/notOnTheList", "data" : {} }
 
-  
-  
 
+    timeout 1000 \_ -> do
+      s <- getState
+      case fst <$> head sampleRoutes of
+        Just a -> expect a `toEqual` s.url
+      return $ itIs done
