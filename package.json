@@ -7,11 +7,9 @@
   "devDependencies": {
     "gulp-purescript": "0.0.9",
     "gulp": "~3.8.6",
-    "gulp-shell": "~0.2.8",
     "express": "~4.6.1",
     "gulp-concat": "~2.3.3",
     "gulp-if": "~1.2.2",
-    "rimraf": "~2.2.8",
     "run-sequence": "~0.3.6",
     "karma": "~0.12.17",
     "mocha": "~1.20.1",

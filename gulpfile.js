@@ -15,7 +15,7 @@ paths      = {
       "bower_components/purescript-*/src/**/*.purs.hs",
       "src/**/*.purs"
     ],
-    dest : "lib",
+    dest : "lib"
   },
   test : {
     src : [
