@@ -18,7 +18,12 @@ Do it!
 gulp
 ```
 
-Test it!
+Test once
+```
+npm test
+```
+
+Test continuously
 ```
 karma start tests/karma.conf.js
 ```
