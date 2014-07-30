@@ -1,14 +1,13 @@
 module Presentable.Router where
 
-import Control.Monad.Eff 
 import Data.Tuple
 import Data.Array
 import Data.Maybe
-import Debug.Foreign 
 import Debug.Trace
 import History
 import Control.Reactive
 import Control.Reactive.EventEmitter
+import Control.Monad.Eff 
 import Control.Monad.Eff.Exception
 
 type Url    = String
@@ -24,7 +23,7 @@ filterRoute :: forall r eff. [Route] -> { url :: Url | r} -> Route ->
 
 filterRoute rs s d = case filter (\x -> fst x == s.url) rs of
   []    -> pushState {title : "t", url : (fst d), "data" : {}}
-  (x:_) -> fprint $ snd x
+  (x:_) -> trace $ snd x
 
 route rs = subscribeStateChange \e ->
   defaultRoute rs >>= filterRoute rs (state e) 

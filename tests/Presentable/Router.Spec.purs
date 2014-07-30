@@ -7,11 +7,8 @@ import History
 import Data.Tuple
 import Data.Array
 import Data.Maybe
-import Debug.Foreign
-import Debug.Trace
 import Control.Reactive.Timer
 import Control.Reactive.EventEmitter
-import Control.Monad.Eff.Exception
 
 spec = describe "Router" $ do
   
