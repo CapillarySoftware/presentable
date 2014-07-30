@@ -17,14 +17,11 @@ type Url    = String
 type View   = String
 type Route  = Tuple Url View
 
-filterRoute rs u d = case filter (\x -> fst x == u) rs of
-    []    -> pushState {title : "t", url : fst d, "data" : {}}
-    (x:_) -> (trace <<< snd) x
-  where u = u :: Url
-
 defaultRoute rs = case head rs of 
   Nothing -> throwException "Your Routes are empty"
   Just r  -> return r
+
+extractUrl e = (unwrapEventDetail e).state.url
 
 route :: forall a eff. [Route] -> 
          Eff (            -- pushState fires reactions
@@ -36,5 +33,8 @@ route :: forall a eff. [Route] ->
                           -- a runtime exception is thrown if no routes are passed
                 err       :: (Exception String) | eff 
              ) Subscription         
-route rs = subscribeStateChange \e ->  
-  defaultRoute rs >>= filterRoute rs (unwrapEventDetail e).state.url
+route rs = subscribeStateChange \e -> do 
+  d <- defaultRoute rs
+  case filter (\x -> fst x == (extractUrl e)) rs of
+    []    -> pushState {title : "t", url : fst d, "data" : {}}
+    (x:_) -> (trace <<< snd) x
