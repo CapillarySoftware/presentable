@@ -4,9 +4,11 @@ gulp       = require('gulp'),
 purescript = require('gulp-purescript'),
 shell      = require('gulp-shell'),
 concat     = require('gulp-concat'),
+gulpif     = require('gulp-if'),
 express    = require('express'),
 rimraf     = require('rimraf'),
 runSq      = require('run-sequence'),
+karma      = require('gulp-karma'),
 exec       = require('child_process').exec,
 
 paths      = {
@@ -20,15 +22,11 @@ paths      = {
   },
   test : {
     src : [
+      "bower_components/chai/chai.js",
       "bower_components/purescript-*/src/**/*.purs",
       "bower_components/purescript-*/src/**/*.purs.hs",
       "src/**/*.purs",
       "tests/**/*.purs"
-    ],
-    js : [
-      "bower_components/history.js/scripts/bundled/html5/native.history.js",
-      "bower_components/mocha/mocha.js",
-      "bower_components/chai/chai.js"
     ],
     dest : 'tmp'
   },
@@ -49,7 +47,9 @@ options    = {
   },
   test :{
     output : 'Test.js',
-    main : true
+    main : true,
+    runtimeTypeChecks : false,
+    externs : "extern"
   },
   example : {
     output : 'Main.js',
@@ -60,8 +60,6 @@ options    = {
 port       = 3333,
 server     = express(),
 
-
-// FUCK YOU GULP! DID THIS EVER WORK? NO IDEA
 build = function(k){
   return function(){
 
@@ -69,33 +67,18 @@ build = function(k){
         o   = options[k],
         psc = purescript.psc(o);
 
-    gulp.task('build:prim', function(){
 
       psc.on('error', function(e){
         console.error(e.message);
         psc.end();  
       });
 
-      gulp.src(x.src)
-        .pipe(psc)
-        .pipe( gulp.dest(x.dest) );
-
-    });
-
-    gulp.task('build:concat', function(){
-      var finalSrc = [x.dest + '/' + o.output];
-
-      if(x.js){ finalSrc = finalSrc.concat(x.js); }
-
-      gulp.src(finalSrc)
-        .pipe( concat(o.output) )
-        .pipe( gulp.dest(x.dest) );
-
-    });
+      return gulp.src(x.src)
+        .pipe(gulpif(/purs/,  psc))
+        .pipe(concat(o.output))
+        .pipe( gulp.dest(x.dest));
  
-    runSq('build:prim','build:concat'); 
   };
-
 }; // end var
 
 server.use(express.static('./example'));
@@ -104,19 +87,13 @@ gulp.task('build:test',    build('test'));
 gulp.task('build:src',     build('src'));
 gulp.task('build:example', build('example'));
 
-gulp.task('clean', function(cb){
-  rimraf('tmp');
-  // rimraf('example/js');
-  // rimraf('lib/');
-});
-
 gulp.task('test:unit', function(){
-  console.log("Running Tests...");
-  exec('karma start ./tests/karma.conf.js', function(err, out, serr){
-    if(err){  return console.log(err); }
-    if(out){  return console.log(out); }
-    if(serr){ return console.log(serr); }
-  });
+  gulp.src(options.test.output)
+    .pipe(karma({
+      configFile : "./tests/karma.conf.js",
+      noColors   : true,
+      action     : "run"
+    }));
 });
 
 gulp.task('watch', function(){ 
@@ -130,6 +107,4 @@ gulp.task('serve', function(){
 
 gulp.task('default', ['build:src']);
 gulp.task('example', ['build:example','watch','serve']);
-gulp.task('test',    function(){
-  runSq('build:test','test:unit');
-});
+gulp.task('test',    function(){ runSq('build:test','test:unit'); });

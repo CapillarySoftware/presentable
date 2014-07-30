@@ -5,7 +5,5 @@ install :
   - 'npm install -g gulp bower karma karma-cli'
   - 'npm install'
   - 'bower install'
-before_script :
-  - 'gulp build:test'
 script : 
-  - 'npm test'
+  - 'gulp test'
