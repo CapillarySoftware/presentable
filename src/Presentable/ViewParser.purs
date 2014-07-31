@@ -17,11 +17,6 @@ data View           = View [String]
 instance readView   :: ReadForeign View where
   read = View <$> prop "View"
 
-present             :: forall a b eff. 
-                       String -> 
-                       (Linker a b eff) -> 
-                       (M.Map String (Linker a b eff)) -> 
-                       (M.Map String (Linker a b eff))
 present             = M.insert
 
 view                :: forall a eff. 
