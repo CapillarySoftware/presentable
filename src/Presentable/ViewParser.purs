@@ -1,24 +1,28 @@
 module Presentable.ViewParser where
 
+import qualified Data.Map as M
+import Data.Either
 import Data.Foreign
 import Data.Foreign.YAML
-import Data.Foldable
-import Data.Either
 import Control.Reactive
 import Control.Monad.Eff
 import Control.Monad.ST
 import Debug.Foreign
 
-type Linker       = forall a b eff. ((RVar a) -> Eff (reactive :: Reactive | eff) b)
+type Linker a b eff = ((RVar a) -> Eff (reactive :: Reactive | eff) Unit)
 
-data View         = View [String]
+data View           = View [String]
 
 instance readView :: ReadForeign View where
   read = View <$> prop "View"
 
--- present :: String -> Linker -> [Component] -> [Component]
--- present     n f m = m {(show n) = f}
+present           :: forall a b eff. 
+                     String -> 
+                     (Linker a b eff) -> 
+                     (M.Map String (Linker a b eff)) -> 
+                     (M.Map String (Linker a b eff))
+present     n f m = M.insert n f m
+  
 
-view       yaml = case parseYAML yaml of
+view       p yaml = case parseYAML yaml of
   Right (View a) -> fprint a
-  Left a -> fprint a

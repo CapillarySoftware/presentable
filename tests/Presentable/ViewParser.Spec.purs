@@ -1,5 +1,6 @@
 module Presentable.ViewParser.Spec where
 
+import qualified Data.Map as M
 import Presentable.ViewParser
 import Test.Mocha
 import Test.Chai
@@ -12,6 +13,5 @@ hasAFoo = "View : \
 spec = describeOnly "View Parser" $ do
 
   itAsync "moo" $ \done -> do
-    -- let p = present "Foo" (\_ -> return $ itIs done) {}
-    view hasAFoo
-    itIs done
+    let p = present "Foo" (\_ -> itIs done) M.empty
+    view p hasAFoo
