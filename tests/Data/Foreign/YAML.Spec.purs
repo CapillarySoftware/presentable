@@ -28,10 +28,8 @@ xyz     = { x: "what", y: "der", z: "fooken" }
 
 spec = describe "yaml -> js -> purs" $ do
   
-  describe "parseYAML" $ do
-
-    it "simple key value" $ case parseYAML xyzYaml of
-      Right (XYZ a) -> expect a `toDeepEqual` xyz
+  it "parseYAML" $ case parseYAML xyzYaml of
+    Right (XYZ a) -> expect a `toDeepEqual` xyz
         
   it "toYAML reverses parseYAML simple key value" 
     $ case parseYAML <<< toYAML $ xyz of
