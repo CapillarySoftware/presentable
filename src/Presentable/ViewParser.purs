@@ -30,4 +30,4 @@ view                :: forall a b efff eff.
                        Eff (trace :: Trace | eff) Unit
 view         m yaml = case parseYAML yaml of
   Left err        -> trace err
-  Right (View xs) -> ftrace $ (flip M.lookup) m <$> xs
+  Right (View xs) -> fprint $ (flip M.lookup) m <$> xs
