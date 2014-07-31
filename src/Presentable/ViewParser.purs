@@ -24,10 +24,11 @@ present             :: forall a b eff.
                        (M.Map String (Linker a b eff))
 present             = M.insert
 
-view                :: forall a b efff eff. 
-                       M.Map String (Linker a b efff) -> 
+view                :: forall a eff. 
+                       M.Map String (Linker Number a eff) -> 
                        String -> 
-                       Eff (trace :: Trace | eff) Unit
+                       Eff (reactive :: Reactive | eff) Unit
 view         m yaml = case parseYAML yaml of
-  Left err        -> trace err
-  Right (View xs) -> fprint $ (flip M.lookup) m <$> xs
+  Right (View xs) -> do 
+    case (flip M.lookup) m <$> xs of
+      [Just a] -> newRVar 0 >>= a
