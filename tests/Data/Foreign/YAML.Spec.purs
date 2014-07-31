@@ -9,23 +9,30 @@ import Test.Chai
 import Debug.Trace
 import Debug.Foreign
 
-data ListItem = ListItem { x :: String
-                         , y :: String
-                         , z :: String }
+data XYZ = XYZ { x :: String
+               , y :: String
+               , z :: String }
               
-instance readListItem :: ReadForeign ListItem where
+instance readXYZ :: ReadForeign XYZ where
   read = do
     x <- prop "x"
     y <- prop "y"
     z <- prop "z"
-    return $ ListItem { x: x, y: y, z: z }
+    return $ XYZ { x: x, y: y, z: z }
 
-yaml =   "x : what  \
-       \\ny : der   \
-       \\nz : fooken"
+xyzYaml = "x : what\
+        \\ny : der\
+        \\nz : fooken"
+
+xyz     = { x: "what", y: "der", z: "fooken" }
 
 spec = describe "yaml -> js -> purs" $ do
   
-  it "what" $ case parseYAML yaml of
-    Right (ListItem a) -> expect a `toDeepEqual` 
-      { x: "what", y: "der", z: "fooken" }
+  describe "parseYAML" $ do
+
+    it "simple key value" $ case parseYAML xyzYaml of
+      Right (XYZ a) -> expect a `toDeepEqual` xyz
+        
+  it "toYAML reverses parseYAML simple key value" 
+    $ case parseYAML <<< toYAML $ xyz of
+      Right (XYZ a) -> expect a `toDeepEqual` xyz
