@@ -8,5 +8,5 @@ main = do
   Control.Reactive.Timer.Spec.spec
   Presentable.Router.Spec.spec
   Data.Foreign.YAML.Spec.spec
-  -- Presentable.ViewParser.Spec.spec
+  Presentable.ViewParser.Spec.spec
   return Unit
