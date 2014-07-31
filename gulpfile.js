@@ -78,7 +78,7 @@ build = function(k){
         .pipe( gulp.dest(x.dest));
  
   };
-}; // end var
+}; // var
 
 gulp.task('build:test',    build('test'));
 gulp.task('build:src',     build('src'));

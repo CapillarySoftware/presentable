@@ -11,7 +11,7 @@ import Debug.Foreign
 
 type Linker       = forall a b eff. ((RVar a) -> Eff (reactive :: Reactive | eff) b)
 
-data View c = View { | c}
+data View = View { | c}
 
 instance readView :: ReadForeign View where
   read = View <$> prop "View"
