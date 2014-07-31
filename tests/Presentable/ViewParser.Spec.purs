@@ -10,7 +10,7 @@ import Control.Monad.Eff
 hasAFoo = "View : \
         \\n  - Foo"
 
-spec = describeOnly "View Parser" $ do
+spec = describe "View Parser" $ do
 
   itAsync "moo" $ \done -> do
     let p = present "Foo" (\_ -> itIs done) M.empty

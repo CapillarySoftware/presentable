@@ -28,7 +28,6 @@ view                :: forall a eff.
                        M.Map String (Linker Number a eff) -> 
                        String -> 
                        Eff (reactive :: Reactive | eff) Unit
-view         m yaml = case parseYAML yaml of
-  Right (View xs) -> do 
-    case (flip M.lookup) m <$> xs of
-      [Just a] -> newRVar 0 >>= a
+view         m yaml = case parseYAML yaml           of
+  Right (View xs)  -> case (flip M.lookup) m <$> xs of
+    [Just a]       -> newRVar 0 >>= a
