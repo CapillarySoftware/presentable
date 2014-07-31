@@ -21,6 +21,7 @@ paths      = {
   test : {
     src : [
       "bower_components/chai/chai.js",
+      "bower_components/js-yaml/dist/js-yaml.js",
       "bower_components/purescript-*/src/**/*.purs",
       "bower_components/purescript-*/src/**/*.purs.hs",
       "src/**/*.purs",
