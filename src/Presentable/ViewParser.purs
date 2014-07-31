@@ -22,16 +22,11 @@ present             :: forall a b eff.
                        (Linker a b eff) -> 
                        (M.Map String (Linker a b eff)) -> 
                        (M.Map String (Linker a b eff))
-present       n f m = M.insert n f m
+present             = M.insert
 
-link                :: forall a b efff eff. 
-                       [String] -> 
-                       (M.Map String (Linker a b eff)) -> 
-                       [(Maybe (Eff (trace :: Trace | efff) Unit))]
-link           xs m = (\s -> fprint <$> M.lookup s m) <$> xs
-
+view                :: forall a b efff eff. 
+                       M.Map String (Linker a b efff) -> 
+                       String -> 
+                       Eff (trace :: Trace | eff) Unit
 view         m yaml = case parseYAML yaml of
-  Right (View xs) -> do
-    ftrace m
-    ftrace $ M.lookup "Foo" m
-    -- ftrace $ link xs m
+  Right (View xs) -> ftrace $ (flip M.lookup) m <$> xs
