@@ -12,5 +12,5 @@ hasAFoo = "View : \
 spec = describe "View Parser" $ do
 
   itAsync "moo" $ \done -> do
-    present "Foo" \_ -> return $ itIs done
-    view hasAFoo
+    let p = present "Foo" (\_ -> return $ itIs done) {}
+    view p hasAFoo
