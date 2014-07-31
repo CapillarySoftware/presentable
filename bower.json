@@ -13,7 +13,8 @@
     "purescript-arrays": "*",
     "purescript-maybe": "*",
     "purescript-foreign": "~0.1.4",
-    "js-yaml": "~3.1.0"
+    "js-yaml": "~3.1.0",
+    "purescript-maps": "~0.0.4"
   },
   "devDependencies": {
     "purescript-math": "*",

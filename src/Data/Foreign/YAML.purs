@@ -6,8 +6,6 @@ import Data.Either
 import Data.Function
 import Control.Monad.Eff
 
-type YAML = String 
-
 foreign import fromYAMLImpl
   "function fromYAMLImpl(left, right, str) { \
   \  try {                                   \
@@ -23,7 +21,7 @@ fromYAML s = runFn3 fromYAMLImpl Left Right s
 foreign import toYAML
   "function toYAML(obj){           \
   \   return jsyaml.safeDump(obj); \ 
-  \}" :: forall a. a -> YAML
+  \}" :: forall a. a -> String
 
 parseYAML :: forall a. (ReadForeign a) => String -> Either String a
 parseYAML yaml = fromYAML yaml >>= parseForeign read
