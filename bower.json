@@ -11,7 +11,8 @@
   ],
   "dependencies": {
     "purescript-arrays": "*",
-    "purescript-maybe": "*"
+    "purescript-maybe": "*",
+    "purescript-foreign": "~0.1.4"
   },
   "devDependencies": {
     "purescript-math": "*",
