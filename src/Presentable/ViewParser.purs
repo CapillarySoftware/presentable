@@ -29,4 +29,5 @@ view                :: forall a b efff eff.
                        String -> 
                        Eff (trace :: Trace | eff) Unit
 view         m yaml = case parseYAML yaml of
+  Left err        -> trace err
   Right (View xs) -> ftrace $ (flip M.lookup) m <$> xs
