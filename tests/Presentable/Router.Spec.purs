@@ -16,57 +16,48 @@ import Control.Reactive.EventEmitter
 import Debug.Foreign
 import Debug.Trace
 
+toState url = { title : "", url : url, "data" : {} }
+
+testRoute' srs url mUrl done = do 
+  let mUrl = mUrl :: Maybe Url
+
+  sub <- subscribeStateChange \e -> do
+    let s = unwrapEventDetail e 
+    case mUrl of
+      Just a | a == s.state.url -> return $ itIs done
+      Just a -> return $ expect a `toNotEqual` s.state.url
+
+  sub' <- route srs $ snd >>> trace
+
+  pushState <<< toState $ url
+  
+  -- clean up for the next test
+  unsubscribe sub
+  unsubscribe sub'
+
 spec = describe "Router" $ do
   
   let sampleRoutes = [ (Tuple "/index" "views/index.yaml")
                      , (Tuple "/fooo"    "views/foo.yaml")
                      , (Tuple "/barr"    "views/bar.yaml") ]
 
-  beforeEach $ do
-    replaceState { title : "", url : "/before", "data" : {}}
+  let testRoute    = testRoute' sampleRoutes
 
-  itAsync "should default to the first of the list" $ \done -> do    
-    sub <- subscribeStateChange \e -> do
-      let s = unwrapEventDetail e
-      case fst <$> head sampleRoutes of
-        Just a | a == s.state.url -> return $ itIs done
-        Just a -> return $ expect a `toNotEqual` s.state.url
+  beforeEach <<< replaceState <<< toState $ "/before"
 
-    sub' <- route sampleRoutes
-    pushState { title : "", url : "/notOnTheList", "data" : {} }
-    unsubscribe sub
-    unsubscribe sub'
+  itAsync "should default to the first of the list"
+    $ testRoute "/notOnTheList"  
+    $ fst <$> head sampleRoutes
 
-  itAsync "should find middle route" $ \done -> do
-    sub <- subscribeStateChange \e -> do 
-      let s = unwrapEventDetail e
-      case fst <$> ((tail sampleRoutes) >>= head) of
-        Just a | a == s.state.url -> return $ itIs done
-        Just a -> return $ expect a `toNotEqual` s.state.url
-    sub' <- route sampleRoutes
-    pushState { title : "", url : "/fooo", "data" : {}}
-    unsubscribe sub 
-    unsubscribe sub'
+  itAsync "should find middle route"
+    $ testRoute "/fooo" 
+    $ fst <$> (tail sampleRoutes >>= head)
 
-  itAsync "should find end route" $ \done -> do
-    sub <- subscribeStateChange \e -> do 
-      let s = unwrapEventDetail e
-      case fst <$> (last sampleRoutes) of
-        Just a | a == s.state.url -> return $ itIs done
-        Just a -> return $ expect a `toNotEqual` s.state.url
-    sub' <- route sampleRoutes
-    pushState { title : "", url : "/barr", "data" : {}}
-    unsubscribe sub 
-    unsubscribe sub'
+  itAsync "should find end route" 
+    $ testRoute "/barr" 
+    $ fst <$> last sampleRoutes
 
-  itAsync "should find the first route" $ \done -> do
-    sub <- subscribeStateChange \e -> do 
-      let s = unwrapEventDetail e
-      case fst <$> (head sampleRoutes) of
-        Just a | a == s.state.url -> return $ itIs done
-        Just a -> return $ expect a `toNotEqual` s.state.url
-    sub' <- route sampleRoutes
-    pushState { title : "", url : "/index", "data" : {}}
-    unsubscribe sub 
-    unsubscribe sub'
+  itAsync "should find the first route" 
+    $ testRoute "/index"
+    $ fst <$> head sampleRoutes
 

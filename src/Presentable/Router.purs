@@ -1,4 +1,7 @@
-module Presentable.Router where
+module Presentable.Router
+  ( Url(..), View(..), Route(..)
+  , route
+  ) where
 
 import Data.Tuple
 import Data.Array
@@ -14,20 +17,14 @@ type Url    = String
 type View   = String
 type Route  = Tuple Url View
 
-filterRoute :: forall r eff. [Route] -> { url :: Url | r} -> Route ->
-               Eff (  trace    :: Trace,         -- temporary until there is the compiler
-                      history  :: History,       -- pushState effects the history object
-                      reactive :: Reactive | eff -- pushState fires reactions
-                    ) Unit
+defaultRoute rs = case head rs of 
+  Nothing -> throwException "Your Routes are empty"
+  Just r  -> return r
 
-filterRoute rs s d = case filter (\x ->  fst x == s.url) rs of
-  []    -> pushState {title : "t", url : fst d, "data" : {}}
-  (x:_) -> (trace <<< snd) x
+extractUrl e = (unwrapEventDetail e).state.url
 
-route rs = subscribeStateChange \e ->
-  defaultRoute rs >>= filterRoute rs (state e) 
-  where 
-    defaultRoute rs = case head rs of 
-      Nothing -> throwException "Your Routes are empty"
-      Just r  -> return r
-    state e = (unwrapEventDetail e).state
+route rs f = subscribeStateChange \e -> do 
+  d <- defaultRoute rs
+  case filter (\x -> fst x == (extractUrl e)) rs of
+    []    -> pushState {title : "t", url : fst d, "data" : {}}
+    (x:_) -> f x
