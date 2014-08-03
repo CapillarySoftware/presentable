@@ -16,6 +16,7 @@
     "karma-mocha": "~0.1.4",
     "karma-phantomjs-launcher": "~0.1.4",
     "karma-chrome-launcher": "~0.1.4",
-    "gulp-karma": "0.0.4"
+    "gulp-karma": "0.0.4",
+    "gulp-filter": "~1.0.0"
   }
 }

@@ -7,6 +7,7 @@ import History
 import Data.Tuple
 import Data.Array
 import Data.Maybe
+import Control.Monad.ST
 import Control.Monad.Eff
 import Control.Monad.Eff.Exception
 import Control.Reactive
@@ -16,48 +17,50 @@ import Control.Reactive.EventEmitter
 import Debug.Foreign
 import Debug.Trace
 
-toState url = { title : "", url : url, "data" : {} }
+toState         u = { title : "", url : u, "data" : {} }
+eventUnwrapUrl    :: forall a b. Event (state :: (State b) | a) -> Url
+eventUnwrapUrl  e = (unwrapEventDetail e).state.url
+routeUnwrapUrl    :: forall a. Route a -> Url
+routeUnwrapUrl  s = (fst s).url
 
-testRoute' srs url mUrl done = do 
-  let mUrl = mUrl :: Maybe Url
+sampleRoutes      = [ (Tuple { url : "/index", title : "home",     "data" : { }} 
+                             "views/index.yaml")
+                    , (Tuple { url : "/fooo",  title : "foo page", "data" : { }} 
+                             "views/foo.yaml")
+                    , (Tuple { url : "/barr",  title : "bar page", "data" : { }} 
+                             "views/bar.yaml") ]
 
-  sub <- subscribeStateChange \e -> do
-    let s = unwrapEventDetail e 
-    case mUrl of
-      Just a | a == s.state.url -> return $ itIs done
-      Just a -> return $ expect a `toNotEqual` s.state.url
+testRoute url r done = case r of
+  Just a -> do
+    sub' <- route sampleRoutes   \v -> expect (snd a) `toEqual` v 
+    sub  <- subscribeStateChange \e -> 
+      if   routeUnwrapUrl a == eventUnwrapUrl e
+      then return $ itIs done
+      else return $ expect (routeUnwrapUrl a) `toNotEqual` eventUnwrapUrl e
 
-  sub' <- route srs $ snd >>> trace
+    pushState <<< toState $ url
 
-  pushState <<< toState $ url
-  
-  -- clean up for the next test
-  unsubscribe sub
-  unsubscribe sub'
+    -- clean up for the next test
+    unsubscribe sub
+    unsubscribe sub'
 
 spec = describe "Router" $ do
-  
-  let sampleRoutes = [ (Tuple "/index" "views/index.yaml")
-                     , (Tuple "/fooo"    "views/foo.yaml")
-                     , (Tuple "/barr"    "views/bar.yaml") ]
-
-  let testRoute    = testRoute' sampleRoutes
 
   beforeEach <<< replaceState <<< toState $ "/before"
 
   itAsync "should default to the first of the list"
     $ testRoute "/notOnTheList"  
-    $ fst <$> head sampleRoutes
+    $ head sampleRoutes
 
   itAsync "should find middle route"
     $ testRoute "/fooo" 
-    $ fst <$> (tail sampleRoutes >>= head)
+    $ tail sampleRoutes >>= head
 
   itAsync "should find end route" 
     $ testRoute "/barr" 
-    $ fst <$> last sampleRoutes
+    $ last sampleRoutes
 
   itAsync "should find the first route" 
     $ testRoute "/index"
-    $ fst <$> head sampleRoutes
+    $ head sampleRoutes
 
