@@ -127,7 +127,7 @@
 
 ### Types
 
-    type Route  = Tuple Url View
+    type Route a = Tuple (State a) View
 
     type Url  = String
 
@@ -136,8 +136,10 @@
 
 ### Values
 
-    route :: forall eff. [Route] -> (Route -> Eff (err :: Exception String, history :: History, reactive :: Reactive | eff) Unit) -> Eff (err :: Exception String, history :: History, reactive :: Reactive | eff) Subscription
+    route :: forall a eff. [Route a] -> (View -> Eff (err :: Exception String, history :: History, reactive :: Reactive | eff) Unit) -> Eff (err :: Exception String, history :: History, reactive :: Reactive | eff) Subscription
 
+
+## Module Presentable.ViewParser
 
 ## Module Debug.Foreign
 
@@ -146,27 +148,6 @@
     fprint :: forall a r. a -> Eff (trace :: Trace | r) Unit
 
     ftrace :: forall a r. a -> Eff (trace :: Trace | r) Unit
-
-
-## Module Control.Reactive.EventEmitter
-
-### Types
-
-    data Event d where
-      Event :: EventName -> { detail :: {  | d }, cancelable :: Boolean, bubbles :: Boolean } -> Event d
-
-    type EventName  = String
-
-
-### Values
-
-    eventDMap :: forall a b. ({  | a } -> {  | b }) -> Event a -> Event b
-
-    eventNMap :: forall a. (EventName -> EventName) -> Event a -> Event a
-
-    newEvent :: forall d. EventName -> {  | d } -> Event d
-
-    unsubscribe :: forall eff. Subscription -> Eff (reactive :: Reactive | eff) Unit
 
 
 ## Module Control.Reactive.Timer
@@ -205,6 +186,27 @@
     evil :: forall r. String -> Eff (evil :: Evil | r) WTF
 
     fpeek :: forall r. String -> Eff (evil :: Evil, trace :: Trace | r) Unit
+
+
+## Module Control.Reactive.EventEmitter
+
+### Types
+
+    data Event d where
+      Event :: EventName -> { detail :: {  | d }, cancelable :: Boolean, bubbles :: Boolean } -> Event d
+
+    type EventName  = String
+
+
+### Values
+
+    eventDMap :: forall a b. ({  | a } -> {  | b }) -> Event a -> Event b
+
+    eventNMap :: forall a. (EventName -> EventName) -> Event a -> Event a
+
+    newEvent :: forall d. EventName -> {  | d } -> Event d
+
+    unsubscribe :: forall eff. Subscription -> Eff (reactive :: Reactive | eff) Unit
 
 
 
