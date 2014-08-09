@@ -10,15 +10,14 @@ import Control.Monad.Eff
 spec = describeOnly "View Parser" $ do
 
   it "if View key is not found, it should throw an Error" $ do
-    let wrong = "Vieeww : \n  - Foo"
-    let bad   = (flip view) wrong $ present "Foo" (\_ -> trace "wtf") M.empty
+    let bad   = (flip view) "Vieeww : \n  - Foo" 
+              $ present "Foo" (\_ -> trace "wtf") M.empty
     expect bad `toThrow` Error
 
 
   itAsync "it should execute the function linked to Foo" 
-    $ \done -> do
-      let hasAFoo = "View : \n  - Foo"
-      (flip view) hasAFoo $ present "Foo" (\_ -> itIs done) M.empty
+    $ \done -> (flip view) "View : \n  - Foo" 
+    $ present "Foo" (\_ -> itIs done) M.empty
 
-
+  -- it ""
 -- spec = trace "mooo"
