@@ -26,6 +26,7 @@
     "purescript-tuples": "~0.1.2",
     "purescript-arrays": "~0.1.8",
     "purescript-exceptions": "~0.2.0",
-    "purescript-mocha": "*"
+    "purescript-mocha": "*",
+    "purescript-chai": "*"
   }
 }
