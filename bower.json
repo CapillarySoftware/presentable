@@ -17,7 +17,8 @@
     "purescript-maps": "~0.0.4",
     "purescript-events": "~0.0.3",
     "purescript-timers": "~0.0.3",
-    "purescript-history": "~0.0.2"
+    "purescript-history": "~0.0.2",
+    "purescript-yaml": "*"
   },
   "devDependencies": {
     "purescript-math": "*",
