@@ -7,7 +7,7 @@ import Test.Chai
 import Debug.Trace
 import Control.Monad.Eff
 
-spec = describeOnly "View Parser" $ do
+spec = describe "View Parser" $ do
 
   it "if View key is not found, it should throw an Error" $ do
     let bad   = (flip view) "Vieeww : \n  - Foo" 

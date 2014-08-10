@@ -8,7 +8,7 @@ import Data.Array
 import Data.Maybe
 import History
 import Control.Reactive
-import Control.Reactive.EventEmitter
+import Control.Reactive.Event
 import Control.Monad.Eff 
 import Control.Monad.Eff.Exception
 
