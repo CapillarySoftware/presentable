@@ -32,5 +32,8 @@
     "purescript-exceptions": "~0.2.0",
     "purescript-mocha": "*",
     "purescript-chai": "*"
+  },
+  "resolutions": {
+    "mocha": "~1.21.4"
   }
 }
