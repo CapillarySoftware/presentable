@@ -1,16 +1,17 @@
 module Presentable.ViewParser.Spec where
 
+import qualified Data.Map as M
 import Presentable.ViewParser
 import Test.Mocha
 import Test.Chai
 import Debug.Trace
+import Control.Monad.Eff
 
-tiny = "\
-  \%YAML 1.2\
-  \---\
-  \YAML: YAML Ain't Markup Language\
-\"
+hasAFoo = "View : \
+        \\n  - Foo"
 
 spec = describe "View Parser" $ do
-  trace tiny
-  expect true `toEqual` true
+
+  itAsync "moo" $ \done -> do
+    let p = present "Foo" (\_ -> itIs done) M.empty
+    view p hasAFoo

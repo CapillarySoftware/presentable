@@ -34,3 +34,6 @@ spec = describe "yaml -> js -> purs" $ do
   it "toYAML reverses parseYAML simple key value" 
     $ case parseYAML <<< toYAML $ xyz of
       Right (XYZ a) -> expect a `toDeepEqual` xyz
+
+  -- a pure toYAML test is not possible as the 
+  -- order of properties cannot be guaranteed
