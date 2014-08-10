@@ -31,7 +31,8 @@
     "purescript-arrays": "~0.1.8",
     "purescript-exceptions": "~0.2.0",
     "purescript-mocha": "*",
-    "purescript-chai": "*"
+    "purescript-chai": "*",
+    "purescript-debug-foreign": "*"
   },
   "resolutions": {
     "mocha": "~1.21.4"
