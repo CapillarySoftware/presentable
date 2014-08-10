@@ -8,7 +8,7 @@ import Data.Tuple
 import Data.Array
 import Data.Maybe
 import Control.Reactive.Timer
-import Control.Reactive.EventEmitter
+import Control.Reactive.Event
 
 toState         u = { title : "", url : u, "data" : {} }
 eventUnwrapUrl    :: forall a b. Event (state :: (State b) | a) -> Url

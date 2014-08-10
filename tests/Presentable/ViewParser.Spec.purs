@@ -7,11 +7,17 @@ import Test.Chai
 import Debug.Trace
 import Control.Monad.Eff
 
-hasAFoo = "View : \
-        \\n  - Foo"
-
 spec = describe "View Parser" $ do
 
-  itAsync "moo" $ \done -> do
-    let p = present "Foo" (\_ -> itIs done) M.empty
-    view p hasAFoo
+  it "if View key is not found, it should throw an Error" $ do
+    let bad   = (flip view) "Vieeww : \n  - Foo" 
+              $ present "Foo" (\_ -> trace "wtf") M.empty
+    expect bad `toThrow` Error
+
+
+  itAsync "it should execute the function linked to Foo" 
+    $ \done -> (flip view) "View : \n  - Foo" 
+    $ present "Foo" (\_ -> itIs done) M.empty
+
+  -- it ""
+-- spec = trace "mooo"
