@@ -6,13 +6,17 @@ import Debug.Trace
 import Debug.Foreign
 
 sampleYaml = 
-  "- header\n\
+  "- header:\n\
+  \    attributes:\n\
+  \      foo : 'foo'\n\
   \- footer"
 
 header _ = fprint "render header"
 footer _ = fprint "render footer"
+logo   _ = fprint "render logo"
 
-main = do 
-  let registry  = register "header" header emptyRegistery 
-  -- let registry' =  register "footer" footer emptyRegistery
-  parseAndRender sampleYaml registry
+main = parseAndRender sampleYaml
+     $ register "footer" footer
+     $ register "header" header
+     $ register "logo" logo
+     $ emptyRegistery
