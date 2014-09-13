@@ -5,10 +5,14 @@ import Data.Either
 import Debug.Trace
 import Debug.Foreign
 
-sampleYaml = "- header"
+sampleYaml = 
+  "- header\n\
+  \- footer"
 
-header = fprint "render header"
+header _ = fprint "render header"
+footer _ = fprint "render footer"
 
-main = do
-  let p = present "header" header emptyRegistery 
-  parseAndRender sampleYaml p
+main = do 
+  let registry  = register "header" header emptyRegistery 
+  -- let registry' =  register "footer" footer emptyRegistery
+  parseAndRender sampleYaml registry
