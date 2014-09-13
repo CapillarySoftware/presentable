@@ -3,42 +3,51 @@ module Presentable.ViewParser where
 import qualified Data.Map as M
 import Data.Either
 import Data.Maybe
+import Data.Function
 import Data.Foreign
-import Data.Foreign.YAML
-import Control.Reactive
+import Data.Traversable
 import Control.Monad.Eff
 import Control.Monad.Eff.Exception
 import Debug.Foreign
 import Debug.Trace
+import Control.Bind
 
-type Linker a b eff = ((RVar a) -> Eff (reactive :: Reactive, 
-                                        err      :: Exception | eff) Unit)
+type Yaml       = String
+type Registry a = M.Map String a
+type Wrap a     = [Presentable a]
 
-data View           = View [String]
+data Presentable a
+  = Node a
+  | Wrap (Wrap a)
 
-throwError          = error >>> throwException
 
-instance readView   :: ReadForeign View where
-  read = View <$> prop "View"
+throw = throwException <<< error
 
-present             = M.insert
+findLinker :: forall a e. Registry a -> String -> Eff (err :: Exception | e) (Presentable a)
+findLinker r s = case M.lookup s r of 
+  Nothing -> throw $ s ++ " not found in registry"
+  Just a  -> return $ Node a
 
-render              :: forall a b eff. [(Maybe (Linker Number b eff))] -> 
-                          Eff (reactive :: Reactive, 
-                               err      :: Exception | eff) Unit
+parse :: forall a e. Foreign -> Registry a -> Eff (err :: Exception | e) (Presentable a)
+parse x r = if isArray x 
+            then return <<< Wrap =<< (sequence $ findLinker r <$> unsafeFromForeign x)
+            else findLinker r $ unsafeFromForeign x
 
-render     [Just a] = newRVar 0 >>= a
-render    [Nothing] = throwError "Linker not found"
-render       (a:as) = do
-  render [a]
-  render as
+present :: forall a. String -> a -> Registry a -> Registry a
+present = M.insert
 
-view                :: forall a eff. 
-                       M.Map String (Linker Number a eff) -> 
-                       String -> 
-                       Eff (reactive :: Reactive, 
-                            err      :: Exception | eff) Unit
+emptyRegistery :: forall a. Registry a
+emptyRegistery = M.empty
 
-view         m yaml = case parseYAML yaml of
-  Left err         -> throwError $ "yo yaml, it failed to parse" ++ err
-  Right (View xs)  -> render $ (flip M.lookup) m <$> xs
+foreign import parseYamlImpl
+  "function parseYamlImpl (left, right, yaml){\
+  \   try{ return right(jsyaml.safeLoad(yaml)); }\
+  \   catch(e){ return left(e.toString()); }\
+  \}" :: forall a. Fn3 (String -> a) (Foreign -> a) Yaml a 
+
+yamlToView :: Yaml -> Either String Foreign
+yamlToView = runFn3 parseYamlImpl Left Right
+
+parseAndRender yaml registry = case yamlToView yaml of
+  Right v  -> fprint "moo" --$ parse v registry
+  Left err -> throw $ "Yaml view failed to parse : " ++ err
