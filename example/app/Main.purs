@@ -17,7 +17,9 @@ header _ a = do
   trace "render header"
   fprint a
 footer _ _ = fprint "render footer"
-logo   _ _ = fprint "render logo"
+logo   p _ = do 
+  trace "render logo"
+  fprint p
 
 main = parseAndRender sampleYaml
      $ register "footer" footer

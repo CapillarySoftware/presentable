@@ -14,12 +14,12 @@ import Debug.Trace
 import Control.Bind((=<<))
 
 type Yaml           = String
-type Wrap l a       = [Presentable l a]
-type Linker p a b e = Maybe p -> Maybe { | a} -> Eff e b
 type Registry a     = M.Map String a
+type Wrap l a       = [Presentable l a]
+type Attributes l a = Maybe { children :: (Wrap l a) | a}
 
 data Presentable l a
-  = Node l (Maybe { | a})
+  = Node l (Attributes l a)
   | Wrap (Wrap l a)
 
 throw = throwException <<< error
@@ -62,12 +62,26 @@ parse x r = if isArray x
 register :: forall a. String -> a -> Registry a -> Registry a
 register = M.insert
 
-render :: forall p a b e. Maybe p -> Presentable (Linker p a b e) a -> Eff e b
-render Nothing (Node l a) = l Nothing a
-render Nothing (Wrap [n]) = render Nothing n
-render _ (Wrap (n:ns))  = do 
-  render Nothing n
-  render Nothing $ Wrap ns
+-- type Linker = forall p a b l e. Maybe p -> Attributes l a -> Eff e b
+
+-- render :: forall p e a l b y x. Maybe p 
+--   -> Presentable (Maybe p -> Attributes (Maybe p -> Attributes l a) a -> x) a -> Eff e b
+
+-- render p (Node l (Just a@{ children = (ns) })) = do
+-- --   -- p' <- l p a 
+--   render p $ Wrap ns
+-- renderNode :: forall p l a b e. 
+--   Maybe p -> Presentable (Maybe p -> Attributes (Maybe p -> Attributes (Maybe p -> Attributes (Maybe p -> Attributes (Maybe p -> Attributes l a -> Eff e b) a -> Eff e b) a -> Eff e b) a -> Eff e b) a -> Eff e b) a -> Eff e b
+-- renderNode p (Node l a) = l p a
+
+
+
+-- renderWrap p (Wrap [n]) = renderNode p n
+-- renderWrap p (Wrap (n:ns))  = do 
+--   renderNode p n
+--   renderWrap p <<< Wrap $ ns
+
+newtype Linker p l a b e = Linker (Maybe p -> Attributes (Linker p l a b e) a -> Eff e b)
 
 emptyRegistery :: forall a. Registry a
 emptyRegistery = M.empty
@@ -82,7 +96,7 @@ yamlToView :: Yaml -> Either String Foreign
 yamlToView = runFn3 parseYamlImpl Left Right
 
 parseAndRender yaml registry = case yamlToView yaml of
-  Right v  -> parse v registry >>= render Nothing
+  -- Right v  -> parse v registry >>= renderWrap Nothing
   -- Right v -> parse v registry >>= fprint
-  -- Right v -> fprint v
+  Right v -> fprint v
   Left err -> throw $ "Yaml view failed to parse : " ++ err
