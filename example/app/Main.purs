@@ -2,6 +2,7 @@ module Main where
 
 import Presentable.ViewParser
 import Data.Either
+import Data.Maybe
 import Debug.Trace
 import Debug.Foreign
 
@@ -16,13 +17,19 @@ sampleYaml =
 header _ a = do
   trace "render header"
   fprint a
-footer _ _ = fprint "render footer"
+  return Nothing
+
+footer _ _ = do
+  fprint "render footer"
+  return Nothing
+
 logo   p _ = do 
   trace "render logo"
   fprint p
+  return Nothing
 
 main = parseAndRender sampleYaml
      $ register "footer" footer
      $ register "header" header
-     $ register "logo" logo
+     $ register "logo"   logo
      $ emptyRegistery

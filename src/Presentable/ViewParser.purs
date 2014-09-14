@@ -13,22 +13,15 @@ import Debug.Foreign
 import Debug.Trace
 import Control.Bind((=<<))
 
-type Yaml           = String
-type Registry a     = M.Map String a
-type Wrap l a       = [Presentable l a]
-type Attributes l a = Maybe { children :: (Wrap l a) | a}
-type Core c         = { | c}
+type Yaml             = String
+type Registry a c e   = M.Map String (Linker a c e)
+type Wrap a c e       = [Presentable a c e]
+type Attributes a c e = Maybe { children :: (Wrap a c e) | a}
+type Linker a c e     = Maybe c -> Attributes a c e -> Eff e (Maybe c)
 
-newtype Linker l a c e = Linker 
-   (Maybe c -> Attributes (Linker l a c e) a -> Eff e (Maybe c))
-
-runLinker :: forall l a c e. 
-  Linker l a c e -> Maybe c -> Attributes (Linker l a c e) a -> Eff e (Maybe c)
-runLinker (Linker f) = f 
-
-data Presentable l a
-  = Node l (Attributes l a)
-  | Wrap (Wrap l a)
+data Presentable a c e
+  = Node (Linker a c e) (Attributes a c e)
+  | Wrap (Wrap a c e)
 
 throw = throwException <<< error
 
@@ -54,7 +47,7 @@ foreign import getAttributesImpl
 getAttributes :: forall a x. x -> Maybe { | a}
 getAttributes = runFn3 getAttributesImpl Just Nothing
 
-makeNode :: forall l a e. Registry l -> String -> Eff (err :: Exception | e) (Presentable l a)
+makeNode :: forall a c e. Registry a c e -> String -> Eff (err :: Exception | e) (Presentable a c e)
 makeNode r node = case M.lookup (name node) r of
   Nothing -> throw $ name node ++ " not found in registry"
   Just l  -> return <<< Node l <<< getAttributes $ node
@@ -62,27 +55,24 @@ makeNode r node = case M.lookup (name node) r of
                     then node
                     else getName node
 
-parse :: forall l a e. Foreign -> Registry l -> Eff (err :: Exception, trace :: Trace | e) (Presentable l a)
+parse :: forall a c e. Foreign -> Registry a c e-> Eff (err :: Exception | e) (Presentable a c e)
 parse x r = if isArray x
             then return <<< Wrap =<< (traverse (makeNode r) $ unsafeFromForeign x)
             else makeNode r <<< unsafeFromForeign $ x
 
-register :: forall a. String -> a -> Registry a -> Registry a
+register :: forall a c e. String -> Linker a c e -> Registry a c e -> Registry a c e
 register = M.insert
 
-render :: forall l a c e. 
-  Maybe c -> Presentable (Linker l a c e) a -> Eff e (Maybe c)
+render :: forall a c e. Maybe c -> Presentable a c e -> Eff e (Maybe c)
 render mc (Node l a@(Just { children = (ns) })) = 
-  runLinker l mc a >>= flip render (Wrap ns)
-render mc (Node l a) = (runLinker l) mc a
+  l mc a >>= flip render (Wrap ns)
+render mc (Node l a) = l mc a
 render mc (Wrap [n]) = render mc n 
 render mc (Wrap (n:ns)) = do 
   render mc n
   render mc $ Wrap ns
 
-
-
-emptyRegistery :: forall a. Registry a
+emptyRegistery :: forall a c e. Registry a c e
 emptyRegistery = M.empty
 
 foreign import parseYamlImpl
@@ -95,7 +85,9 @@ yamlToView :: Yaml -> Either String Foreign
 yamlToView = runFn3 parseYamlImpl Left Right
 
 parseAndRender yaml registry = case yamlToView yaml of
-  -- Right v  -> parse v registry >>= renderWrap Nothing
+  Right v  -> do 
+    r <- parse v registry 
+    render Nothing r
   -- Right v -> parse v registry >>= fprint
-  Right v -> fprint v
+  -- Right v -> fprint v
   Left err -> throw $ "Yaml view failed to parse : " ++ err
