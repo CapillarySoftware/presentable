@@ -28,7 +28,7 @@ logo   p _ = do
   fprint p
   return Nothing
 
-main = parseAndRender sampleYaml
+main = renderYaml sampleYaml
      $ register "footer" footer
      $ register "header" header
      $ register "logo"   logo
