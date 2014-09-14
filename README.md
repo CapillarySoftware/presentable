@@ -12,12 +12,17 @@ Preliminary
 . ./init.sh
 ```
 
-Do it!
+Build and serve the example
 ```
 gulp
 ```
 
-Test once
+Build the example without serving
+```
+gulpt build:example
+```
+
+Build and run tests in karma once
 ```
 gulp test
 ```

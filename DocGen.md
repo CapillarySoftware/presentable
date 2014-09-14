@@ -20,22 +20,25 @@
 
 ### Types
 
-    type Linker a b eff = RVar a -> Eff (err :: Exception, reactive :: Reactive | eff) Unit
+    type Attributes a c e = Maybe { children :: [Presentable a c e] | a }
 
-    data View where
-      View :: [String] -> View
+    type Linker a c e = Maybe c -> Attributes a c e -> Eff e (Maybe c)
 
+    data Presentable a c e where
+      Presentable :: Linker a c e -> Attributes a c e -> Maybe [Presentable a c e] -> Presentable a c e
 
-### Type Class Instances
+    type Registry a c e = M.Map String (Linker a c e)
 
-    instance readView :: ReadForeign View
+    type Yaml  = String
 
 
 ### Values
 
-    render :: forall a b eff. [Maybe (Linker Number b eff)] -> Eff (err :: Exception, reactive :: Reactive | eff) Unit
+    emptyRegistery :: forall a c e. Registry a c e
 
-    view :: forall a eff. M.Map String (Linker Number a eff) -> String -> Eff (err :: Exception, reactive :: Reactive | eff) Unit
+    register :: forall a c e. String -> Linker a c e -> Registry a c e -> Registry a c e
+
+    renderYaml :: forall a c e. Yaml -> Registry a c (err :: Exception | e) -> Eff (err :: Exception | e) Unit
 
 
 

@@ -10,14 +10,6 @@ runSq      = require('run-sequence'),
 karma      = require('gulp-karma'),
 
 paths      = {
-  src : {
-    src : [
-      "bower_components/purescript-*/src/**/*.purs",
-      "bower_components/purescript-*/src/**/*.purs.hs",
-      "src/**/*.purs"
-    ],
-    dest : "lib"
-  },
   test : {
     src : [
       "bower_components/chai/chai.js",
@@ -83,8 +75,7 @@ build = function(k){
 }; // var
 
 gulp.task('build:test',    build('test'));
-gulp.task('build:src',     build('src'));
-gulp.task('build:prod', build('example'));
+gulp.task('build:example',    build('example'));
 
 gulp.task('test:unit', function(){
   gulp.src(options.test.output)
@@ -96,7 +87,7 @@ gulp.task('test:unit', function(){
 });
 
 gulp.task('watch', function(){ 
-  gulp.watch([paths.src.src, paths.example.src], ['build:example']); 
+  gulp.watch(paths.example.src, ['build:example']); 
 });
 
 gulp.task('serve', function(){ 
@@ -112,7 +103,6 @@ gulp.task('docgen', function(){
     .pipe( gulp.dest("DocGen.md"));
 });
 
-gulp.task('default', ['build:src']);
-gulp.task('example', ['build:example','watch','serve']);
+gulp.task('default', ['build:example','watch','serve']);
 gulp.task('test',    function(){ runSq('build:test','test:unit'); });
-gulp.task('travis',  ['build:prod', 'test']);
+gulp.task('travis',  ['build:example', 'test']);
