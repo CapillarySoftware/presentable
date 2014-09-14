@@ -115,3 +115,4 @@ gulp.task('docgen', function(){
 gulp.task('default', ['build:src']);
 gulp.task('example', ['build:example','watch','serve']);
 gulp.task('test',    function(){ runSq('build:test','test:unit'); });
+gulp.task('travis',  ['build:prod', 'test']);
