@@ -9,9 +9,13 @@ sampleYaml =
   "- header:\n\
   \    attributes:\n\
   \      foo : 'foo'\n\
+  \    children:\n\
+  \      - logo\n\
   \- footer"
 
-header _ _ = fprint "render header"
+header _ a = do
+  trace "render header"
+  fprint a
 footer _ _ = fprint "render footer"
 logo   _ _ = fprint "render logo"
 

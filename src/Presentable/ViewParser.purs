@@ -35,26 +35,28 @@ foreign import getName
   \}" :: forall x. x -> String 
 
 foreign import getAttributesImpl
-  "function getAttributesImpl(x, Just, Nothing){\
-  \ if(x.attributes){\
-  \   return Just(x.attributes);\
+  "function getAttributesImpl(Just, Nothing, x){\
+  \ if(!isString(x) && x[getName(x)].attributes){\
+  \   return Just(x[getName(x)].attributes);\
   \  }else{\
   \   return Nothing;\
   \  }\
-  \}" :: forall x a b. Fn3 x (a -> Maybe a) (Maybe a) (Maybe { | b})
+  \}" :: forall x a b. Fn3 (a -> Maybe a) (Maybe a) x (Maybe { | b})
 
-getAttributes x = runFn3 getAttributesImpl x Just Nothing
+getAttributes :: forall a x. x -> Maybe { | a}
+getAttributes = runFn3 getAttributesImpl Just Nothing
 
+makeNode :: forall l a e. Registry l -> String -> Eff (err :: Exception | e) (Presentable l a)
 makeNode r node = case M.lookup (name node) r of
   Nothing -> throw $ name node ++ " not found in registry"
-  Just l  -> return $ Node l $ getAttributes node
+  Just l  -> return <<< Node l <<< getAttributes $ node
   where name node = if isString node
                     then node
                     else getName node
 
 parse :: forall l a e. Foreign -> Registry l -> Eff (err :: Exception, trace :: Trace | e) (Presentable l a)
 parse x r = if isArray x
-            then return <<< Wrap =<< (sequence $ makeNode r <$> unsafeFromForeign x)
+            then return <<< Wrap =<< (traverse (makeNode r) $ unsafeFromForeign x)
             else makeNode r <<< unsafeFromForeign $ x
 
 register :: forall a. String -> a -> Registry a -> Registry a
@@ -79,7 +81,6 @@ foreign import parseYamlImpl
 yamlToView :: Yaml -> Either String Foreign
 yamlToView = runFn3 parseYamlImpl Left Right
 
--- parseAndRender :: forall a b e. String -> Registry (Linker a b (err :: Exception | e)) -> Eff (err :: Exception | e) b
 parseAndRender yaml registry = case yamlToView yaml of
   Right v  -> parse v registry >>= render Nothing
   -- Right v -> parse v registry >>= fprint
