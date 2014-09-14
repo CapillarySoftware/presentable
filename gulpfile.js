@@ -31,6 +31,7 @@ paths      = {
   },
   example : {
     src : [
+      "bower_components/js-yaml/dist/js-yaml.js",
       "bower_components/purescript-*/src/**/*.purs",
       "bower_components/purescript-*/src/**/*.purs.hs",
       "src/**/*.purs",
@@ -52,7 +53,8 @@ options    = {
   },
   example : {
     output : 'Main.js',
-    main : true
+    main : true,
+    externs : "extern.purs"
   }
 },
 
@@ -82,7 +84,7 @@ build = function(k){
 
 gulp.task('build:test',    build('test'));
 gulp.task('build:src',     build('src'));
-gulp.task('build:example', build('example'));
+gulp.task('build:prod', build('example'));
 
 gulp.task('test:unit', function(){
   gulp.src(options.test.output)
@@ -103,7 +105,7 @@ gulp.task('serve', function(){
   server.listen(port); 
 });
 
-gulp.task('doc', function(){
+gulp.task('docgen', function(){
   var noBower = gulpFilter(["*", "!bower_components/**/*"]);
   gulp.src("src/**/*.purs")
     .pipe(purescript.docgen())
@@ -113,3 +115,4 @@ gulp.task('doc', function(){
 gulp.task('default', ['build:src']);
 gulp.task('example', ['build:example','watch','serve']);
 gulp.task('test',    function(){ runSq('build:test','test:unit'); });
+gulp.task('travis',  ['build:prod', 'test']);
