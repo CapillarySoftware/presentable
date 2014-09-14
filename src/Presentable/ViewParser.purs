@@ -18,6 +18,16 @@ type Registry a     = M.Map String a
 type Wrap l a       = [Presentable l a]
 type Attributes l a = Maybe { children :: (Wrap l a) | a}
 
+newtype Linker p l a b e = Linker 
+   (Maybe p -> Attributes (Linker p l a b e) a -> Eff e b)
+
+instance bindLinker :: (Monad m) => Bind (Linker p l a b e) where 
+  (>>=) x f = Linker f
+
+runLinker :: forall p l a b e. Linker p l a b e 
+  -> Maybe p -> Attributes (Linker p l a b e) a -> Eff e b
+runLinker (Linker f) = f 
+
 data Presentable l a
   = Node l (Attributes l a)
   | Wrap (Wrap l a)
@@ -62,8 +72,6 @@ parse x r = if isArray x
 register :: forall a. String -> a -> Registry a -> Registry a
 register = M.insert
 
--- type Linker = forall p a b l e. Maybe p -> Attributes l a -> Eff e b
-
 -- render :: forall p e a l b y x. Maybe p 
 --   -> Presentable (Maybe p -> Attributes (Maybe p -> Attributes l a) a -> x) a -> Eff e b
 
@@ -81,7 +89,7 @@ register = M.insert
 --   renderNode p n
 --   renderWrap p <<< Wrap $ ns
 
-newtype Linker p l a b e = Linker (Maybe p -> Attributes (Linker p l a b e) a -> Eff e b)
+
 
 emptyRegistery :: forall a. Registry a
 emptyRegistery = M.empty
