@@ -17,15 +17,13 @@ type Yaml           = String
 type Registry a     = M.Map String a
 type Wrap l a       = [Presentable l a]
 type Attributes l a = Maybe { children :: (Wrap l a) | a}
+type Core c         = { | c}
 
-newtype Linker p l a b e = Linker 
-   (Maybe p -> Attributes (Linker p l a b e) a -> Eff e b)
+newtype Linker l a c e = Linker 
+   (Maybe c -> Attributes (Linker l a c e) a -> Eff e (Maybe c))
 
-instance bindLinker :: (Monad m) => Bind (Linker p l a b e) where 
-  (>>=) x f = Linker f
-
-runLinker :: forall p l a b e. Linker p l a b e 
-  -> Maybe p -> Attributes (Linker p l a b e) a -> Eff e b
+runLinker :: forall l a c e. 
+  Linker l a c e -> Maybe c -> Attributes (Linker l a c e) a -> Eff e (Maybe c)
 runLinker (Linker f) = f 
 
 data Presentable l a
@@ -72,22 +70,15 @@ parse x r = if isArray x
 register :: forall a. String -> a -> Registry a -> Registry a
 register = M.insert
 
--- render :: forall p e a l b y x. Maybe p 
---   -> Presentable (Maybe p -> Attributes (Maybe p -> Attributes l a) a -> x) a -> Eff e b
-
--- render p (Node l (Just a@{ children = (ns) })) = do
--- --   -- p' <- l p a 
---   render p $ Wrap ns
--- renderNode :: forall p l a b e. 
---   Maybe p -> Presentable (Maybe p -> Attributes (Maybe p -> Attributes (Maybe p -> Attributes (Maybe p -> Attributes (Maybe p -> Attributes l a -> Eff e b) a -> Eff e b) a -> Eff e b) a -> Eff e b) a -> Eff e b) a -> Eff e b
--- renderNode p (Node l a) = l p a
-
-
-
--- renderWrap p (Wrap [n]) = renderNode p n
--- renderWrap p (Wrap (n:ns))  = do 
---   renderNode p n
---   renderWrap p <<< Wrap $ ns
+render :: forall l a c e. 
+  Maybe c -> Presentable (Linker l a c e) a -> Eff e (Maybe c)
+render mc (Node l a@(Just { children = (ns) })) = 
+  runLinker l mc a >>= flip render (Wrap ns)
+render mc (Node l a) = (runLinker l) mc a
+render mc (Wrap [n]) = render mc n 
+render mc (Wrap (n:ns)) = do 
+  render mc n
+  render mc $ Wrap ns
 
 
 
