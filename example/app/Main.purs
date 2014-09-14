@@ -17,7 +17,7 @@ sampleYaml =
 header _ a = do
   trace "render header"
   fprint a
-  return Nothing
+  return $ Just { foo : "Foo"}
 
 footer _ _ = do
   fprint "render footer"
