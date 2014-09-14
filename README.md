@@ -1,7 +1,7 @@
 Presentable 
 ====
 
-[![Build Status](https://travis-ci.org/CapillarySoftware/Presentable.svg?branch=develop)](https://travis-ci.org/CapillarySoftware/Presentable)
+[![Build Status](https://travis-ci.org/CapillarySoftware/presentable.svg?branch=develop)](https://travis-ci.org/CapillarySoftware/presentable)
 
 A minimal PureScript rendering agnostic UI framework
 
