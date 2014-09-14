@@ -11,9 +11,9 @@ sampleYaml =
   \      foo : 'foo'\n\
   \- footer"
 
-header _ = fprint "render header"
-footer _ = fprint "render footer"
-logo   _ = fprint "render logo"
+header _ _ = fprint "render header"
+footer _ _ = fprint "render footer"
+logo   _ _ = fprint "render logo"
 
 main = parseAndRender sampleYaml
      $ register "footer" footer
