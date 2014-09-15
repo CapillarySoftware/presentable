@@ -12,8 +12,6 @@ import Data.Traversable
 import Data.Foldable
 import Control.Monad.Eff
 import Control.Monad.Eff.Exception
-import Debug.Foreign
-import Debug.Trace
 
 type Yaml              = String
 type Registry a c e    = M.Map String (Linker a c e)

@@ -1,5 +1,5 @@
 module Presentable.Router
-  ( Url(..), View(..), Route(..)
+  ( View(..), Route(..)
   , route
   ) where
 
@@ -12,7 +12,6 @@ import Control.Reactive.Event
 import Control.Monad.Eff 
 import Control.Monad.Eff.Exception
 
-type Url     = String
 type View    = String
 type Route a = Tuple (State a) View
 

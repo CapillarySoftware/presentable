@@ -20,7 +20,7 @@ header _ a = do
   return $ Just { bar : "Bar"}
 
 footer _ _ = do
-  fprint "render footer"
+  trace "render footer"
   return Nothing
 
 logo   p _ = do 
