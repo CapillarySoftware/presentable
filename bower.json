@@ -26,7 +26,6 @@
     "purescript-quickcheck": "~0.1.3",
     "purescript-mocha": "*",
     "purescript-chai": "*",
-    "purescript-quickcheck": "~0.1.3",
     "purescript-easy-ffi": "~1.0.1",
     "purescript-debug-foreign": "*"
   }
