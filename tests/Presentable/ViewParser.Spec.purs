@@ -19,16 +19,10 @@ sampleYaml =
   \- footer"
 
 spec = describe "ViewParser" $ do
+  let item done _ _ = itIs done >>= \_ -> return Nothing
 
-  itAsync "Top level items fire with registered function" $ \done -> do 
-    -- quickCheck $ \name -> do 
-    --   ret <- newSTRef false
-    --   renderYaml ("- " ++ name) $ register name (\_ _ -> writeSTRef ret true) emptyRegistery
-
+  itAsync "Top level items fire with registered function" $ \done -> 
     renderYaml "- item" $ register "item" (item done) emptyRegistery
-    where
-    item done' _ _ = do
-      itIs done'
-      return Nothing
 
--- spec = trace "moo"
+  itAsync "Top level items work if in array" $ \done -> 
+    renderYaml "item" $ register "item" (item done) emptyRegistery
