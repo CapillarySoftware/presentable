@@ -26,9 +26,6 @@ spec = describe "ViewParser" $ do
     itAsync "fire with registered function" $ \done -> 
       renderYaml "- item" $ register "item" (item done) emptyRegistery
 
-    itAsync "if in array" $ \done -> 
-      renderYaml "item" $ register "item" (item done) emptyRegistery
-
     let 
       recieveAttr done = renderYaml yaml 
         $ register "item" (expectAttrs done) emptyRegistery
@@ -45,11 +42,24 @@ spec = describe "ViewParser" $ do
               \  attributes:\n\
               \    foo : 'foo'\n\
               \    bar : 'bar'"
+
     itAsync "Top level items recieve attributes" recieveAttr
 
   describe "Children" $ do 
+
+
     let 
-      recieveParent done = renderYaml yaml 
+      childYaml :: Yaml
+      childYaml = "parent:\n\
+                 \  children:\n\
+                 \    - child"
+      renderChildYaml registry = renderYaml childYaml registry
+
+      childFires done = renderChildYaml
+        $ register "parent" (\_ _ -> return Nothing)
+        $ register "child"  (item done) emptyRegistery
+
+      recieveParent done = renderYaml childYaml 
         $ register "parent" (\_ _ -> return $ Just {foo : "foo", bar : "bar"})
         $ register "child"  (expectParents done) emptyRegistery
         where
@@ -60,10 +70,28 @@ spec = describe "ViewParser" $ do
           expect p.bar `toEqual` "bar"
           itIs done
           return Nothing
-        yaml :: Yaml
-        yaml = "parent:\n\
-               \  children:\n\
-               \    - child"
-               
-    itAsync "fire with registered function" recieveParent
+
+      recieveParentAndAttributes done = renderYaml (childYaml ++ ":\n\
+        \      attributes :\n\
+        \        oof : 'oof'\n\
+        \        rab : 'rab'")
+        $ register "parent" (\_ _ -> return $ Just {foo : "foo", bar : "bar"})
+        $ register "child"  (expectPA done) emptyRegistery
+        where
+        expectPA :: forall p a e. DoneToken -> Linker (foo  :: String, bar  :: String | p)
+                                                      (oof  :: String, rab  :: String | a)  
+                                                      (chai :: Chai,   done :: Done   | e)
+        expectPA done (Just p) (Just a) = do
+          expect p `toDeepEqual` {foo : "foo", bar : "bar"}
+          expect a `toDeepEqual` {oof : "oof", rab : "rab"}
+          itIs done
+          return Nothing
+
+    itAsync "fire with registered function" $ childFires
+
+    itAsync "recieve values from the parent" recieveParent
+
+    itAsync "fires with parent and attributes" recieveParentAndAttributes 
+
+
 
