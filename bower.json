@@ -16,7 +16,7 @@
     "purescript-maps": "~0.0.4",
     "purescript-events": "~0.0.3",
     "purescript-timers": "~0.0.3",
-    "purescript-history": "~0.0.2",
+    "purescript-history": "*",
     "purescript-exceptions": "~0.2.0",
     "purescript-foreign": "~0.2.0"
   },

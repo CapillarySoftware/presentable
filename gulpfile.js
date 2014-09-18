@@ -83,12 +83,14 @@ gulp.task('build:test',    build('test'));
 gulp.task('build:example', build('example'));
 
 gulp.task('test:unit', function(){
-  gulp.src(options.test.output)
-    .pipe(karma({
-      configFile : "./tests/karma.conf.js",
-      noColors   : true,
-      action     : "run"
-    }));
+  setTimeout(function(){
+    gulp.src(options.test.output)
+      .pipe(karma({
+        configFile : "./tests/karma.conf.js",
+        noColors   : true,
+        action     : "run"
+      }));
+  }, 2000);
 });
 
 gulp.task('watch', function(){ 
