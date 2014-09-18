@@ -12,6 +12,8 @@ import Data.Traversable
 import Data.Foldable
 import Control.Monad.Eff
 import Control.Monad.Eff.Exception
+import Debug.Trace 
+import Debug.Foreign
 
 type Yaml              = String
 type Registry a p e    = M.Map String (Linker a p e)
@@ -58,13 +60,11 @@ getChildren :: Foreign -> Maybe [Foreign]
 getChildren = runFn3 getChildrenImpl Just Nothing
 
 makePresentable :: forall a p e. Registry a p e -> Foreign -> Eff (err :: Exception | e) (Presentable a p e)
-makePresentable r node = do
-  let name = getName node 
-  case M.lookup name r of
-    Nothing -> throw $ name ++ " not found in registry"
-    Just l  -> case getChildren node of 
-      Nothing -> return $ Presentable l (getAttributes node) Nothing 
-      Just ss -> traverse (makePresentable r) ss >>= Just >>> (Presentable l (getAttributes node)) >>> return
+makePresentable r node = case M.lookup (getName node) r of
+  Nothing -> throw $ getName node ++ " not found in registry"
+  Just l  -> case getChildren node of 
+    Nothing -> return $ Presentable l (getAttributes node) Nothing 
+    Just ss -> traverse (makePresentable r) ss >>= Just >>> Presentable l (getAttributes node) >>> return
 
 parse :: forall a p e. 
   Foreign -> Registry a p e-> Eff (err :: Exception | e) (Either [Presentable a p e] (Presentable a p e))

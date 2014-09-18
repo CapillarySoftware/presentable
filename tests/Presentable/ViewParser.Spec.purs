@@ -38,7 +38,6 @@ spec = describe "ViewParser" $ do
           expect a `toDeepEqual` {foo : "foo", bar : "bar"}
           itIs done
           return Nothing
-        yaml :: Yaml
         yaml = "item:\n\
               \  attributes:\n\
               \    foo : 'foo'\n\
@@ -46,10 +45,9 @@ spec = describe "ViewParser" $ do
 
     itAsync "Top level items recieve attributes" recieveAttr
 
-  describeOnly "Children" $ do 
+  describe "Children" $ do 
 
     let 
-      childYaml :: Yaml
       childYaml = "parent:\n\
                  \  children:\n\
                  \    - child"
@@ -70,29 +68,25 @@ spec = describe "ViewParser" $ do
           itIs done
           return Nothing
 
-
       childYamlWAttrs = childYaml ++ ":\n\
-        \      attributes :\n\
-        \        oof : 'oof'\n\
-        \        rab : 'rab'"
+        \        attributes :\n\
+        \          oof : 'oof'\n\
+        \          rab : 'rab'"
       recieveParentAndAttributes done = renderYaml childYamlWAttrs
         $ register "parent" (\_ _ -> return $ Just {foo : "foo", bar : "bar"})
         $ register "child"  (expectPA done) emptyRegistery
         where
-        -- expectPA :: forall p a e. DoneToken -> Linker (foo  :: String, bar  :: String | p)
-        --                                               (oof  :: String, rab  :: String | a)  
-        --                                               (chai :: Chai,   done :: Done   | e)
-        expectPA done (Just p) a = do
-          trace "->>>"
-          fprint a
-          trace "<<<-"
+        expectPA :: forall p a e. DoneToken -> Linker (oof  :: String, rab  :: String | a)
+                                                      (foo  :: String, bar  :: String | p)
+                                                      (chai :: Chai,   done :: Done   | e)
+        expectPA done (Just p) (Just a) = do
           expect p `toDeepEqual` {foo : "foo", bar : "bar"}
-          -- expect a `toDeepEqual` {oof : "oof", rab : "rab"}
+          expect a `toDeepEqual` {oof : "oof", rab : "rab"}
           itIs done
           return Nothing
 
-    -- itAsync "fire with registered function"    childFires
-    -- itAsync "recieve values from the parent"   recieveParent
+    itAsync "fire with registered function"    childFires
+    itAsync "recieve values from the parent"   recieveParent
     itAsync "fires with parent and attributes" recieveParentAndAttributes 
 
 
