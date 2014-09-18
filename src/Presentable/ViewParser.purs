@@ -14,11 +14,12 @@ import Control.Monad.Eff
 import Control.Monad.Eff.Exception
 
 type Yaml              = String
-type Registry a c e    = M.Map String (Linker a c e)
-type Attributes a c e  = Maybe { children :: [Presentable a c e] | a}
-type Linker a c e      = Maybe c -> Attributes a c e -> Eff e (Maybe c)
+type Registry p a e    = M.Map String (Linker p a e)
+type Attributes p a e  = Maybe { children :: [Presentable p a e] | a}
+type Parent p          = Maybe { | p}
+type Linker p a e      = Parent p -> Attributes p a e -> Eff e (Parent p)
 
-data Presentable a c e = Presentable (Linker a c e) (Attributes a c e) (Maybe [Presentable a c e])
+data Presentable p a e = Presentable (Linker p a e) (Attributes p a e) (Maybe [Presentable p a e])
 
 throw = throwException <<< error
 
@@ -56,7 +57,7 @@ foreign import getChildrenImpl
 getChildren :: Foreign -> Maybe [Foreign]
 getChildren = runFn3 getChildrenImpl Just Nothing
 
-makePresentable :: forall a c e. Registry a c e -> Foreign -> Eff (err :: Exception | e) (Presentable a c e)
+makePresentable :: forall p a e. Registry p a e -> Foreign -> Eff (err :: Exception | e) (Presentable p a e)
 makePresentable r node = do
   let name = getName node 
   case M.lookup name r of
@@ -65,27 +66,27 @@ makePresentable r node = do
       Nothing -> return $ Presentable l (getAttributes node) Nothing
       Just ss -> traverse (makePresentable r) ss >>= Just >>> Presentable l (getAttributes node) >>> return
 
-parse :: forall a c e. 
-  Foreign -> Registry a c e-> Eff (err :: Exception | e) (Either [Presentable a c e] (Presentable a c e))
+parse :: forall p a e. 
+  Foreign -> Registry p a e-> Eff (err :: Exception | e) (Either [Presentable p a e] (Presentable p a e))
 parse x r = if isArray x
             then traverse (makePresentable r) (unsafeFromForeign x) >>= Left  >>> return
             else           makePresentable r  (unsafeFromForeign x) >>= Right >>> return
 
-register :: forall a c e. String -> Linker a c e -> Registry a c e -> Registry a c e
+register :: forall p a e. String -> Linker p a e -> Registry p a e -> Registry p a e
 register = M.insert
 
-render' :: forall a c e. Maybe c -> Presentable a c e -> Eff e (Maybe c)
+render' :: forall p a e. Parent p -> Presentable p a e -> Eff e (Parent p)
 render' mc (Presentable l a Nothing)   = l mc a
 render' mc (Presentable l a (Just ps)) = do
   mc' <- l mc a
   traverse (render' mc') ps
   return mc'
 
-render :: forall a c e. Either [Presentable a c e] (Presentable a c e) -> Eff e Unit
+render :: forall p a e. Either [Presentable p a e] (Presentable p a e) -> Eff e Unit
 render (Left ns) = traverse_ (render' Nothing) ns
 render (Right n) = render (Left [n])
 
-emptyRegistery :: forall a c e. Registry a c e
+emptyRegistery :: forall p a e. Registry p a e
 emptyRegistery = M.empty
 
 foreign import parseYamlImpl
@@ -97,8 +98,8 @@ foreign import parseYamlImpl
 yamlToView :: Yaml -> Either String Foreign
 yamlToView = runFn3 parseYamlImpl Left Right
 
-renderYaml :: forall a c e. 
-  Yaml -> Registry a c (err :: Exception | e) -> Eff (err :: Exception | e) Unit
+renderYaml :: forall p a e. 
+  Yaml -> Registry p a (err :: Exception | e) -> Eff (err :: Exception | e) Unit
 renderYaml yaml r = case yamlToView yaml of
   Right v  -> parse v r >>= render    
   Left err -> throw $ "Yaml view failed to parse : " ++ err
