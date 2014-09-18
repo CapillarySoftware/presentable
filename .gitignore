@@ -9,3 +9,4 @@ example/js/
 *.sublime-project
 extern.purs
 *.atom*
+*.psci

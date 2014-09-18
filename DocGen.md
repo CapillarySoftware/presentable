@@ -6,8 +6,6 @@
 
     type Route a = Tuple (State a) View
 
-    type Url  = String
-
     type View  = String
 
 
