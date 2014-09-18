@@ -9,6 +9,8 @@ import Data.Maybe
 import Debug.Trace
 import Control.Monad.Eff
 import Control.Monad.ST
+import Debug.Trace 
+import Debug.Foreign
 
 sampleYaml = 
   "- header:\n\
@@ -33,8 +35,7 @@ spec = describe "ViewParser" $ do
         expectAttrs :: forall p a e. DoneToken -> Linker p (foo  :: String, bar  :: String | a) 
                                                            (chai :: Chai,   done :: Done   | e)
         expectAttrs done _ (Just a) = do
-          expect a.foo `toEqual` "foo"
-          expect a.bar `toEqual` "bar"
+          expect a `toDeepEqual` {foo : "foo", bar : "bar"}
           itIs done
           return Nothing
         yaml :: Yaml
@@ -45,8 +46,7 @@ spec = describe "ViewParser" $ do
 
     itAsync "Top level items recieve attributes" recieveAttr
 
-  describe "Children" $ do 
-
+  describeOnly "Children" $ do 
 
     let 
       childYaml :: Yaml
@@ -66,31 +66,33 @@ spec = describe "ViewParser" $ do
         expectParents :: forall p a e. DoneToken -> Linker (foo  :: String, bar  :: String | p) 
                                                          a (chai :: Chai,   done :: Done   | e)
         expectParents done (Just p) _ = do
-          expect p.foo `toEqual` "foo"
-          expect p.bar `toEqual` "bar"
+          expect p `toDeepEqual` {foo : "foo", bar : "bar"}
           itIs done
           return Nothing
 
-      recieveParentAndAttributes done = renderYaml (childYaml ++ ":\n\
+
+      childYamlWAttrs = childYaml ++ ":\n\
         \      attributes :\n\
         \        oof : 'oof'\n\
-        \        rab : 'rab'")
+        \        rab : 'rab'"
+      recieveParentAndAttributes done = renderYaml childYamlWAttrs
         $ register "parent" (\_ _ -> return $ Just {foo : "foo", bar : "bar"})
         $ register "child"  (expectPA done) emptyRegistery
         where
-        expectPA :: forall p a e. DoneToken -> Linker (foo  :: String, bar  :: String | p)
-                                                      (oof  :: String, rab  :: String | a)  
-                                                      (chai :: Chai,   done :: Done   | e)
-        expectPA done (Just p) (Just a) = do
+        -- expectPA :: forall p a e. DoneToken -> Linker (foo  :: String, bar  :: String | p)
+        --                                               (oof  :: String, rab  :: String | a)  
+        --                                               (chai :: Chai,   done :: Done   | e)
+        expectPA done (Just p) a = do
+          trace "->>>"
+          fprint a
+          trace "<<<-"
           expect p `toDeepEqual` {foo : "foo", bar : "bar"}
-          expect a `toDeepEqual` {oof : "oof", rab : "rab"}
+          -- expect a `toDeepEqual` {oof : "oof", rab : "rab"}
           itIs done
           return Nothing
 
-    itAsync "fire with registered function" $ childFires
-
-    itAsync "recieve values from the parent" recieveParent
-
+    -- itAsync "fire with registered function"    childFires
+    -- itAsync "recieve values from the parent"   recieveParent
     itAsync "fires with parent and attributes" recieveParentAndAttributes 
 
 

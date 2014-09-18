@@ -14,12 +14,12 @@ import Control.Monad.Eff
 import Control.Monad.Eff.Exception
 
 type Yaml              = String
-type Registry p a e    = M.Map String (Linker p a e)
-type Attributes p a e  = Maybe { children :: [Presentable p a e] | a}
+type Registry a p e    = M.Map String (Linker a p e)
+type Attributes a      = Maybe { | a}
 type Parent p          = Maybe { | p}
-type Linker p a e      = Parent p -> Attributes p a e -> Eff e (Parent p)
+type Linker a p e      = Parent p -> Attributes a -> Eff e (Parent p)
 
-data Presentable p a e = Presentable (Linker p a e) (Attributes p a e) (Maybe [Presentable p a e])
+data Presentable a p e = Presentable (Linker a p e) (Attributes a) (Maybe [Presentable a p e])
 
 throw = throwException <<< error
 
@@ -39,17 +39,17 @@ getName node = if isString node then unsafeToString node else getNameImpl node
 
 foreign import getAttributesImpl
   "function getAttributesImpl(Just, Nothing, x){\
-  \ if(!isString(x) && x[getName(x)].attributes){\
+  \ if(!isString(x) && x[getName(x)] && x[getName(x)].attributes){\
   \   return Just(x[getName(x)].attributes);\
   \ }else{ return Nothing; }\
   \}" :: forall a b. Fn3 (a -> Maybe a) (Maybe a) Foreign (Maybe { | b})
 
-getAttributes :: forall a. Foreign -> Maybe { | a}
+getAttributes :: forall a. Foreign -> Attributes a
 getAttributes = runFn3 getAttributesImpl Just Nothing
 
 foreign import getChildrenImpl
   "function getChildrenImpl(Just, Nothing, x){\
-  \ if(!isString(x) && x[getName(x)].children && x[getName(x)].children.length){\
+  \ if(!isString(x) && x[getName(x)] && x[getName(x)].children && x[getName(x)].children.length){\
   \   return Just(x[getName(x)].children);\
   \ }else{ return Nothing; }\
   \}" :: Fn3 (Foreign -> Maybe Foreign) (Maybe Foreign) Foreign (Maybe [Foreign])
@@ -57,36 +57,36 @@ foreign import getChildrenImpl
 getChildren :: Foreign -> Maybe [Foreign]
 getChildren = runFn3 getChildrenImpl Just Nothing
 
-makePresentable :: forall p a e. Registry p a e -> Foreign -> Eff (err :: Exception | e) (Presentable p a e)
+makePresentable :: forall a p e. Registry a p e -> Foreign -> Eff (err :: Exception | e) (Presentable a p e)
 makePresentable r node = do
   let name = getName node 
   case M.lookup name r of
     Nothing -> throw $ name ++ " not found in registry"
     Just l  -> case getChildren node of 
-      Nothing -> return $ Presentable l (getAttributes node) Nothing
-      Just ss -> traverse (makePresentable r) ss >>= Just >>> Presentable l (getAttributes node) >>> return
+      Nothing -> return $ Presentable l (getAttributes node) Nothing 
+      Just ss -> traverse (makePresentable r) ss >>= Just >>> (Presentable l (getAttributes node)) >>> return
 
-parse :: forall p a e. 
-  Foreign -> Registry p a e-> Eff (err :: Exception | e) (Either [Presentable p a e] (Presentable p a e))
+parse :: forall a p e. 
+  Foreign -> Registry a p e-> Eff (err :: Exception | e) (Either [Presentable a p e] (Presentable a p e))
 parse x r = if isArray x
             then traverse (makePresentable r) (unsafeFromForeign x) >>= Left  >>> return
             else           makePresentable r  (unsafeFromForeign x) >>= Right >>> return
 
-register :: forall p a e. String -> Linker p a e -> Registry p a e -> Registry p a e
+register :: forall a p e. String -> Linker a p e -> Registry a p e -> Registry a p e
 register = M.insert
 
-render' :: forall p a e. Parent p -> Presentable p a e -> Eff e (Parent p)
+render' :: forall a p e. Parent p -> Presentable a p e -> Eff e (Parent p)
 render' mc (Presentable l a Nothing)   = l mc a
 render' mc (Presentable l a (Just ps)) = do
   mc' <- l mc a
   traverse (render' mc') ps
   return mc'
 
-render :: forall p a e. Either [Presentable p a e] (Presentable p a e) -> Eff e Unit
+render :: forall a p e. Either [Presentable a p e] (Presentable a p e) -> Eff e Unit
 render (Left ns) = traverse_ (render' Nothing) ns
 render (Right n) = render (Left [n])
 
-emptyRegistery :: forall p a e. Registry p a e
+emptyRegistery :: forall a p e. Registry a p e
 emptyRegistery = M.empty
 
 foreign import parseYamlImpl
@@ -98,7 +98,7 @@ foreign import parseYamlImpl
 yamlToView :: Yaml -> Either String Foreign
 yamlToView = runFn3 parseYamlImpl Left Right
 
-renderYaml :: forall p a e. 
+renderYaml :: forall a p e. 
   Yaml -> Registry p a (err :: Exception | e) -> Eff (err :: Exception | e) Unit
 renderYaml yaml r = case yamlToView yaml of
   Right v  -> parse v r >>= render    
