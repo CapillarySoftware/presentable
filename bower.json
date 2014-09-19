@@ -27,6 +27,8 @@
     "purescript-mocha": "*",
     "purescript-chai": "*",
     "purescript-easy-ffi": "~1.0.1",
-    "purescript-debug-foreign": "*"
+    "purescript-debug-foreign": "*",
+    "jquery": "~2.1.1",
+    "purescript-jquery": "*"
   }
 }

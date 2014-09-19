@@ -23,6 +23,7 @@ paths      = {
   },
   example : {
     src : [
+      "bower_components/jquery/dist/jquery.js",
       "bower_components/js-yaml/dist/js-yaml.js",
       "bower_components/purescript-*/src/**/*.purs",
       "bower_components/purescript-*/src/**/*.purs.hs",
@@ -61,7 +62,6 @@ build = function(k){
         o   = options[k],
         psc = purescript.psc(o),
         dot = purescript.dotPsci();
-
 
       psc.on('error', function(e){
         console.error(e.message);

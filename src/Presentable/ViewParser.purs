@@ -23,6 +23,20 @@ type Linker a p e      = Parent p -> Attributes a -> Eff e (Parent p)
 
 data Presentable a p e = Presentable (Linker a p e) (Attributes a) (Maybe [Presentable a p e])
 
+--
+-- —— Registery ——
+--
+
+register :: forall a p e. String -> Linker a p e -> Registry a p e -> Registry a p e
+register = M.insert
+
+emptyRegistery :: forall a p e. Registry a p e
+emptyRegistery = M.empty
+
+--
+-- —— Run Time Checks ——
+--
+
 throw = throwException <<< error
 
 foreign import isString 
@@ -34,9 +48,7 @@ foreign import unsafeToString
   "function unsafeToString(s){ return s; }" :: Foreign -> String
 
 foreign import getNameImpl   
-  "function getNameImpl(x){ return Object.keys(x)[0]; }" :: Foreign -> String
-
-getName :: Foreign -> String
+  "function getNameImpl(x){ return Object.keys(x)[0]; }" :: Foreign -> String  
 getName node = if isString node then unsafeToString node else getNameImpl node
 
 foreign import getAttributesImpl
@@ -45,61 +57,70 @@ foreign import getAttributesImpl
   \   return Just(x[getName(x)].attributes);\
   \ }else{ return Nothing; }\
   \}" :: forall a b. Fn3 (a -> Maybe a) (Maybe a) Foreign (Maybe { | b})
-
 getAttributes :: forall a. Foreign -> Attributes a
 getAttributes = runFn3 getAttributesImpl Just Nothing
 
 foreign import getChildrenImpl
   "function getChildrenImpl(Just, Nothing, x){\
-  \ if(!isString(x) && x[getName(x)] && x[getName(x)].children && x[getName(x)].children.length){\
+  \ if(!isString(x) && x[getName(x)] && x[getName(x)].children){\
   \   return Just(x[getName(x)].children);\
   \ }else{ return Nothing; }\
   \}" :: Fn3 (Foreign -> Maybe Foreign) (Maybe Foreign) Foreign (Maybe [Foreign])
-
 getChildren :: Foreign -> Maybe [Foreign]
 getChildren = runFn3 getChildrenImpl Just Nothing
 
+--
+-- —— From Foreign to Presentables ——
+--
+
 makePresentable :: forall a p e. Registry a p e -> Foreign -> Eff (err :: Exception | e) (Presentable a p e)
-makePresentable r node = case M.lookup (getName node) r of
-  Nothing -> throw $ getName node ++ " not found in registry"
-  Just l  -> case getChildren node of 
-    Nothing -> return $ Presentable l (getAttributes node) Nothing 
-    Just ss -> traverse (makePresentable r) ss >>= Just >>> Presentable l (getAttributes node) >>> return
+makePresentable r node = let 
+  returnP l            = Presentable l (getAttributes node)
+  handleC l Nothing    = return $ returnP l Nothing 
+  handleC l (Just ns)  = traverse (makePresentable r) ns >>= Just >>> returnP l >>> return
+  name                 = getName node  
+  in case M.lookup name r of
+    Nothing -> throw $ name ++ " not found in registry"
+    Just l  -> handleC l $ getChildren node        
 
-parse :: forall a p e. 
-  Foreign -> Registry a p e-> Eff (err :: Exception | e) (Either [Presentable a p e] (Presentable a p e))
-parse x r = if isArray x
-            then traverse (makePresentable r) (unsafeFromForeign x) >>= Left  >>> return
-            else           makePresentable r  (unsafeFromForeign x) >>= Right >>> return
+parse :: forall a p e. Foreign -> Registry a p e-> Eff (err :: Exception | e) [Presentable a p e]
+parse x r = parse' >>= \p -> case p of 
+  Left ns -> return ns 
+  Right n -> return [n]
+  where -- I hear by dub thee, the "run time has no type checks" hack of elegance
+  parse' = if isArray x
+           then traverse (makePresentable r) (unsafeFromForeign x) >>= Left  >>> return
+           else           makePresentable r  (unsafeFromForeign x) >>= Right >>> return
 
-register :: forall a p e. String -> Linker a p e -> Registry a p e -> Registry a p e
-register = M.insert
+--
+-- —— From Presentables to Render ——
+--
 
-render' :: forall a p e. Parent p -> Presentable a p e -> Eff e (Parent p)
-render' mc (Presentable l a Nothing)   = l mc a
-render' mc (Presentable l a (Just ps)) = do
-  mc' <- l mc a
-  traverse (render' mc') ps
-  return mc'
+render :: forall a p e. [Presentable a p e] -> Eff e Unit
+render ns = let
+  r :: forall a p e. Parent p -> Presentable a p e -> Eff e (Parent p)
+  r mc (Presentable l a Nothing)   = l mc a -- Execute the Linker, entry point for components
+  r mc (Presentable l a (Just ps)) = do -- Walk the children and fire all Linkers
+    mc' <- r mc (Presentable l a Nothing)
+    traverse (r mc') ps -- Recusively excute all child linkers passing parent return
+    return mc'
+  in traverse_ (r Nothing) ns
 
-render :: forall a p e. Either [Presentable a p e] (Presentable a p e) -> Eff e Unit
-render (Left ns) = traverse_ (render' Nothing) ns
-render (Right n) = render (Left [n])
+--
+-- —— From a Yaml to Render ——
+--
 
-emptyRegistery :: forall a p e. Registry a p e
-emptyRegistery = M.empty
-
-foreign import parseYamlImpl
-  "function parseYamlImpl (left, right, yaml){\
+foreign import parseYaml
+  "function parseYaml (left, right, yaml){\
   \   try{ return right(jsyaml.safeLoad(yaml)); }\
   \   catch(e){ return left(e.toString()); }\
   \}" :: forall a. Fn3 (String -> a) (Foreign -> a) Yaml a
 
-yamlToView :: Yaml -> Either String Foreign
-yamlToView = runFn3 parseYamlImpl Left Right
-
 renderYaml :: forall a p e. 
   Yaml -> Registry p a (err :: Exception | e) -> Eff (err :: Exception | e) Unit
-renderYaml yaml r = case yamlToView yaml of
+renderYaml yaml r = case yamlToForeign yaml of
   Right v  -> parse v r >>= render    
   Left err -> throw $ "Yaml view failed to parse : " ++ err
+  where
+  yamlToForeign :: Yaml -> Either String Foreign
+  yamlToForeign = runFn3 parseYaml Left Right
