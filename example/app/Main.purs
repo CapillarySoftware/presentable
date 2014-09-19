@@ -62,6 +62,7 @@ logo (Just p) _ = do
            , left     : 10
            , zIndex   : 1
            , height   : 18
+           , cursor   : "pointer"
            , position : "fixed"}
 
 main = do
