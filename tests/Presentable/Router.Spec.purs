@@ -20,19 +20,18 @@ sampleRoutes = [ (Tuple { url : "/index", title : "home",     "data" : {}} "view
                , (Tuple { url : "/fooo",  title : "foo page", "data" : {}} "views/foo.yaml")
                , (Tuple { url : "/barr",  title : "bar page", "data" : {}} "views/bar.yaml") ]
 
-testRoute url r done = case r of
-  Just a -> do
-    sub' <- route sampleRoutes   \v -> expect (snd a) `toEqual` v
-    sub  <- subscribeStateChange \e ->
-      if   routeUnwrapUrl a == eventUnwrapUrl e
-      then itIs done
-      else expect (routeUnwrapUrl a) `toNotEqual` eventUnwrapUrl e
+testRoute url (Just a) done = do
+  sub' <- route sampleRoutes   \v -> expect (snd a) `toEqual` v
+  sub  <- subscribeStateChange \e ->
+    if   routeUnwrapUrl a == eventUnwrapUrl e
+    then itIs done
+    else expect (routeUnwrapUrl a) `toNotEqual` eventUnwrapUrl e
 
-    pushState <<< toState $ url
+  pushState <<< toState $ url
 
-    -- clean up for the next test
-    unsubscribe sub
-    unsubscribe sub'
+  -- clean up for the next test
+  unsubscribe sub
+  unsubscribe sub'
 
 spec = describe "Router" $ do
 
@@ -42,9 +41,9 @@ spec = describe "Router" $ do
     $ testRoute "/notOnTheList"
     $ head sampleRoutes
 
-  itAsync "should find middle route"
-    $ testRoute "/fooo"
-    $ tail sampleRoutes >>= head
+  -- itAsync "should find middle route"
+  --   $ testRoute "/fooo"
+  --   $ tail sampleRoutes >>= head
 
   itAsync "should find end route"
     $ testRoute "/barr"

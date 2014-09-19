@@ -1,6 +1,6 @@
 module Presentable.Router
   ( View(..), Route(..)
-  , route
+  , route, initRoutes
   ) where
 
 import Data.Tuple
@@ -28,9 +28,10 @@ route :: forall a eff. [Route a]
                           err      :: Exception | eff) Unit)
          -> Eff (reactive :: Reactive,                             
                  history  :: History a,                              
-                 err      :: Exception | eff) Subscription  
-route rs f = subscribeStateChange \e -> do
-  d <- defaultRoute rs
+                 err      :: Exception | eff) Subscription
+route rs f = subscribeStateChange \e -> defaultRoute rs >>= \d ->
   case filter (\x -> (fst x).url == extractUrl e) rs of
     []    -> pushState d
     (x:_) -> f $ snd x
+
+initRoutes = getState >>= pushState
