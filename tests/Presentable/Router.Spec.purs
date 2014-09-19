@@ -10,18 +10,15 @@ import Data.Maybe
 import Control.Reactive.Timer
 import Control.Reactive.Event
 
-toState         u = { title : "", url : u, "data" : {} }
-eventUnwrapUrl    :: forall a b. Event (state :: (State b) | a) -> Url
-eventUnwrapUrl  e = (unwrapEventDetail e).state.url
-routeUnwrapUrl    :: forall a.   Route a -> Url
-routeUnwrapUrl  s = (fst s).url
+toState u = { title : "", url : u, "data" : {} }
+eventUnwrapUrl :: forall a b. Event (state :: (State b) | a) -> Url
+eventUnwrapUrl e = (unwrapEventDetail e).state.url
+routeUnwrapUrl :: forall a.   Route a -> Url
+routeUnwrapUrl s = (fst s).url
 
-sampleRoutes      = [ (Tuple { url : "/index", title : "home",     "data" : { }}
-                             "views/index.yaml")
-                    , (Tuple { url : "/fooo",  title : "foo page", "data" : { }}
-                             "views/foo.yaml")
-                    , (Tuple { url : "/barr",  title : "bar page", "data" : { }}
-                             "views/bar.yaml") ]
+sampleRoutes = [ (Tuple { url : "/index", title : "home",     "data" : {}} "views/index.yaml")
+               , (Tuple { url : "/fooo",  title : "foo page", "data" : {}} "views/foo.yaml")
+               , (Tuple { url : "/barr",  title : "bar page", "data" : {}} "views/bar.yaml") ]
 
 testRoute url r done = case r of
   Just a -> do
