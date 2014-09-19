@@ -29,12 +29,11 @@ sampleYamlAbout =
 render item = ready $ do i <- item
                          b <- body
                          append i b
-                         return i
 clearFrame = body >>= clear
 
 header _ (Just a) = do
   render $ create ("<header>"++ a.title ++"</header>") >>= css style
-  return $ Just { src : "http://static.giantbomb.com/uploads/original/1/17172/1419618-unicorn2.jpg" }
+  return $ Just { src : "http://www.peoplepulse.com.au/heart-icon.png" }
   where 
   style =  { top         : 0
            , left        : 0
@@ -46,24 +45,24 @@ header _ (Just a) = do
            , zIndex      : 0
            , background  : "black"}
 
-footer _ _ = do
-  trace "render footer"
-  return Nothing
 
 logo (Just p) _ = do 
   render $ create ("<img src='" ++ p.src ++ "' />") 
-    >>= css style
-    >>= on "click" \_ _ -> do
-      clearFrame  
-      pushState {url : "/about", title : "about", "data" :{}}
+    >>= css style >>= on "click" click
   return Nothing
   where
-  style =  { top      : 10
-           , left     : 10
-           , zIndex   : 1
-           , height   : 18
-           , cursor   : "pointer"
-           , position : "fixed"}
+  click _ _ = clearFrame >>= \_ -> pushState about
+  about = { url : "/about", title : "about", "data" :{} }
+  style = { top      : 6
+          , left     : 8
+          , zIndex   : 1
+          , height   : 25
+          , cursor   : "pointer"
+          , position : "fixed"}  
+
+footer _ _ = do
+  trace "render footer"
+  return Nothing
 
 main = do
   route rs $ flip renderYaml
