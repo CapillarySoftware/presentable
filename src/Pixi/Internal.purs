@@ -18,3 +18,9 @@ foreign import method1
   "function method1(fnName, b, a){\
   \ a[fnName](b); \
   \}" :: forall a b e. Fn3 String b a e
+
+foreign import method1M
+  "function method1M(fnName, b, a){\
+  \ a[fnName](b); \
+  \ return a;\
+  \}" :: forall a b e. Fn3 String b a e
