@@ -2,6 +2,7 @@ module Main where
 
 import Presentable.ViewParser
 import Presentable.Router
+import Pixi
 import History
 import Data.Either
 import Data.Tuple

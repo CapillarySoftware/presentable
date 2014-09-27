@@ -18,7 +18,9 @@
     "purescript-timers": "~0.0.3",
     "purescript-history": "*",
     "purescript-exceptions": "~0.2.0",
-    "purescript-foreign": "~0.2.0"
+    "purescript-foreign": "~0.2.0",
+    "pixi": "~1.6.1",
+    "purescript-oo-ffi": "~0.0.1"
   },
   "devDependencies": {
     "mocha": "~1.21.4",
