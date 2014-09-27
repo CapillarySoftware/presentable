@@ -1,6 +1,7 @@
 module Pixi.DisplayObject where
 
 import Data.Function
+import Data.Foreign.OOFFI
 import Control.Monad.Eff
 import Pixi.Rectangle
 import Pixi.Internal
@@ -13,41 +14,51 @@ foreign import data StageReference :: !
 
 class DisplayObject a 
 
+(|>) :: forall a b e. Eff e a -> b -> Eff e b
+(|>) f b = f >>= const b >>> return
+
+
+
 setStageReference :: forall a e. (DisplayObject a) => a -> Eff (displayObjectMutate :: StageReference | e) a
-setStageReference = runFn2 method0M "setStageReference"
+setStageReference a = method0Eff "setStageReference" a |> a
 
 type InteractionListener eff = forall a b e. (DisplayObject a) => a
   -> (InteractionData -> Eff e b) 
   -> Eff (interaction :: eff | e) a
 
-click          :: InteractionListener Mouse
-click          = runFn3 method1M "click"
-mouseDown      :: InteractionListener Mouse
-mouseDown      = runFn3 method1M "mousedown"
-mouseUp        :: InteractionListener Mouse
-mouseUp        = runFn3 method1M "mouseup"
-mouseOver      :: InteractionListener Mouse
-mouseOver      = runFn3 method1M "mouseover"
-mouseOut       :: InteractionListener Mouse
-mouseOut       = runFn3 method1M "mouseout"
-mouseUpOutside :: InteractionListener Mouse
-mouseUpOutside = runFn3 method1M "mouseupoutside"
+interactionListener name a f = method1Eff name a f |> a 
+
+click           :: InteractionListener Mouse
+click            = interactionListener "click"
+mouseDown       :: InteractionListener Mouse
+mouseDown        = interactionListener "mousedown"
+mouseUp         :: InteractionListener Mouse
+mouseUp          = interactionListener "mouseup"
+mouseOver       :: InteractionListener Mouse
+mouseOver        = interactionListener "mouseover"
+mouseOut        :: InteractionListener Mouse
+mouseOut         = interactionListener "mouseout"
+mouseUpOutside  :: InteractionListener Mouse
+mouseUpOutside   = interactionListener "mouseupoutside"
 
 tap             :: InteractionListener Touch
-tap             = runFn3 method1M "tap"
+tap              = interactionListener "tap"
 touchStart      :: InteractionListener Touch
-touchStart      = runFn3 method1M "touchstart"
+touchStart       = interactionListener "touchstart"
 touchEnd        :: InteractionListener Touch
-touchEnd        = runFn3 method1M "touchend"
+touchEnd         = interactionListener "touchend"
 touchEndOutside :: InteractionListener Touch
-touchEndOutside = runFn3 method1M "touchendoutside"
+touchEndOutside  = interactionListener "touchendoutside"
 
 type Instrument = forall a e. (DisplayObject a) => a
   -> Eff (measure :: Measure | e) Rectangle
 
 getBounds :: Instrument
-getBounds = runFn2 method0 "getBounds"
+getBounds = method0 "getBounds"
 
 getLocalBounds :: Instrument
-getLocalBounds = runFn2 method0 "getLocalBounds"
+getLocalBounds = method0 "getLocalBounds"
 
+--
+-- —— properties ——
+--
