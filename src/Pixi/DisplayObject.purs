@@ -14,19 +14,14 @@ foreign import data StageReference :: !
 
 class DisplayObject a 
 
-(|>) :: forall a b e. Eff e a -> b -> Eff e b
-(|>) f b = f >>= const b >>> return
-
-
-
 setStageReference :: forall a e. (DisplayObject a) => a -> Eff (displayObjectMutate :: StageReference | e) a
-setStageReference a = method0Eff "setStageReference" a |> a
+setStageReference a = method0Eff "setStageReference" a <:> a
 
 type InteractionListener eff = forall a b e. (DisplayObject a) => a
   -> (InteractionData -> Eff e b) 
   -> Eff (interaction :: eff | e) a
 
-interactionListener name a f = method1Eff name a f |> a 
+interactionListener name a f = method1Eff name a f <:> a 
 
 click           :: InteractionListener Mouse
 click            = interactionListener "click"
@@ -58,7 +53,3 @@ getBounds = method0 "getBounds"
 
 getLocalBounds :: Instrument
 getLocalBounds = method0 "getLocalBounds"
-
---
--- —— properties ——
---

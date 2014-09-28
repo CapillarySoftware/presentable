@@ -23,6 +23,7 @@ paths      = {
   },
   example : {
     src : [
+      "bower_components/pixi/bin/pixi.dev.js", 
       "bower_components/jquery/dist/jquery.js",
       "bower_components/js-yaml/dist/js-yaml.js",
       "bower_components/purescript-*/src/**/*.purs",
