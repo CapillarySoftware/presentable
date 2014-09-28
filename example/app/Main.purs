@@ -2,7 +2,8 @@ module Main where
 
 import Presentable.ViewParser
 import Presentable.Router
-import Pixi
+import Pixi.DisplayObject.Container.Stage
+import Pixi.Detector
 import History
 import Data.Either
 import Data.Tuple
@@ -33,7 +34,7 @@ render item = ready $ do i <- item
 clearFrame = body >>= clear
 
 header _ (Just a) = do
-  render $ create ("<header>"++ a.title ++"</header>") >>= css style
+  render $ create ("<header>" ++ a.title ++ "</header>") >>= css style
   return $ Just { src : "http://www.peoplepulse.com.au/heart-icon.png" }
   where 
   style =  { top         : 0
@@ -66,6 +67,9 @@ footer _ _ = do
   return Nothing
 
 main = do
+  stage    <- newStage 0x000000
+  renderer <- autoDetectRenderer 400 300
+  fprint stage
   route rs $ flip renderYaml
     $ register "footer" footer
     $ register "header" header
