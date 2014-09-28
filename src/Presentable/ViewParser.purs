@@ -44,12 +44,17 @@ foreign import isString
   \ return (typeof x === 'string');\
   \}" :: Foreign -> Boolean
 
-foreign import unsafeToString
-  "function unsafeToString(s){ return s; }" :: Foreign -> String
+foreign import isArray
+  "function isArray(x){\
+  \  return Array.isArray(x);\
+  \}" :: Foreign -> Boolean
+
+foreign import unsafeFromForeign
+  "function unsafeFromForeign(s){ return s; }" :: forall a. Foreign -> a
 
 foreign import getNameImpl   
   "function getNameImpl(x){ return Object.keys(x)[0]; }" :: Foreign -> String  
-getName node = if isString node then unsafeToString node else getNameImpl node
+getName node = if isString node then unsafeFromForeign node else getNameImpl node
 
 foreign import getAttributesImpl
   "function getAttributesImpl(Just, Nothing, x){\
