@@ -1,2 +1,0 @@
-module Pixi.Internal where
-  
