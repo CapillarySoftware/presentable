@@ -1,8 +1,9 @@
 module Presentable.ViewParser 
-  ( Yaml(..), Registry(..), Attributes(..), Linker(..), Presentable(..)
+  ( Yaml(..), Registry(..)
   , renderYaml, register, emptyRegistery
   ) where
 
+import Presentable
 import qualified Data.Map as M
 import Data.Either
 import Data.Maybe
@@ -17,11 +18,6 @@ import Debug.Foreign
 
 type Yaml              = String
 type Registry a p e    = M.Map String (Linker a p e)
-type Attributes a      = Maybe { | a}
-type Parent p          = Maybe { | p}
-type Linker a p e      = Parent p -> Attributes a -> Eff e (Parent p)
-
-data Presentable a p e = Presentable (Linker a p e) (Attributes a) (Maybe [Presentable a p e])
 
 --
 -- —— Registery ——

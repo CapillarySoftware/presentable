@@ -1,6 +1,7 @@
 module Presentable.ViewParser.Spec where
 
 import qualified Data.Map as M
+import Presentable
 import Presentable.ViewParser
 import Test.Mocha
 import Test.Chai
