@@ -92,7 +92,7 @@ parse x r = parse' >>= \p -> case p of
 render :: forall a p e. [Presentable a p e] -> Eff e Unit
 render ns = let
   r :: forall a p e. Parent p -> Presentable a p e -> Eff e (Parent p)
-  r mc (Presentable l a Nothing)   = l mc a -- Execute the Linker, entry point for components
+  r mc (Presentable l a Nothing)   = l a mc -- Execute the Linker, entry point for components
   r mc (Presentable l a (Just ps)) = do -- Walk the children and fire all Linkers
     mc' <- r mc (Presentable l a Nothing)
     traverse (r mc') ps -- Recusively excute all child linkers passing parent return

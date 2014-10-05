@@ -33,9 +33,9 @@ spec = describe "ViewParser" $ do
       recieveAttr done = renderYaml yaml 
         $ register "item" (expectAttrs done) emptyRegistery
         where
-        expectAttrs :: forall p a e. DoneToken -> Linker p (foo  :: String, bar  :: String | a) 
+        expectAttrs :: forall p a e. DoneToken -> Linker   (foo  :: String, bar  :: String | a) p
                                                            (chai :: Chai,   done :: Done   | e)
-        expectAttrs done _ (Just a) = do
+        expectAttrs done (Just a) _ = do
           expect a `toDeepEqual` {foo : "foo", bar : "bar"}
           itIs done
           return Nothing
@@ -64,7 +64,7 @@ spec = describe "ViewParser" $ do
         where
         expectParents :: forall p a e. DoneToken -> Linker (foo  :: String, bar  :: String | p) 
                                                          a (chai :: Chai,   done :: Done   | e)
-        expectParents done (Just p) _ = do
+        expectParents done _ (Just p) = do
           expect p `toDeepEqual` {foo : "foo", bar : "bar"}
           itIs done
           return Nothing
@@ -80,7 +80,7 @@ spec = describe "ViewParser" $ do
         expectPA :: forall p a e. DoneToken -> Linker (oof  :: String, rab  :: String | a)
                                                       (foo  :: String, bar  :: String | p)
                                                       (chai :: Chai,   done :: Done   | e)
-        expectPA done (Just p) (Just a) = do
+        expectPA done (Just a) (Just p) = do
           expect p `toDeepEqual` {foo : "foo", bar : "bar"}
           expect a `toDeepEqual` {oof : "oof", rab : "rab"}
           itIs done
