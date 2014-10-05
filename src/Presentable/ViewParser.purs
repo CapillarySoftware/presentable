@@ -89,15 +89,15 @@ parse x r = parse' >>= \p -> case p of
 -- —— From Presentables to Render ——
 --
 
-render :: forall a p e. [Presentable a p e] -> Eff e Unit
-render ns = let
-  r :: forall a p e. Parent p -> Presentable a p e -> Eff e (Parent p)
-  r mc (Presentable l a Nothing)   = l a mc -- Execute the Linker, entry point for components
-  r mc (Presentable l a (Just ps)) = do -- Walk the children and fire all Linkers
-    mc' <- r mc (Presentable l a Nothing)
-    traverse (r mc') ps -- Recusively excute all child linkers passing parent return
-    return mc'
-  in traverse_ (r Nothing) ns
+render :: forall a p e. Parent p -> [Presentable a p e] -> Eff e Unit
+render topParent ns = let
+    r :: forall a p e. Parent p -> Presentable a p e -> Eff e (Parent p)
+    r mp (Presentable l a Nothing)   = l a mp -- Execute the Linker, entry point for components
+    r mp (Presentable l a (Just ps)) = do -- Walk the children and fire all Linkers
+      mp' <- r mp (Presentable l a Nothing)
+      traverse (r mp') ps -- Recusively excute all child linkers passing parent return
+      return mp'
+  in traverse_ (r topParent) ns
 
 --
 -- —— From a Yaml to Render ——
@@ -110,9 +110,9 @@ foreign import parseYaml
   \}" :: forall a. Fn3 (String -> a) (Foreign -> a) Yaml a
 
 renderYaml :: forall a p e. 
-  Yaml -> Registry p a (err :: Exception | e) -> Eff (err :: Exception | e) Unit
-renderYaml yaml r = case yamlToForeign yaml of
-  Right v  -> parse v r >>= render    
+  Parent p -> Registry a p (err :: Exception | e) -> Yaml -> Eff (err :: Exception | e) Unit
+renderYaml mp reg yaml = case yamlToForeign yaml of
+  Right v  -> parse v reg >>= render mp   
   Left err -> throw $ "Yaml view failed to parse : " ++ err
   where
   yamlToForeign :: Yaml -> Either String Foreign
