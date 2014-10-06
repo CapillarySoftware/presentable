@@ -1,8 +1,9 @@
 module Presentable.ViewParser 
-  ( Yaml(..), Registry(..), Attributes(..), Linker(..), Presentable(..)
+  ( Yaml(..), Registry(..)
   , renderYaml, register, emptyRegistery
   ) where
 
+import Presentable
 import qualified Data.Map as M
 import Data.Either
 import Data.Maybe
@@ -17,11 +18,6 @@ import Debug.Foreign
 
 type Yaml              = String
 type Registry a p e    = M.Map String (Linker a p e)
-type Attributes a      = Maybe { | a}
-type Parent p          = Maybe { | p}
-type Linker a p e      = Parent p -> Attributes a -> Eff e (Parent p)
-
-data Presentable a p e = Presentable (Linker a p e) (Attributes a) (Maybe [Presentable a p e])
 
 --
 -- —— Registery ——
@@ -44,12 +40,9 @@ foreign import isString
   \ return (typeof x === 'string');\
   \}" :: Foreign -> Boolean
 
-foreign import unsafeToString
-  "function unsafeToString(s){ return s; }" :: Foreign -> String
-
 foreign import getNameImpl   
   "function getNameImpl(x){ return Object.keys(x)[0]; }" :: Foreign -> String  
-getName node = if isString node then unsafeToString node else getNameImpl node
+getName node = if isString node then unsafeFromForeign node else getNameImpl node
 
 foreign import getAttributesImpl
   "function getAttributesImpl(Just, Nothing, x){\
@@ -96,15 +89,15 @@ parse x r = parse' >>= \p -> case p of
 -- —— From Presentables to Render ——
 --
 
-render :: forall a p e. [Presentable a p e] -> Eff e Unit
-render ns = let
-  r :: forall a p e. Parent p -> Presentable a p e -> Eff e (Parent p)
-  r mc (Presentable l a Nothing)   = l mc a -- Execute the Linker, entry point for components
-  r mc (Presentable l a (Just ps)) = do -- Walk the children and fire all Linkers
-    mc' <- r mc (Presentable l a Nothing)
-    traverse (r mc') ps -- Recusively excute all child linkers passing parent return
-    return mc'
-  in traverse_ (r Nothing) ns
+render :: forall a p e. Parent p -> [Presentable a p e] -> Eff e Unit
+render topParent ns = let
+    r :: forall a p e. Parent p -> Presentable a p e -> Eff e (Parent p)
+    r mp (Presentable l a Nothing)   = l a mp -- Execute the Linker, entry point for components
+    r mp (Presentable l a (Just ps)) = do -- Walk the children and fire all Linkers
+      mp' <- r mp (Presentable l a Nothing)
+      traverse (r mp') ps -- Recusively excute all child linkers passing parent return
+      return mp'
+  in traverse_ (r topParent) ns
 
 --
 -- —— From a Yaml to Render ——
@@ -117,9 +110,9 @@ foreign import parseYaml
   \}" :: forall a. Fn3 (String -> a) (Foreign -> a) Yaml a
 
 renderYaml :: forall a p e. 
-  Yaml -> Registry p a (err :: Exception | e) -> Eff (err :: Exception | e) Unit
-renderYaml yaml r = case yamlToForeign yaml of
-  Right v  -> parse v r >>= render    
+  Parent p -> Registry a p (err :: Exception | e) -> Yaml -> Eff (err :: Exception | e) Unit
+renderYaml mp reg yaml = case yamlToForeign yaml of
+  Right v  -> parse v reg >>= render mp   
   Left err -> throw $ "Yaml view failed to parse : " ++ err
   where
   yamlToForeign :: Yaml -> Either String Foreign
