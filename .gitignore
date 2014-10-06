@@ -8,3 +8,5 @@ example/js/
 *.sublime-workspace
 *.sublime-project
 extern.purs
+*.atom*
+*.psci
