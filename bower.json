@@ -1,5 +1,7 @@
 {
-  "name": "Presentable",
+  "name": "presentable",
+  "version":"0.0.0",
+  "author" : "fresheyeball@gmail.com",
   "private": false,
   "ignore": [
     "**/.*",
