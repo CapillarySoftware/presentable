@@ -1,8 +1,8 @@
 {
   "name": "presentable",
-  "version":"0.0.0",
-  "author" : "fresheyeball@gmail.com",
+  "author": "fresheyeball@gmail.com",
   "private": false,
+  "version": "0.0.0",
   "ignore": [
     "**/.*",
     "node_modules",
