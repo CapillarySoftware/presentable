@@ -2,6 +2,7 @@ Presentable
 ====
 
 [![Build Status](https://travis-ci.org/CapillarySoftware/presentable.svg?branch=develop)](https://travis-ci.org/CapillarySoftware/presentable)
+[![Dependency Status](https://www.versioneye.com/user/projects/546fe664810106f3b20006b2/badge.svg?style=flat)](https://www.versioneye.com/user/projects/546fe664810106f3b20006b2)
 
 A minimal PureScript rendering agnostic UI framework
 
