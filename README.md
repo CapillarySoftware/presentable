@@ -1,6 +1,10 @@
 Presentable 
 ====
 
+# This project is dead until there is a pure implimentation of **Cassowary in PureScript**
+
+## If you can author purescript-cassowary, I will revive this project, and hug you.
+
 [![Build Status](https://travis-ci.org/CapillarySoftware/presentable.svg?branch=develop)](https://travis-ci.org/CapillarySoftware/presentable)
 [![Dependency Status](https://www.versioneye.com/user/projects/546fe664810106f3b20006b2/badge.svg?style=flat)](https://www.versioneye.com/user/projects/546fe664810106f3b20006b2)
 
